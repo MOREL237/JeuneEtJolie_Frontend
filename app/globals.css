@@ -1,2 +1,53 @@
 @import "tailwindcss";
 
+
+
+@layer base {
+  :root {
+    /* Light mode - vos couleurs existantes */
+    --background: #fcf8ff;
+    --on-background: #1a1a2e;
+    --surface: #fcf8ff;
+    --on-surface: #1a1a2e;
+    --surface-container: #efecff;
+    --surface-container-low: #f5f2ff;
+    --surface-container-high: #e8e5ff;
+    --surface-container-highest: #e2e0fc;
+    --primary: #b80049;
+    --on-primary: #ffffff;
+    --secondary: #b90c55;
+    --on-secondary: #ffffff;
+    --tertiary: #735c00;
+    --on-tertiary: #ffffff;
+    --error: #ba1a1a;
+    --on-error: #ffffff;
+    --outline: #8f6f73;
+    --outline-variant: #e4bdc2;
+  }
+
+  .dark {
+    /* Dark mode - inversé */
+    --background: #1a1a2e;
+    --on-background: #fcf8ff;
+    --surface: #2f2e43;
+    --on-surface: #f2efff;
+    --surface-container: #2f2e43;
+    --surface-container-low: #2d2d44;
+    --surface-container-high: #3a3a52;
+    --surface-container-highest: #4a4a6a;
+    --primary: #ffb2be;
+    --on-primary: #400014;
+    --secondary: #ffb1c2;
+    --on-secondary: #3f0018;
+    --tertiary: #e9c349;
+    --on-tertiary: #241a00;
+    --error: #ffdad6;
+    --on-error: #93000a;
+    --outline: #8f6f73;
+    --outline-variant: #4a4a6a;
+  }
+
+  body {
+    @apply bg-background text-on-background transition-colors duration-300;
+  }
+}

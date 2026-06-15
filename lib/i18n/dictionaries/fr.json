@@ -1,0 +1,43 @@
+{
+  "navbar": {
+    "newArrivals": "Nouveautés",
+    "collections": "Collections",
+    "readyToWear": "Prêt-à-porter",
+    "accessories": "Accessoires",
+    "sales": "Soldes",
+    "search": "Rechercher...",
+    "favorites": "Favoris",
+    "cart": "Panier",
+    "account": "Compte"
+  },
+  "hero": {
+    "tag": "Collection Été 2024",
+    "title": "Nouvelle Collection Printemps",
+    "description": "Des pièces artisanales qui racontent votre histoire à travers chaque motif et chaque couture.",
+    "discover": "Découvrir",
+    "promotions": "Nos Promotions"
+  },
+  "collections": {
+    "title": "Collections",
+    "subtitle": "L'union sacrée de l'artisanat ancestral et de l'élégance contemporaine.",
+    "discoverCollection": "Découvrir la collection"
+  },
+  "newsletter": {
+    "title": "-10% sur votre 1ère commande",
+    "subtitle": "Inscrivez-vous à notre newsletter pour recevoir nos dernières collections et offres exclusives directement dans votre boîte mail.",
+    "placeholder": "votre@email.com",
+    "button": "S'inscrire",
+    "titleLight": "Rejoignez l'univers Jeune & Jolie",
+    "subtitleLight": "Soyez la première à découvrir nos nouvelles collections et événements exclusifs."
+  },
+  "footer": {
+    "brand": "Artisanat et Élégance Africaine. Nous créons des pièces uniques qui célèbrent la beauté et la force de la femme moderne.",
+    "shop": "Boutique",
+    "help": "Aide",
+    "payment": "Paiement",
+    "copyright": "© 2024 Jeune & Jolie. Artisanat et Elégance Africaine."
+  },
+  "promo": {
+    "message": "Livraison gratuite dès 30 000 FCFA 🎁"
+  }
+}

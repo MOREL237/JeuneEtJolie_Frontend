@@ -1,0 +1,43 @@
+{
+  "navbar": {
+    "newArrivals": "New Arrivals",
+    "collections": "Collections",
+    "readyToWear": "Ready-to-Wear",
+    "accessories": "Accessories",
+    "sales": "Sales",
+    "search": "Search...",
+    "favorites": "Favorites",
+    "cart": "Cart",
+    "account": "Account"
+  },
+  "hero": {
+    "tag": "Summer 2024 Collection",
+    "title": "New Spring Collection",
+    "description": "Artisanal pieces that tell your story through every pattern and every stitch.",
+    "discover": "Discover",
+    "promotions": "Our Promotions"
+  },
+  "collections": {
+    "title": "Collections",
+    "subtitle": "The sacred union of ancestral craftsmanship and contemporary elegance.",
+    "discoverCollection": "Discover the collection"
+  },
+  "newsletter": {
+    "title": "-10% on your first order",
+    "subtitle": "Sign up for our newsletter to receive our latest collections and exclusive offers directly in your inbox.",
+    "placeholder": "your@email.com",
+    "button": "Subscribe",
+    "titleLight": "Join the Jeune & Jolie universe",
+    "subtitleLight": "Be the first to discover our new collections and exclusive events."
+  },
+  "footer": {
+    "brand": "African Craftsmanship and Elegance. We create unique pieces that celebrate the beauty and strength of the modern woman.",
+    "shop": "Shop",
+    "help": "Help",
+    "payment": "Payment",
+    "copyright": "© 2024 Jeune & Jolie. African Craftsmanship and Elegance."
+  },
+  "promo": {
+    "message": "Free delivery from 30,000 FCFA 🎁"
+  }
+}
