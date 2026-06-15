@@ -1,6 +1,6 @@
 // app/[lang]/page.tsx
 import { getDictionary } from '@/lib/i18n/getDictionary';
-import { type Locale } from '@/lib/i18n/config';
+import { i18n, type Locale } from '@/lib/i18n/config';
 import { PromoBanner } from '@/components/layout/PromoBanner';
 import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
@@ -12,7 +12,16 @@ import { SaleSection } from '@/components/sections/SaleSection';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { Footer } from '@/components/layout/Footer';
 
-export default async function HomePage({ params: { lang } }: { params: { lang: Locale } }) {
+export async function generateStaticParams() {
+  return i18n.locales.map((locale) => ({ lang: locale }));
+}
+
+export default async function HomePage({ 
+  params 
+}: { 
+  params: Promise<{ lang: Locale }> 
+}) {
+  const { lang } = await params;
   const dict = await getDictionary(lang);
 
   const nouveautes = [
@@ -69,7 +78,6 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
         <Newsletter dict={dict.newsletter} />
       </main>
       
-      {/* Footer variant full (page d'accueil) */}
       <Footer variant="full" />
     </>
   );

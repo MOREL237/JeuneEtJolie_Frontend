@@ -1,10 +1,10 @@
 // components/shared/ProductCard.tsx
 'use client';
 
-import React from 'react';
-import { Heart, ShoppingCart } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, ShoppingCart, Eye } from 'lucide-react';
 import { Badge } from '../ui/Badge';
-import { StarRating } from './StarRating';
+import { StarRating } from '../shared/StarRating';
 
 interface ProductCardProps {
   id?: string;
@@ -19,6 +19,7 @@ interface ProductCardProps {
   sizes?: string[];
   onAddToCart?: (size?: string) => void;
   onAddToWishlist?: () => void;
+  onViewProduct?: () => void;
 }
 
 export const ProductCard = ({
@@ -33,13 +34,26 @@ export const ProductCard = ({
   sizes,
   onAddToCart,
   onAddToWishlist,
+  onViewProduct,
 }: ProductCardProps) => {
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+
   const discount = originalPrice
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : null;
 
+  const handleWishlist = () => {
+    setIsWishlisted(!isWishlisted);
+    onAddToWishlist?.();
+  };
+
+  const handleAddToCart = (size?: string) => {
+    onAddToCart?.(size || selectedSize || undefined);
+  };
+
   return (
-    <div className="group product-card">
+    <div className="group product-card relative">
       {/* Image */}
       <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-surface-container mb-4">
         <img
@@ -62,37 +76,62 @@ export const ProductCard = ({
           )}
         </div>
 
-        {/* Wishlist */}
+        {/* Wishlist - avec état visuel */}
         <button
-          onClick={onAddToWishlist}
-          className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/80 backdrop-blur shadow-sm flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+          onClick={handleWishlist}
+          className={`absolute top-4 right-4 w-10 h-10 rounded-full backdrop-blur shadow-sm flex items-center justify-center transition-all ${
+            isWishlisted 
+              ? 'bg-primary text-on-primary' 
+              : 'bg-white/80 text-on-surface-variant hover:text-primary'
+          }`}
+          aria-label={isWishlisted ? 'Retirer des favoris' : 'Ajouter aux favoris'}
         >
-          <Heart className="w-5 h-5" />
+          <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-current' : ''}`} />
         </button>
 
-        {/* Quick Add Overlay */}
-        <div className="absolute inset-0 bg-surface/10 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6">
-          <div className="bg-white p-4 rounded-xl shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+        {/* Quick Add Overlay - uniquement en bas */}
+        <div className="absolute bottom-0 left-0 right-0 bg-surface/10 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="bg-white p-4 rounded-t-xl shadow-xl transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             <p className="text-[10px] font-bold text-on-surface-variant mb-3 uppercase tracking-widest text-center">
               Ajout Rapide
             </p>
+            
             {sizes && sizes.length > 0 ? (
-              <div className="flex justify-between gap-2">
-                {sizes.map((size) => (
-                  <button
-                    key={size}
-                    onClick={() => onAddToCart?.(size)}
-                    className="flex-1 h-8 text-xs font-bold hover:bg-surface-container rounded transition-colors border border-outline-variant"
-                  >
-                    {size}
-                  </button>
-                ))}
+              <div className="space-y-3">
+                {/* Sélection de taille */}
+                <div className="flex justify-center gap-2">
+                  {sizes.map((size) => (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      className={`w-10 h-10 text-xs font-bold rounded-lg transition-all border-2 ${
+                        selectedSize === size
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-outline-variant hover:border-primary hover:text-primary'
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Bouton ajouter avec icône */}
+                <button
+                  onClick={() => handleAddToCart()}
+                  disabled={!selectedSize}
+                  className="w-full py-3 bg-primary text-on-primary text-sm font-bold rounded-lg hover:bg-primary-container transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  Ajouter au panier
+                </button>
               </div>
             ) : (
+              /* Bouton voir le produit avec icône */
               <button
-                onClick={() => onAddToCart?.()}
-                className="w-full py-2 bg-primary text-on-primary text-xs font-bold rounded-lg hover:bg-primary-container transition-colors"
+                onClick={onViewProduct}
+                className="w-full py-3 bg-surface-container text-on-surface text-sm font-bold rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2"
               >
+                <Eye className="w-4 h-4" />
                 Voir le produit
               </button>
             )}

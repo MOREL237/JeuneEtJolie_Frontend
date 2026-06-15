@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import { Search, Heart, ShoppingBag, User, Menu, X } from 'lucide-react';
 import { IconButton } from '../ui/IconButton';
 import { SearchBar } from '../ui/Input';
-import { ThemeToggle } from '../ui/ThemeToggle';
+import  ThemeToggle  from '../ui/ThemeToggle';
 import { i18n, type Locale } from '@/lib/i18n/config';
 
 interface NavbarProps {
