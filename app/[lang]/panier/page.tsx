@@ -3,11 +3,11 @@
 
 import React, { useState } from 'react';
 import { PromoBanner } from '@/components/layout/PromoBanner';
-import { Navbar } from '@/components/layout/Navbar';
 import { CartList } from '@/components/sections/CartList';
 import { OrderSummary } from '@/components/sections/OrderSummary';
 import { UpsellProducts } from '@/components/sections/UpsellProducts';
 import { Footer } from '@/components/layout/Footer';
+import TopNavBar from '@/components/layout/TopNavBar';
 
 const cartItems = [
   {
@@ -105,7 +105,7 @@ export default function CartPage() {
   return (
     <>
       <PromoBanner />
-      <Navbar lang="fr" dict={{ navbar: {} as any }} />
+      <TopNavBar />
 
       <main className="max-w-[1440px] mx-auto px-5 lg:px-20 py-12">
         {/* Header */}

@@ -71,7 +71,7 @@ export const IconButton = ({
   className = "",
   ...props
 }: IconButtonProps) => {
-  const IconComponent = typeof icon === "string" ? iconMap[icon] : null;
+  const IconComponent = typeof icon === "string" ? iconMap[icon as IconName] : null;
 
   return (
     <button

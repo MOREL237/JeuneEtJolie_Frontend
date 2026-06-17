@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import { PromoBanner } from '@/components/layout/PromoBanner';
-import { Navbar } from '@/components/layout/Navbar';
+import TopNavBar from '@/components/layout/TopNavBar';
 import { Breadcrumb } from '@/components/sections/Breadcrumb';
 import { FilterSidebar } from '@/components/sections/FilterSidebar';
 import { ProductGrid } from '@/components/sections/ProductGrid';
@@ -110,7 +110,7 @@ export default function CataloguePage() {
   return (
     <>
       <PromoBanner />
-      <Navbar lang="fr" dict={{ navbar: {} as any }} />
+      <TopNavBar />
       
       <main className="max-w-[1440px] mx-auto px-5 lg:px-20 pt-12">
         <Breadcrumb items={breadcrumbItems} />

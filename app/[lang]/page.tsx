@@ -2,7 +2,7 @@
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { i18n, type Locale } from '@/lib/i18n/config';
 import { PromoBanner } from '@/components/layout/PromoBanner';
-import { Navbar } from '@/components/layout/Navbar';
+import TopNavBar from '@/components/layout/TopNavBar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { TrustBar } from '@/components/sections/TrustBar';
 import { CategoryGrid } from '@/components/sections/CategoryGrid';
@@ -11,6 +11,7 @@ import { FeaturedSection } from '@/components/sections/FeaturedSection';
 import { SaleSection } from '@/components/sections/SaleSection';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { Footer } from '@/components/layout/Footer';
+
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -62,7 +63,7 @@ export default async function HomePage({
   return (
     <>
       <PromoBanner message={dict.promo.message} />
-      <Navbar lang={lang} dict={dict} />
+      <TopNavBar />
       
       <main>
         <HeroSection dict={dict.hero} />

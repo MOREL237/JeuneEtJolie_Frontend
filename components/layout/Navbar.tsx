@@ -33,10 +33,10 @@ export const Navbar = ({ lang, dict }: NavbarProps) => {
 
   const navLinks = [
     { label: dict.navbar.newArrivals, href: `/${lang}` },
-    { label: dict.navbar.collections, href: `/${lang}/collections` },
-    { label: dict.navbar.readyToWear, href: `/${lang}/ready-to-wear` },
-    { label: dict.navbar.accessories, href: `/${lang}/accessories` },
-    { label: dict.navbar.sales, href: `/${lang}/sales` },
+    { label: dict.navbar.collections, href: `/${lang}/catalogue` },
+    { label: dict.navbar.readyToWear, href: `/${lang}/catalogue` },
+    { label: dict.navbar.accessories, href: `/${lang}/catalogue` },
+    { label: dict.navbar.sales, href: `/${lang}/catalogue` },
   ];
 
   const switchLang = lang === 'fr' ? 'en' : 'fr';
@@ -79,18 +79,18 @@ export const Navbar = ({ lang, dict }: NavbarProps) => {
             <div className="flex items-center gap-2">
               <ThemeToggle />
               
-              <Link href={`/${lang}/favorites`}>
+              <Link href={`/${lang}/dashboard`}>
                 <IconButton icon="heart" variant="ghost" size="md" label={dict.navbar.favorites} />
               </Link>
               
-              <Link href={`/${lang}/cart`} className="relative">
+              <Link href={`/${lang}/panier`} className="relative">
                 <IconButton icon="cart" variant="ghost" size="md" label={dict.navbar.cart} />
                 <span className="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center">
                   2
                 </span>
               </Link>
               
-              <Link href={`/${lang}/account`}>
+              <Link href={`/${lang}/dashboard`}>
                 <IconButton icon="user" variant="ghost" size="md" label={dict.navbar.account} />
               </Link>
 

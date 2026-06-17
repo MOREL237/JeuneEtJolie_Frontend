@@ -34,7 +34,7 @@ export const Badge = ({
   icon,
   className = "",
 }: BadgeProps) => {
-  const IconComponent = typeof icon === "string" ? iconMap[icon] : null;
+  const IconComponent = typeof icon === "string" ? iconMap[icon as BadgeIcon] : null;
 
   return (
     <span

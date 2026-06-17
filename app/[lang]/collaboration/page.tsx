@@ -2,19 +2,18 @@
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { type Locale } from '@/lib/i18n/config';
 import { PromoBanner } from '@/components/layout/PromoBanner';
-import { Navbar } from '@/components/layout/Navbar';
 import { HeroSection } from '@/components/sections/HeroSection';
 import { CollectionsGrid } from '@/components/sections/CollectionsGrid';
 import { Newsletter } from '@/components/sections/Newsletter';
 import { Footer } from '@/components/layout/Footer';
-
+import TopNavBar from '@/components/layout/TopNavBar';
 export default async function CollectionsPage({ params: { lang } }: { params: { lang: Locale } }) {
   const dict = await getDictionary(lang);
 
   return (
     <>
       <PromoBanner message={dict.promo.message} />
-      <Navbar lang={lang} dict={dict} />
+      <TopNavBar />
       
       <main>
         <HeroSection

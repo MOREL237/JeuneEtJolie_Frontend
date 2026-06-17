@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShoppingBag, Heart, Warning } from 'lucide-react';
+import { ShoppingBag, Heart, AlertCircle } from 'lucide-react';
 import { StarRating } from '../shared/StarRating';
 import { QuantitySelector } from './QuantitySelector';
 import { Button } from '../ui/Button';
@@ -140,7 +140,7 @@ export const ProductInfo = ({
         {/* Stock Warning */}
         {stockWarning && stockWarning <= 5 && (
           <p className="flex items-center gap-2 text-error font-medium text-sm mt-1">
-            <Warning className="w-4 h-4" />
+            <AlertCircle className="w-4 h-4" />
             Plus que {stockWarning} en stock!
           </p>
         )}

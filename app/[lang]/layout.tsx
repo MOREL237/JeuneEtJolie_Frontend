@@ -14,30 +14,34 @@ export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
-  const { lang } = await params;
-  const dict = await getDictionary(lang);
+export async function generateMetadata(props: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const params = await props.params;
+  const dict = await getDictionary(params.lang as Locale);
   return {
     title: 'Jeune & Jolie | L\'Élégance Africaine Moderne',
     description: dict.hero?.description || 'Artisanat et élégance africaine',
   };
 }
 
-export default async function RootLayout({
-  children,
-  params,
-}: {
+export default async function RootLayout(props: {
   children: React.ReactNode;
-  params: Promise<{ lang: Locale }>;
+  params: Promise<{ lang: string }>;
 }) {
-  const { lang } = await params;
+  const params = await props.params;
+  const lang = params.lang as Locale;
 
   return (
     <html lang={lang} className={`${inter.variable} ${notoSerif.variable}`} suppressHydrationWarning>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+      </head>
       <body className="font-sans antialiased bg-background text-on-background transition-colors duration-300">
         <I18nProvider initialLocale={lang}>
           <ThemeProvider>
-            {children}
+            {props.children}
           </ThemeProvider>
         </I18nProvider>
       </body>
