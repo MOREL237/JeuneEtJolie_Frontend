@@ -29,7 +29,7 @@ export default function WishlistPreview() {
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
       <div className="flex items-center justify-between mb-6">
         <h3 className="font-headline-md text-xl">Ma Wishlist</h3>
-        <a className="text-sm font-bold text-primary hover:underline" href="#">Voir tout</a>
+        <a className="text-sm font-bold text-primary hover:underline" href="/fr/dashboard/wishlist">Voir tout</a>
       </div>
       <div className="flex flex-col gap-6">
         {wishlistItems.map((item) => (

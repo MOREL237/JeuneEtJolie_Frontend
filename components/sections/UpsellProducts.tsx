@@ -26,21 +26,21 @@ export const UpsellProducts = ({
   onQuickAdd,
 }: UpsellProductsProps) => {
   return (
-    <section className="mt-section-gap">
-      <div className="flex justify-between items-end mb-8">
+    <section className="mt-12 md:mt-16">
+      <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-6 md:mb-8">
         <div>
-          <h3 className="font-headline-md text-headline-md">{title}</h3>
-          {subtitle && <p className="text-outline mt-2">{subtitle}</p>}
+          <h3 className="font-headline-md text-xl md:text-2xl">{title}</h3>
+          {subtitle && <p className="text-sm md:text-base text-outline mt-2">{subtitle}</p>}
         </div>
         <a
-          href="#"
-          className="text-primary font-bold flex items-center gap-2 hover:translate-x-2 transition-transform"
+          href="/fr/catalogue"
+          className="text-primary text-sm md:text-base font-bold flex items-center gap-2 hover:translate-x-2 transition-transform"
         >
           Voir tout <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
         {products.map((product) => (
           <UpsellCard
             key={product.id}

@@ -38,12 +38,13 @@ export const CollectionsGrid = ({
   collections = defaultCollections,
 }: CollectionsGridProps) => {
   return (
-    <section className="px-5 lg:px-20 py-section-gap max-w-[1440px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+    <section className="px-5 md:px-8 lg:px-20 max-w-[1440px] mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
         {collections.map((collection) => (
-          <div
+          <a
             key={collection.name}
-            className="group relative aspect-[4/5] bg-surface-container overflow-hidden cursor-pointer rounded-xl"
+            href={collection.href || '#'}
+            className="group relative aspect-4/5 bg-surface-container overflow-hidden cursor-pointer rounded-xl block"
           >
             <img
               src={collection.image}
@@ -51,23 +52,20 @@ export const CollectionsGrid = ({
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-all duration-500 flex flex-col justify-end p-6 lg:p-10">
-              <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h2 className="font-headline-lg text-white mb-4">
-                  {collection.name}
-                </h2>
-                <Button
-                  variant="inverted"
-                  size="md"
-                  rightIcon={<ArrowRight className="w-4 h-4" />}
-                  className="bg-white text-on-surface hover:bg-secondary hover:text-on-secondary"
-                >
-                  Découvrir la collection
-                </Button>
-              </div>
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-100 group-hover:opacity-90 transition-opacity duration-500" />
+            
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8 lg:p-10">
+              <h2 className="font-headline-lg text-2xl md:text-3xl lg:text-4xl text-white mb-3 md:mb-4 drop-shadow-lg">
+                {collection.name}
+              </h2>
+              <button className="bg-white text-on-surface px-5 md:px-6 py-2.5 md:py-3 rounded-lg font-bold text-sm md:text-base hover:bg-primary hover:text-on-primary transition-all duration-300 flex items-center gap-2 group-hover:translate-x-2">
+                Découvrir la collection
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </div>
-          </div>
+          </a>
         ))}
       </div>
     </section>

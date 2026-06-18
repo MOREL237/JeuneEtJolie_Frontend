@@ -25,10 +25,12 @@ interface CategoryGridProps {
 
 export const CategoryGrid = ({ categories = defaultCategories }: CategoryGridProps) => {
   return (
-    <section className="py-section-gap max-w-[1440px] mx-auto px-5 lg:px-20">
-      <SectionTitle title="Explorer par Univers" centered />
+    <section className="py-12 md:py-16 lg:py-20 max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20">
+      <div className="mb-10 md:mb-12">
+        <SectionTitle title="Explorer par Univers" centered />
+      </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-gutter">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
         {categories.map((category) => (
           <a
             key={category.name}
@@ -40,8 +42,8 @@ export const CategoryGrid = ({ categories = defaultCategories }: CategoryGridPro
               alt={category.name}
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-6 lg:p-8">
-              <h3 className="text-white font-headline-md">{category.name}</h3>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4 md:p-6 lg:p-8">
+              <h3 className="text-white font-headline-md text-lg md:text-xl">{category.name}</h3>
             </div>
           </a>
         ))}

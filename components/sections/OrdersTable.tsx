@@ -9,7 +9,7 @@ export default function OrdersTable() {
     <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       <div className="p-6 border-b border-slate-50 flex justify-between items-center">
         <h3 className="font-headline-md text-xl">Dernières commandes</h3>
-        <a className="text-sm font-bold text-primary hover:underline" href="#">Voir tout</a>
+        <a className="text-sm font-bold text-primary hover:underline" href="/fr/dashboard/commandes">Voir tout</a>
       </div>
       
       <table className="w-full text-left">

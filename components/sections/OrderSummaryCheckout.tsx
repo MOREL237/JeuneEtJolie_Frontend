@@ -26,38 +26,38 @@ export default function OrderSummaryCheckout() {
   const total = '173 000 FCFA';
 
   return (
-    <div className="bg-surface-container-lowest p-stack-md rounded-xl shadow-lg border border-surface-container-high">
-      <h3 className="font-headline-md text-xl text-on-surface mb-6 border-b border-outline-variant pb-4">
+    <div className="bg-surface-container-lowest p-5 md:p-6 lg:p-8 rounded-xl shadow-lg border border-surface-container-high">
+      <h3 className="font-headline-md text-lg md:text-xl text-on-surface mb-5 md:mb-6 border-b border-outline-variant pb-3 md:pb-4">
         Résumé de la commande
       </h3>
       
-      <div className="space-y-4 mb-6">
+      <div className="space-y-3 md:space-y-4 mb-5 md:mb-6">
         {orderItems.map((item) => (
           <OrderItem key={item.id} {...item} />
         ))}
       </div>
       
-      <div className="space-y-3 pt-6 border-t border-outline-variant">
-        <div className="flex justify-between text-on-surface-variant">
+      <div className="space-y-2 md:space-y-3 pt-5 md:pt-6 border-t border-outline-variant">
+        <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
           <span>Sous-total</span>
           <span>{subtotal}</span>
         </div>
-        <div className="flex justify-between text-on-surface-variant">
+        <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
           <span>Frais de livraison</span>
           <span>{shipping}</span>
         </div>
-        <div className="flex justify-between text-on-surface-variant">
+        <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
           <span>Taxes (TVA)</span>
           <span>Incluse</span>
         </div>
-        <div className="flex justify-between text-on-surface font-bold text-lg pt-4">
+        <div className="flex justify-between text-on-surface font-bold text-base md:text-lg pt-3 md:pt-4">
           <span>Total</span>
           <span className="text-primary">{total}</span>
         </div>
       </div>
       
-      <button className="w-full bg-primary text-on-primary py-5 rounded-lg mt-8 font-bold text-label-md uppercase tracking-widest shadow-md hover:bg-secondary transition-all active:scale-95 flex items-center justify-center gap-2">
-        <span className="material-symbols-outlined">lock</span>
+      <button className="w-full bg-primary text-on-primary py-4 md:py-5 rounded-lg mt-6 md:mt-8 font-bold text-sm md:text-base uppercase tracking-wider md:tracking-widest shadow-md hover:bg-secondary transition-all active:scale-95 flex items-center justify-center gap-2">
+        <span className="material-symbols-outlined text-lg md:text-xl">lock</span>
         Confirmer et payer
       </button>
       

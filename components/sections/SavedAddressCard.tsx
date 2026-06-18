@@ -14,8 +14,8 @@ export default function SavedAddressCard({
   isSelected 
 }: SavedAddressCardProps) {
   return (
-    <label className={`relative flex p-6 cursor-pointer rounded-lg border-2 ${
-      isSelected ? 'border-primary bg-surface-container-low ring-1 ring-primary/10' : 'border-outline-variant'
+    <label className={`relative flex p-5 md:p-6 cursor-pointer rounded-lg border-2 transition-all ${
+      isSelected ? 'border-primary bg-surface-container-low ring-1 ring-primary/10' : 'border-outline-variant hover:border-outline'
     }`}>
       <input 
         checked={isSelected} 
@@ -24,15 +24,15 @@ export default function SavedAddressCard({
         type="radio" 
         value="saved"
       />
-      <div className="flex flex-col">
-        <span className="font-bold text-on-surface mb-2">{name}</span>
-        <span className="text-sm text-on-surface-variant">{address}</span>
-        <span className="text-sm text-on-surface-variant">{city}</span>
-        <span className="text-sm text-on-surface-variant mt-2">{phone}</span>
+      <div className="flex flex-col w-full">
+        <span className="font-bold text-sm md:text-base text-on-surface mb-2">{name}</span>
+        <span className="text-xs md:text-sm text-on-surface-variant">{address}</span>
+        <span className="text-xs md:text-sm text-on-surface-variant">{city}</span>
+        <span className="text-xs md:text-sm text-on-surface-variant mt-2">{phone}</span>
       </div>
       {isSelected && (
         <span 
-          className="absolute top-4 right-4 text-primary material-symbols-outlined" 
+          className="absolute top-4 right-4 text-primary material-symbols-outlined text-xl md:text-2xl" 
           style={{ fontVariationSettings: "'FILL' 1" }}
         >
           check_circle

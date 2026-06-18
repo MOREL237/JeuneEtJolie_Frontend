@@ -38,8 +38,8 @@ export const FeaturedSection = ({
   products = defaultProducts,
 }: FeaturedSectionProps) => {
   return (
-    <section className="py-section-gap bg-[#fff5f7]">
-      <div className="max-w-[1440px] mx-auto px-5 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="py-12 md:py-16 lg:py-20 bg-[#fff5f7]">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 items-center">
         {/* Large Image */}
         <div className="relative rounded-2xl overflow-hidden aspect-square lg:aspect-[4/5]">
           <img
@@ -48,8 +48,8 @@ export const FeaturedSection = ({
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/20" />
-          <div className="absolute bottom-12 left-12">
-            <h2 className="font-headline-lg text-white text-4xl lg:text-5xl mb-4">
+          <div className="absolute bottom-8 md:bottom-12 left-8 md:left-12">
+            <h2 className="font-headline-lg text-white text-3xl md:text-4xl lg:text-5xl mb-3 md:mb-4">
               {title}
             </h2>
             <Button variant="inverted" size="md">
@@ -59,13 +59,13 @@ export const FeaturedSection = ({
         </div>
 
         {/* Products List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
           {products.map((product) => (
             <div
               key={product.name}
-              className="bg-white p-6 lg:p-8 rounded-2xl flex gap-6 items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+              className="bg-white p-5 md:p-6 lg:p-8 rounded-2xl flex gap-5 md:gap-6 items-center shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
-              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl overflow-hidden flex-shrink-0">
+              <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-xl overflow-hidden shrink-0">
                 <img
                   src={product.image}
                   alt={product.name}
@@ -73,9 +73,9 @@ export const FeaturedSection = ({
                 />
               </div>
               <div>
-                <h4 className="font-headline-md text-lg">{product.name}</h4>
-                <p className="text-outline mb-2">{product.description}</p>
-                <span className="text-primary font-bold">
+                <h4 className="font-headline-md text-base md:text-lg">{product.name}</h4>
+                <p className="text-sm text-outline mb-2">{product.description}</p>
+                <span className="text-primary font-bold text-sm md:text-base">
                   {product.price.toLocaleString()} FCFA
                 </span>
               </div>

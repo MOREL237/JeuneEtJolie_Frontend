@@ -11,17 +11,19 @@ export default function CheckoutPage() {
     <div className="bg-background text-on-surface font-body-md selection:bg-secondary-container/30">
       <CheckoutHeader />
       
-      <main className="max-w-[1440px] mx-auto px-10 py-12">
-        <Stepper currentStep={1} />
+      <main className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
+        <div className="mb-8 md:mb-10">
+          <Stepper currentStep={1} />
+        </div>
         
-        <div className="grid grid-cols-12 gap-gutter items-start">
-          <div className="col-span-12 lg:col-span-8 space-y-12">
+        <div className="grid grid-cols-12 gap-6 md:gap-8 lg:gap-10 items-start">
+          <div className="col-span-12 lg:col-span-8 space-y-8 md:space-y-10 lg:space-y-12">
             <AddressSection />
             <ShippingSection />
             <PaymentSection />
           </div>
           
-          <aside className="col-span-12 lg:col-span-4 sticky top-32 space-y-6">
+          <aside className="col-span-12 lg:col-span-4 lg:sticky lg:top-32 space-y-6">
             <OrderSummaryCheckout />
           </aside>
         </div>

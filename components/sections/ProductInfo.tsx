@@ -53,7 +53,7 @@ export const ProductInfo = ({
     <div className="flex flex-col gap-8 sticky top-32">
       {/* Brand & Title */}
       <div className="flex flex-col gap-2">
-        <a href="#" className="text-primary font-label-md uppercase tracking-widest hover:underline">
+        <a href="/fr/catalogue" className="text-primary font-label-md uppercase tracking-widest hover:underline">
           {brand}
         </a>
         <h1 className="font-headline-lg text-on-surface leading-tight">{name}</h1>

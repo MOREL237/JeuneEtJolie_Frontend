@@ -31,26 +31,27 @@ export const ProductSection = ({
   showViewAll = true,
 }: ProductSectionProps) => {
   return (
-    <section className={`py-section-gap ${bgColor}`}>
-      <div className="max-w-[1440px] mx-auto px-5 lg:px-20">
-        <div className="flex justify-between items-end mb-12">
+    <section className={`py-12 md:py-16 lg:py-20 ${bgColor}`}>
+      <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20">
+        <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-8 md:mb-12">
           <div>
             <SectionTitle title={title} subtitle={subtitle} className="mb-0" />
           </div>
           {showViewAll && (
             <a
-              href="#"
-              className="text-primary font-label-md flex items-center gap-2 hover:underline shrink-0"
+              href="/fr/catalogue"
+              className="text-primary font-label-md text-sm md:text-base flex items-center gap-2 hover:underline shrink-0"
             >
               Voir tout <ArrowRight className="w-4 h-4" />
             </a>
           )}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {products.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.name}
               price={product.price}
               image={product.image}

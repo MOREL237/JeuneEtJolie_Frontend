@@ -19,11 +19,11 @@ const shippingOptions = [
 
 export default function ShippingSection() {
   return (
-    <section className="bg-surface-container-lowest p-stack-md rounded-xl shadow-sm">
-      <h2 className="font-headline-md text-headline-md text-on-surface mb-8">
+    <section className="bg-surface-container-lowest p-5 md:p-6 lg:p-8 rounded-xl shadow-sm">
+      <h2 className="font-headline-md text-xl md:text-2xl text-on-surface mb-6 md:mb-8">
         ② Mode de Livraison
       </h2>
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {shippingOptions.map((option) => (
           <ShippingOption key={option.id} {...option} />
         ))}

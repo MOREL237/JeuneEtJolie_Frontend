@@ -58,16 +58,16 @@ export const SaleSection = ({
   countdown = { days: 2, hours: 14, minutes: 35 },
 }: SaleSectionProps) => {
   return (
-    <section className="py-section-gap bg-on-surface text-white">
-      <div className="max-w-[1440px] mx-auto px-5 lg:px-20">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+    <section className="py-12 md:py-16 lg:py-20 bg-on-surface text-white">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 md:mb-16 gap-6 md:gap-8">
           <div>
-            <h2 className="font-headline-lg text-tertiary-fixed mb-4">{title}</h2>
-            <p className="text-slate-400">{subtitle}</p>
+            <h2 className="font-headline-lg text-2xl md:text-3xl lg:text-4xl text-tertiary-fixed mb-3 md:mb-4">{title}</h2>
+            <p className="text-sm md:text-base text-slate-400">{subtitle}</p>
           </div>
 
           {/* Countdown */}
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-3 md:gap-4 items-center">
             {[
               { value: countdown.days, label: "Jours" },
               { value: countdown.hours, label: "Heures" },
@@ -90,10 +90,11 @@ export const SaleSection = ({
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
           {products.map((product) => (
             <ProductCard
               key={product.id}
+              id={product.id}
               name={product.name}
               price={product.price}
               originalPrice={product.originalPrice}

@@ -11,8 +11,8 @@ import { Pagination } from '@/components/sections/Pagination';
 import { Footer } from '@/components/layout/Footer';
 
 const breadcrumbItems = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Femme', href: '/femme' },
+  { label: 'Accueil', href: '/fr' },
+  { label: 'Prêt-à-porter', href: '/fr/catalogue' },
   { label: 'Robes' },
 ];
 
@@ -112,10 +112,12 @@ export default function CataloguePage() {
       <PromoBanner />
       <TopNavBar />
       
-      <main className="max-w-[1440px] mx-auto px-5 lg:px-20 pt-12">
-        <Breadcrumb items={breadcrumbItems} />
+      <main className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
+        <div className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </div>
         
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
           <FilterSidebar
             filters={filterGroups}
             activeFilters={activeFilters}
@@ -133,11 +135,13 @@ export default function CataloguePage() {
           />
         </div>
         
-        <Pagination
-          currentPage={currentPage}
-          totalPages={8}
-          onPageChange={setCurrentPage}
-        />
+        <div className="mt-12">
+          <Pagination
+            currentPage={currentPage}
+            totalPages={8}
+            onPageChange={setCurrentPage}
+          />
+        </div>
       </main>
       
       <Footer variant="catalogue" />

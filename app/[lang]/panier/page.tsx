@@ -95,7 +95,8 @@ export default function CartPage() {
   };
 
   const handleCheckout = () => {
-    console.log('Checkout:', { items, delivery, promoCode, total: subtotal });
+    // Rediriger vers la page checkout
+    window.location.href = '/fr/checkout';
   };
 
   const handleQuickAdd = (id: string) => {
@@ -107,18 +108,18 @@ export default function CartPage() {
       <PromoBanner />
       <TopNavBar />
 
-      <main className="max-w-[1440px] mx-auto px-5 lg:px-20 py-12">
+      <main className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
         {/* Header */}
-        <div className="mb-12">
-          <h2 className="font-headline-lg text-headline-lg text-on-surface">
+        <div className="mb-8 md:mb-12">
+          <h2 className="font-headline-lg text-2xl md:text-3xl lg:text-4xl text-on-surface">
             Mon Panier{' '}
             <span className="text-primary font-normal">({items.length} articles)</span>
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start mb-12 lg:mb-16">
           {/* Left: Cart Items */}
-          <div className="lg:col-span-8 space-y-8">
+          <div className="lg:col-span-8 space-y-6 md:space-y-8">
             <CartList
               items={items}
               onQuantityChange={handleQuantityChange}
@@ -140,7 +141,9 @@ export default function CartPage() {
         </div>
 
         {/* Upsell */}
-        <UpsellProducts products={upsellProducts} onQuickAdd={handleQuickAdd} />
+        <div className="mt-12 lg:mt-16">
+          <UpsellProducts products={upsellProducts} onQuickAdd={handleQuickAdd} />
+        </div>
       </main>
 
       <Footer variant="catalogue" />

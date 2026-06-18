@@ -13,8 +13,8 @@ import { RelatedProducts } from '@/components/sections/RelatedProducts';
 import { Footer } from '@/components/layout/Footer';
 
 const breadcrumbItems = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Prêt-à-porter', href: '/pret-a-porter' },
+  { label: 'Accueil', href: '/fr' },
+  { label: 'Prêt-à-porter', href: '/fr/catalogue' },
   { label: 'Robes de Soirée' },
 ];
 
@@ -145,10 +145,12 @@ export default function ProductPage() {
       <PromoBanner />
       <TopNavBar />
       
-      <main className="max-w-[1440px] mx-auto px-5 lg:px-20 pt-12">
-        <Breadcrumb items={breadcrumbItems} />
+      <main className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
+        <div className="mb-8">
+          <Breadcrumb items={breadcrumbItems} />
+        </div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mt-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start mb-16">
           {/* Left: Gallery */}
           <ProductGallery images={productImages} hasVideo={true} />
           
@@ -167,18 +169,24 @@ export default function ProductPage() {
         </div>
         
         {/* Accordions */}
-        <ProductAccordion items={accordionItems} />
+        <div className="mb-16">
+          <ProductAccordion items={accordionItems} />
+        </div>
         
         {/* Reviews */}
-        <ReviewsSection
-          average={4.2}
-          totalReviews={28}
-          distribution={reviewsDistribution}
-          reviews={reviews}
-        />
+        <div className="mb-16">
+          <ReviewsSection
+            average={4.2}
+            totalReviews={28}
+            distribution={reviewsDistribution}
+            reviews={reviews}
+          />
+        </div>
         
         {/* Related Products */}
-        <RelatedProducts products={relatedProducts} />
+        <div className="mb-16">
+          <RelatedProducts products={relatedProducts} />
+        </div>
       </main>
       
       <Footer variant="catalogue" />
