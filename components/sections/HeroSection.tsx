@@ -1,63 +1,173 @@
 // components/sections/HeroSection.tsx
+//
+// Hero signature de Jeune & Jolie.
+// Structure : image plein écran + simulation tissu Three.js + contenu éditorial.
+// L'animation de tissu (HeroCanvas) est l'élément distinctif de la marque —
+// référence aux textiles africains comme motif vivant.
+
 'use client';
 
-import React from 'react';
-import { Button } from '../ui/Button';
+import React, { useEffect, useRef } from 'react';
+import { HeroCanvas } from '@/components/3d/HeroCanvas';
+import { useTheme } from '@/components/providers/ThemeProvider';
 
 interface HeroDict {
-  tag: string;
-  title: string;
+  tag:         string;
+  title:       string;
   description: string;
-  discover: string;
-  promotions: string;
+  discover:    string;
+  promotions:  string;
 }
 
 interface HeroSectionProps {
-  dict: HeroDict;
-  centered?: boolean;
-  height?: string;
-  showButtons?: boolean;
+  dict:             HeroDict;
+  centered?:        boolean;
+  height?:          string;
+  showButtons?:     boolean;
   backgroundImage?: string;
 }
 
 export const HeroSection = ({
   dict,
-  centered = false,
-  height = 'h-[600px] lg:h-[870px]',
-  showButtons = true,
-  backgroundImage = 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1920',
+  centered         = false,
+  height           = 'h-[100svh] min-h-[600px]',
+  showButtons      = true,
+  backgroundImage  = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUOwFNlfmEHve-9m9oYgu61lnlQBczGQlph5C4WotBh7wYnpiLyZqSFejomZBrgJr4NjAjYhMUtUq5aBW0sK8BB6FQZEZJwFkEJ8lIn0Q8IWRmVOFYp8lsvfahyankBatNsgKkDV8fzeaM7PdDflowkUldCvEgAtJtioGrD6e6U4X_vpBMXpjOeVKBE5yC7oMwEDn_D2UTPVSJXezReOvVK8gDjyGTxPfKacF6xPA_a3UyaRwSuYkYuCSNtK12RxWk4pUO2PqH6ww',
 }: HeroSectionProps) => {
-  return (
-    <section className={`relative ${height} overflow-hidden`}>
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${backgroundImage}')` }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
-      </div>
+  const { theme } = useTheme();
+  const contentRef = useRef<HTMLDivElement>(null);
 
+  /* Reveal au chargement — animation d'entrée du contenu */
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+
+    const children = el.querySelectorAll<HTMLElement>('.hero-reveal');
+    children.forEach((child, i) => {
+      child.style.opacity   = '0';
+      child.style.transform = 'translateY(32px)';
+      child.style.transition = `opacity 0.9s cubic-bezier(0.4,0,0.2,1) ${i * 0.15 + 0.3}s,
+                                 transform 0.9s cubic-bezier(0.4,0,0.2,1) ${i * 0.15 + 0.3}s`;
+
+      /* Déclenche après le premier paint */
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          child.style.opacity   = '1';
+          child.style.transform = 'translateY(0)';
+        });
+      });
+    });
+  }, []);
+
+  /* Couleurs Three.js adaptées au thème */
+  const fabricColor  = theme === 'dark' ? '#FF5C8D' : '#C41352';
+  const accentColor  = '#C9A84C';
+
+  return (
+    <section className={`relative ${height} overflow-hidden bg-[#060614]`}>
+
+      {/* ── Fond photographique ── */}
       <div
-        className={`relative max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 h-full flex flex-col justify-center ${
-          centered ? 'items-center text-center' : 'items-start text-left'
-        } text-white`}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat will-change-transform"
+        style={{ backgroundImage: `url('${backgroundImage}')` }}
+      />
+
+      {/* ── Overlays directionnels ── */}
+      {/* Dégradé bas vers haut : ancre le contenu dans l'image */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060614] via-[#060614]/50 to-transparent" />
+      {/* Dégradé gauche-droite : zone de lecture */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#060614]/80 via-[#060614]/30 to-transparent" />
+      {/* Voile très subtil pour les tons clairs */}
+      <div className="absolute inset-0 bg-[#060614]/20" />
+
+      {/* ── Simulation tissu Three.js ── */}
+      {/* pointer-events-none : le canvas est purement décoratif */}
+      <HeroCanvas
+        color={fabricColor}
+        accentColor={accentColor}
+        className="opacity-70"
+      />
+
+      {/* ── Motif de fond géométrique (référence wax) ── */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            45deg,
+            var(--gold) 0px, var(--gold) 1px,
+            transparent 1px, transparent 28px
+          ), repeating-linear-gradient(
+            -45deg,
+            var(--gold) 0px, var(--gold) 1px,
+            transparent 1px, transparent 28px
+          )`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* ── Contenu éditorial ── */}
+      <div
+        ref={contentRef}
+        className={`
+          relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 lg:px-20
+          h-full flex flex-col justify-end pb-16 md:pb-20 lg:pb-24
+          ${centered ? 'items-center text-center' : 'items-start text-left'}
+        `}
       >
-        <p className="font-label-md text-xs md:text-sm uppercase tracking-[0.3em] mb-3 md:mb-4 text-secondary-fixed">
+        {/* Eyebrow — label de collection */}
+        <div className="hero-reveal section-eyebrow text-gold mb-5 md:mb-6">
           {dict.tag}
-        </p>
-        <h1 className={`font-display-xl text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 max-w-2xl leading-tight ${centered ? 'mx-auto' : ''}`}>
+        </div>
+
+        {/* Titre principal — Cormorant Garamond éditorial */}
+        <h1
+          className={`
+            hero-reveal
+            font-display text-display-2xl
+            text-white mb-5 md:mb-7
+            max-w-4xl
+            ${centered ? 'mx-auto' : ''}
+          `}
+          style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
+        >
           {dict.title}
         </h1>
-        <p className={`font-body-lg text-sm md:text-base lg:text-lg text-white/90 mb-8 md:mb-10 max-w-lg ${centered ? 'mx-auto' : ''}`}>
+
+        {/* Séparateur or */}
+        <div className="hero-reveal divider-gold mb-5 md:mb-7" />
+
+        {/* Description */}
+        <p
+          className={`
+            hero-reveal
+            text-white/80 text-base md:text-lg lg:text-xl
+            leading-relaxed mb-8 md:mb-12
+            max-w-lg
+            ${centered ? 'mx-auto' : ''}
+          `}
+        >
           {dict.description}
         </p>
+
+        {/* Boutons CTA */}
         {showButtons && (
-          <div className="flex gap-3 md:gap-4 flex-wrap justify-center">
-            <Button variant="primary" size="lg">{dict.discover}</Button>
-            <Button variant="outlined" size="lg" className="border-white text-white hover:bg-white/10">
+          <div className="hero-reveal flex gap-4 md:gap-5 flex-wrap">
+            <button className="btn-primary">
+              {dict.discover}
+            </button>
+            <button className="btn-outline border-white/40 text-white hover:border-gold hover:text-gold">
               {dict.promotions}
-            </Button>
+            </button>
           </div>
         )}
+
+        {/* Scroll indicator */}
+        <div className="hero-reveal absolute bottom-8 right-10 hidden lg:flex flex-col items-center gap-2 text-white/40">
+          <span className="text-label-caps" style={{ writingMode: 'vertical-rl', letterSpacing: '0.2em' }}>
+            SCROLL
+          </span>
+          <div className="w-px h-12 bg-gradient-to-b from-white/40 to-transparent" />
+        </div>
       </div>
     </section>
   );

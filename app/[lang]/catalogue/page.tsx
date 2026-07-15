@@ -1,10 +1,11 @@
 // app/[lang]/catalogue/page.tsx
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { PromoBanner } from '@/components/layout/PromoBanner';
 import TopNavBar from '@/components/layout/TopNavBar';
 import { Breadcrumb } from '@/components/sections/Breadcrumb';
+import { FilterBar } from '@/components/sections/FilterBar';
 import { FilterSidebar } from '@/components/sections/FilterSidebar';
 import { ProductGrid } from '@/components/sections/ProductGrid';
 import { Pagination } from '@/components/sections/Pagination';
@@ -91,9 +92,13 @@ const products = [
   },
 ];
 
+const CATEGORIES = ['Toutes', 'Robes d\'été', 'Maxi Robes', 'Robes de Soirée'];
+
 export default function CataloguePage() {
-  const [activeFilters, setActiveFilters] = useState<string[]>(['size-S', 'color-rose']);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [activeFilters,   setActiveFilters]   = useState<string[]>([]);
+  const [activeCategory,  setActiveCategory]  = useState('Toutes');
+  const [priceRange,      setPriceRange]      = useState<[number, number]>([0, 150000]);
+  const [currentPage,     setCurrentPage]     = useState(1);
 
   const handleFilterChange = (filter: string) => {
     setActiveFilters((prev) =>
@@ -107,43 +112,65 @@ export default function CataloguePage() {
 
   const handleClearAll = () => setActiveFilters([]);
 
+  const handlePriceRange = (min: number, max: number) => {
+    setPriceRange([min, max]);
+  };
+
+  /* Filtre produits selon le range de prix */
+  const filteredProducts = products.filter(
+    (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
+  );
+
   return (
     <>
       <PromoBanner />
       <TopNavBar />
-      
-      <main className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
+
+      <main id="main-content" className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-8 md:py-12">
         <div className="mb-8">
           <Breadcrumb items={breadcrumbItems} />
         </div>
-        
+
+        {/* Barre de filtres catégorie + tri */}
+        <FilterBar
+          categories={CATEGORIES}
+          totalItems={filteredProducts.length}
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+          priceRange={priceRange}
+          onPriceRangeChange={(range) => setPriceRange(range)}
+          maxPrice={150000}
+        />
+
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 mb-12">
           <FilterSidebar
             filters={filterGroups}
             activeFilters={activeFilters}
             onFilterChange={handleFilterChange}
             onClearAll={handleClearAll}
+            priceRange={{ min: priceRange[0], max: priceRange[1] }}
+            onPriceRangeChange={handlePriceRange}
           />
-          
+
           <ProductGrid
             title="Robes"
-            subtitle="Découvrez notre sélection exclusive de 24 articles alliant tradition et modernité."
-            products={products}
+            subtitle={`${filteredProducts.length} articles — tradition & modernité`}
+            products={filteredProducts}
             activeFilters={activeFilters}
             onRemoveFilter={handleRemoveFilter}
             onClearAllFilters={handleClearAll}
           />
         </div>
-        
+
         <div className="mt-12">
           <Pagination
             currentPage={currentPage}
-            totalPages={8}
+            totalPages={Math.max(1, Math.ceil(filteredProducts.length / 6))}
             onPageChange={setCurrentPage}
           />
         </div>
       </main>
-      
+
       <Footer variant="catalogue" />
     </>
   );

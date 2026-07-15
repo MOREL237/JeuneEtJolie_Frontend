@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs ls -la)",
+      "WebFetch(domain:21st.dev)",
+      "WebFetch(domain:nymphaicosmetics.com)",
+      "WebFetch(domain:www.valentino.com)",
+      "Bash(npm install *)",
+      "Bash(xargs cat)",
+      "Bash(npx tsc *)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(node_modules/typescript/bin/tsc --noEmit)",
+      "Bash(node node_modules/typescript/lib/typescript.js)",
+      "Bash(npx --yes tsc --noEmit)",
+      "Bash(npm run *)",
+      "Bash(node node_modules/.bin/next build)",
+      "Bash(node node_modules/next/dist/bin/next build)",
+      "Bash(node node_modules/next/dist/bin/next dev --port 3001)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/fr)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/fr)",
+      "Bash(curl -s http://localhost:3001/fr)",
+      "Bash(kill 64941)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3001/fr)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(list\\(d.keys\\(\\)\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(k,'->',v\\) for k,v in d.get\\('dependencies',{}\\).items\\(\\)]\")",
+      "WebFetch(domain:stitch.withgoogle.com)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('mcpServers', {}\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\({k:v for k,v in d.items\\(\\) if k != 'mcpServers'}, indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(p.get\\('id','?'\\), '-', p.get\\('name','?'\\)\\) for p in d if isinstance\\(d,list\\)] if isinstance\\(d,list\\) else print\\(json.dumps\\(list\\(d.keys\\(\\)\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(list\\(d.keys\\(\\)\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('plugins', []\\), indent=2\\)\\)\")",
+      "Bash(python3 -m json.tool)",
+      "mcp__claude_ai_Figma__whoami",
+      "Bash(node node_modules/typescript/bin/tsc --noEmit)",
+      "Bash(chmod +x /home/rovanol/Documents/jj-frontend/node_modules/.bin/*)",
+      "Bash(chmod +x /home/rovanol/Documents/jj-frontend/node_modules/next/dist/bin/next)"
+    ]
+  }
+}

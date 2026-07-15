@@ -1,42 +1,50 @@
 // components/sections/TrustBar.tsx
 "use client";
 
-import React from "react";
 import { Truck, RotateCcw, ShieldCheck, Headphones } from "lucide-react";
+import { useTranslation } from "@/hooks/useTranslation";
 
 const trustItems = [
   {
     icon: Truck,
-    title: "Livraison rapide",
-    description: "Dans toute l'Afrique",
+    titleKey: "trustBar.delivery",
+    descKey: "trustBar.deliveryDesc",
   },
   {
     icon: RotateCcw,
-    title: "Retours 14 jours",
-    description: "Échange facile",
+    titleKey: "trustBar.returns",
+    descKey: "trustBar.returnsDesc",
   },
   {
     icon: ShieldCheck,
-    title: "Paiement sécurisé",
-    description: "OM, MTN, Visa",
+    titleKey: "trustBar.payment",
+    descKey: "trustBar.paymentDesc",
   },
   {
     icon: Headphones,
-    title: "Support 7j/7",
-    description: "Une équipe à votre écoute",
+    titleKey: "trustBar.support",
+    descKey: "trustBar.supportDesc",
   },
 ];
 
 export const TrustBar = () => {
+  const { t } = useTranslation();
+  
   return (
-    <section className="bg-surface-container-low py-8 md:py-10 lg:py-12 border-b border-outline-variant/30">
-      <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 items-center">
+    <section className="bg-surface dark:bg-slate-900 py-10 md:py-12 lg:py-14 border-y border-outline-variant/20 dark:border-slate-700">
+      <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
         {trustItems.map((item) => (
-          <div key={item.title} className="flex items-center gap-3 md:gap-4">
-            <item.icon className="text-primary w-7 h-7 md:w-8 md:h-8 shrink-0" />
+          <div key={item.titleKey} className="flex flex-col items-center text-center gap-4 group">
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
+              <item.icon className="text-primary group-hover:text-white w-6 h-6 md:w-7 md:h-7" strokeWidth={1.5} />
+            </div>
             <div>
-              <p className="font-label-md text-sm md:text-base text-on-surface">{item.title}</p>
-              <p className="text-xs text-outline">{item.description}</p>
+              <p className="font-label-lg text-sm md:text-base text-on-surface dark:text-slate-100 font-semibold mb-1">
+                {t(item.titleKey) || "Livraison rapide"}
+              </p>
+              <p className="text-xs md:text-sm text-on-surface-variant dark:text-slate-400">
+                {t(item.descKey) || "Dans toute l'Afrique"}
+              </p>
             </div>
           </div>
         ))}

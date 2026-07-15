@@ -1,70 +1,165 @@
 // components/sections/Newsletter.tsx
+//
+// Section newsletter pleine largeur avec ParticleField Three.js en fond.
+// Aesthetic : fond minuit, particules dorées, formulaire épuré.
+
 'use client';
 
 import React, { useState } from 'react';
-import { Mail } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { ParticleField } from '@/components/3d/ParticleField';
+import { ArrowRight, CheckCircle } from 'lucide-react';
 
 interface NewsletterDict {
-  title?: string;
-  subtitle?: string;
+  title?:       string;
+  subtitle?:    string;
   placeholder?: string;
-  button?: string;
-  titleLight?: string;
+  button?:      string;
+  titleLight?:  string;
   subtitleLight?: string;
 }
 
 interface NewsletterProps {
-  dict: NewsletterDict;
+  dict:     NewsletterDict;
   variant?: 'dark' | 'light';
 }
 
-export const Newsletter = ({
-  dict,
-  variant = 'dark',
-}: NewsletterProps) => {
-  const [email, setEmail] = useState('');
-  const isLight = variant === 'light';
+export const Newsletter = ({ dict, variant = 'dark' }: NewsletterProps) => {
+  const [email,     setEmail]     = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading,   setLoading]   = useState(false);
 
-  const title = isLight ? dict.titleLight : dict.title;
+  const isLight = variant === 'light';
+  const title    = isLight ? dict.titleLight    : dict.title;
   const subtitle = isLight ? dict.subtitleLight : dict.subtitle;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Subscribe:', email);
+    if (!email) return;
+    setLoading(true);
+    /* Simule un appel API */
+    await new Promise((r) => setTimeout(r, 900));
+    setLoading(false);
+    setSubmitted(true);
   };
 
   return (
-    <section className={`py-16 md:py-20 lg:py-24 text-center px-5 md:px-8 ${isLight ? 'bg-secondary-fixed' : 'bg-primary text-on-primary'}`}>
-      <div className="max-w-[1440px] mx-auto flex flex-col items-center">
-        {!isLight && <Mail className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" />}
-        <h2 className={`font-headline-md text-xl md:text-2xl mb-3 md:mb-4 uppercase tracking-widest ${isLight ? 'text-on-secondary-fixed' : 'text-on-primary'}`}>
+    <section className="relative py-24 md:py-32 overflow-hidden bg-[#060614]">
+
+      {/* Fond particules dorées Three.js */}
+      <ParticleField count={80} color="#C9A84C" opacity={0.35} />
+
+      {/* Motif géométrique wax subtil */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.035]"
+        style={{
+          backgroundImage: `repeating-linear-gradient(
+            0deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 40px
+          ), repeating-linear-gradient(
+            90deg, var(--gold) 0px, var(--gold) 1px, transparent 1px, transparent 40px
+          )`,
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Halo central lumineux */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(ellipse 60% 50% at 50% 100%, rgba(196,19,82,0.15) 0%, transparent 70%)',
+        }}
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 max-w-2xl mx-auto px-6 text-center">
+
+        {/* Eyebrow */}
+        <div className="section-eyebrow justify-center mb-5">
+          Newsletter Exclusive
+        </div>
+
+        {/* Titre */}
+        <h2
+          className="text-white mb-4"
+          style={{
+            fontFamily: 'var(--font-cormorant, Georgia, serif)',
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: 300,
+            lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+          }}
+        >
           {title}
         </h2>
-        <p className={`text-sm md:text-base mb-8 md:mb-10 max-w-lg ${isLight ? 'text-on-secondary-fixed-variant' : 'text-on-primary/80'}`}>
+
+        {/* Séparateur or */}
+        <div className="w-12 h-px bg-gradient-to-r from-gold to-transparent mx-auto mb-6" />
+
+        {/* Sous-titre */}
+        <p className="text-white/55 text-base md:text-lg leading-relaxed mb-10">
           {subtitle}
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row w-full max-w-lg gap-3 md:gap-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={dict.placeholder}
-            className={`flex-grow rounded-lg px-5 md:px-6 py-3 md:py-4 text-sm md:text-base focus:outline-none focus:ring-2 ${
-              isLight
-                ? 'bg-white border-none text-on-surface focus:ring-primary'
-                : 'bg-white/10 border border-white/20 text-white placeholder:text-white/60 focus:ring-white/50'
-            }`}
-            required
-          />
-          <Button type="submit" variant={isLight ? 'primary' : 'inverted'} size="lg" className="whitespace-nowrap">
-            {dict.button}
-          </Button>
-        </form>
+        {/* Formulaire */}
+        {submitted ? (
+          /* Confirmation */
+          <div className="flex flex-col items-center gap-4 py-6">
+            <CheckCircle size={40} className="text-gold" strokeWidth={1.5} />
+            <p
+              className="text-white text-lg"
+              style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
+            >
+              Bienvenue dans l&apos;univers Jeune & Jolie
+            </p>
+            <p className="text-white/50 text-sm">
+              Votre code de bienvenue arrivera sous peu.
+            </p>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+          >
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={dict.placeholder ?? 'votre@email.com'}
+              required
+              disabled={loading}
+              className="
+                flex-grow bg-white/5 border border-white/10 rounded-full
+                px-5 py-3 text-sm text-white placeholder:text-white/35
+                focus:outline-none focus:border-gold/60 focus:bg-white/8
+                transition-colors duration-200
+                disabled:opacity-50
+              "
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="
+                btn-gold flex items-center gap-2 whitespace-nowrap
+                disabled:opacity-60 disabled:cursor-not-allowed
+              "
+            >
+              {loading ? (
+                <span className="w-4 h-4 rounded-full border-2 border-current border-t-transparent animate-spin" />
+              ) : (
+                <>
+                  {dict.button ?? "S'inscrire"} <ArrowRight size={14} />
+                </>
+              )}
+            </button>
+          </form>
+        )}
+
+        {/* Promesse de confidentialité */}
+        {!submitted && (
+          <p className="text-white/25 text-xs mt-4 tracking-wide">
+            Pas de spam · Désabonnement en 1 clic
+          </p>
+        )}
       </div>
     </section>
   );
 };
-
-export default Newsletter;

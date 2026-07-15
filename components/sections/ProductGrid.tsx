@@ -1,9 +1,9 @@
 // components/sections/ProductGrid.tsx
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LayoutGrid, List, ChevronDown, X } from 'lucide-react';
-import { ProductCard } from '../shared/ProductCard';
+import  ProductCard  from '../shared/ProductCard';
 
 interface Product {
   id: string;
@@ -13,21 +13,23 @@ interface Product {
   image: string;
   badge?: string;
   badgeVariant?: 'primary' | 'secondary' | 'tertiary' | 'neutral';
-  category?: string; // 🆕 Pour Accessoires
-  rating?: number; // 🆕 Optionnel pour Accessoires
-  reviews?: number; // 🆕 Optionnel pour Accessoires
+  category?: string;
+  rating?: number;
+  reviews?: number;
   sizes?: string[];
+  onAddToCart?: () => void;
 }
 
 interface ProductGridProps {
-  title?: string; // 🆕 Optionnel pour Accessoires
-  subtitle?: string; // 🆕 Optionnel pour Accessoires
+  title?: string;
+  subtitle?: string;
   products: Product[];
-  activeFilters?: string[]; // 🆕 Optionnel
-  onRemoveFilter?: (filter: string) => void; // 🆕 Optionnel
-  onClearAllFilters?: () => void; // 🆕 Optionnel
-  showHeader?: boolean; // 🆕 Pour cacher le header dans Accessoires
-  columns?: 3 | 4; // 🆕 4 colonnes pour Accessoires
+  activeFilters?: string[];
+  onRemoveFilter?: (filter: string) => void;
+  onClearAllFilters?: () => void;
+  showHeader?: boolean;
+  columns?: 3 | 4;
+  onProductAddToCart?: (productId: string) => void;
 }
 
 const sortOptions = [
@@ -41,19 +43,19 @@ export const ProductGrid = ({
   title,
   subtitle,
   products,
-  activeFilters = [], // 🆕 Default value
+  activeFilters = [],
   onRemoveFilter,
   onClearAllFilters,
-  showHeader = true, // 🆕 Default true
-  columns = 3, // 🆕 Default 3, 4 pour Accessoires
+  showHeader = true,
+  columns = 3,
+  onProductAddToCart,
 }: ProductGridProps) => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [sortBy, setSortBy] = useState('relevance');
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  // 🆕 Grid columns class based on prop
-  const gridColumnsClass = columns === 4 
-    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
+  const gridColumnsClass = columns === 4
+    ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4'
     : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3';
 
   return (
@@ -156,7 +158,7 @@ export const ProductGrid = ({
 
       {/* Product Grid/List */}
       {viewMode === 'grid' ? (
-        /* Mode Grille - responsive columns */
+        /* Mode Grille */
         <div className={`grid ${gridColumnsClass} gap-6 lg:gap-8`}>
           {products.map((product) => (
             <ProductCard
@@ -168,24 +170,26 @@ export const ProductGrid = ({
               image={product.image}
               badge={product.badge}
               badgeVariant={product.badgeVariant}
-              category={product.category} // 🆕 Pass category
+              category={product.category}
               rating={product.rating}
               reviews={product.reviews}
               sizes={product.sizes}
+              onAddToCart={product.onAddToCart || (() => onProductAddToCart?.(product.id))}
+              onAddToWishlist={() => console.log('Wishlist', product.id)}
             />
           ))}
         </div>
       ) : (
-        /* Mode Liste - Cartes verticales avec détails */
+        /* Mode Liste */
         <div className="space-y-6 lg:space-y-8">
           {products.map((product) => (
-            <div 
+            <div
               key={product.id}
               className="flex flex-col md:flex-row gap-4 md:gap-6 bg-surface rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
               {/* Image */}
-              <a 
-                href={`/fr/produit/${product.id}`} 
+              <a
+                href={`/fr/produit/${product.id}`}
                 className="relative w-full md:w-64 lg:w-80 h-64 md:h-80 shrink-0 block"
               >
                 <img
@@ -193,7 +197,6 @@ export const ProductGrid = ({
                   alt={product.name}
                   className="w-full h-full object-cover"
                 />
-                {/* 🆕 Badges avec category et badgeVariant */}
                 <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {product.category && (
                     <span className="bg-white/90 backdrop-blur-sm text-[10px] font-bold tracking-widest uppercase px-3 py-1">
@@ -215,7 +218,6 @@ export const ProductGrid = ({
                     </span>
                   )}
                 </div>
-                {/* Wishlist */}
                 <button
                   className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/90 backdrop-blur flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all shadow-sm"
                   aria-label="Ajouter aux favoris"
@@ -228,13 +230,12 @@ export const ProductGrid = ({
               {/* Info */}
               <div className="flex-1 p-4 md:p-6 flex flex-col justify-between">
                 <div className="space-y-3 md:space-y-4">
-                  {/* Rating - conditionnel */}
                   {product.rating !== undefined && (
                     <div className="flex items-center gap-2">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <span 
-                            key={i} 
+                          <span
+                            key={i}
                             className={`material-symbols-outlined text-lg ${
                               i < Math.floor(product.rating!) ? 'text-yellow-500' : 'text-gray-300'
                             }`}
@@ -249,14 +250,12 @@ export const ProductGrid = ({
                     </div>
                   )}
 
-                  {/* Title */}
                   <a href={`/fr/produit/${product.id}`}>
                     <h3 className="font-headline-md text-xl md:text-2xl text-on-surface hover:text-primary transition-colors">
                       {product.name}
                     </h3>
                   </a>
 
-                  {/* Prix */}
                   <div className="flex items-center gap-3 flex-wrap">
                     <span className="font-bold text-2xl md:text-3xl text-primary">
                       {product.price.toLocaleString()} FCFA
@@ -268,7 +267,6 @@ export const ProductGrid = ({
                     )}
                   </div>
 
-                  {/* Sizes */}
                   {product.sizes && product.sizes.length > 0 && (
                     <div className="flex flex-col gap-2">
                       <span className="text-sm text-on-surface-variant font-bold">
@@ -276,8 +274,8 @@ export const ProductGrid = ({
                       </span>
                       <div className="flex gap-2 flex-wrap">
                         {product.sizes.map((size) => (
-                          <span 
-                            key={size} 
+                          <span
+                            key={size}
                             className="text-sm border-2 border-outline-variant px-3 py-2 rounded-lg hover:border-primary hover:text-primary transition-colors cursor-pointer font-medium"
                           >
                             {size}
@@ -290,14 +288,14 @@ export const ProductGrid = ({
 
                 {/* Actions */}
                 <div className="flex gap-3 mt-4 md:mt-6">
-                  <button 
+                  <button
                     className="flex-1 bg-primary text-on-primary py-3 md:py-4 rounded-lg text-sm md:text-base font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-                    onClick={() => console.log('Ajouter au panier', product.id)}
+                    onClick={() => product.onAddToCart?.() || onProductAddToCart?.(product.id)}
                   >
                     <span className="material-symbols-outlined">shopping_bag</span>
                     Ajouter au panier
                   </button>
-                  <a 
+                  <a
                     href={`/fr/produit/${product.id}`}
                     className="px-4 md:px-5 bg-surface-container text-on-surface rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center"
                   >

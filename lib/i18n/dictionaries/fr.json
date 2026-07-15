@@ -1,4 +1,20 @@
 {
+  "nav": {
+    "newArrivals": "Nouveautés",
+    "collections": "Collections",
+    "readyToWear": "Prêt-à-porter",
+    "accessories": "Accessoires",
+    "sales": "Soldes",
+    "search": "Rechercher...",
+    "wishlist": "Wishlist",
+    "cart": "Panier",
+    "account": "Compte",
+    "settings": "Paramètres",
+    "main": "Navigation principale",
+    "mobile": "Menu mobile",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
   "navbar": {
     "newArrivals": "Nouveautés",
     "collections": "Collections",
@@ -32,12 +48,289 @@
   },
   "footer": {
     "brand": "Artisanat et Élégance Africaine. Nous créons des pièces uniques qui célèbrent la beauté et la force de la femme moderne.",
+    "brandMinimal": "L'excellence de l'artisanat africain au service de l'élégance contemporaine. Créations exclusives conçues pour la femme moderne.",
+    "brandDashboard": "L'art de l'élégance africaine moderne. Créations exclusives conçues pour la femme contemporaine qui célèbre ses racines.",
+    "brandCheckout": "Artisanat et Élégance Africaine. Chaque pièce est conçue pour célébrer la force et la beauté de la femme moderne.",
     "shop": "Boutique",
     "help": "Aide",
     "payment": "Paiement",
-    "copyright": "© 2024 Jeune & Jolie. Artisanat et Elégance Africaine."
+    "services": "Services",
+    "theBrand": "La Marque",
+    "shopping": "Shopping",
+    "customerService": "Service Client",
+    "helpAndServices": "Aide & Services",
+    "information": "Informations",
+    "newsletter": "Newsletter",
+    "newsletterText": "Inscrivez-vous pour recevoir nos nouvelles collections et offres exclusives.",
+    "newsletterTextDashboard": "Inscrivez-vous pour recevoir nos dernières actualités et offres exclusives.",
+    "newsletterPlaceholder": "Votre email",
+    "newsletterButton": "S'ABONNER",
+    "newsletterButtonShort": "OK",
+    "copyright": "© 2026 Jeune & Jolie. Artisanat et Elégance Africaine.",
+    "copyrightFull": "© 2026 Jeune & Jolie. Artisanat et Elégance Africaine. Tous droits réservés.",
+    "copyrightMinimal": "© 2026 JEUNE & JOLIE LUXURY. CRAFTED IN AFRICA.",
+    "allRightsReserved": "Tous droits réservés",
+    "legalNotice": "Mentions Légales",
+    "privacyPolicy": "Politique de Confidentialité",
+    "newArrivals": "Nouveautés",
+    "bestSellers": "Meilleures ventes",
+    "promotions": "Promotions",
+    "lookbook": "Lookbook",
+    "deliveryReturns": "Livraison & Retours",
+    "securePayment": "Paiement Sécurisé",
+    "sizeGuide": "Guide des Tailles",
+    "contact": "Contact",
+    "orderTracking": "Suivi de Commande",
+    "aboutUs": "À Propos",
+    "ourWorkshops": "Nos Ateliers",
+    "collections": "Collections",
+    "accessories": "Accessoires",
+    "faq": "FAQ",
+    "sustainability": "Sustainability",
+    "bespokeService": "Bespoke Service",
+    "shippingReturns": "Shipping & Returns"
   },
   "promo": {
     "message": "Livraison gratuite dès 30 000 FCFA 🎁"
+  },
+  "common": {
+    "home": "Accueil",
+    "skipToMain": "Passer au contenu principal",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "viewMore": "Voir plus",
+    "viewLess": "Voir moins",
+    "viewAll": "Voir tout",
+    "seeDetails": "Voir les détails",
+    "addToCart": "Ajouter au panier",
+    "addedToCart": "ajouté au panier !",
+    "addToWishlist": "Ajouter à ma Wishlist",
+    "removeFromWishlist": "Retirer des favoris",
+    "addToFavorites": "Ajouter aux favoris",
+    "quickAdd": "Ajout Rapide",
+    "viewProduct": "Voir le produit",
+    "sizeGuide": "Guide des tailles",
+    "color": "Couleur",
+    "size": "Taille",
+    "quantity": "Quantité",
+    "inStock": "en stock",
+    "onlyLeft": "Plus que",
+    "article": "article",
+    "articles": "articles"
+  },
+  "categories": {
+    "exploreByUniverse": "Explorer par Univers",
+    "all": "Tous",
+    "allDresses": "Toutes les robes",
+    "summerDresses": "Robes d'été",
+    "eveningDresses": "Robes de Soirée",
+    "casualDresses": "Robes Casual",
+    "ceremonies": "Cérémonies",
+    "jewelry": "Bijoux",
+    "bags": "Sacs",
+    "belts": "Ceintures",
+    "scarves": "Foulards",
+    "hats": "Chapeaux",
+    "shoes": "Chaussures",
+    "readyToWear": "Prêt-à-porter",
+    "accessories": "Accessoires",
+    "dresses": "Robes"
+  },
+  "filters": {
+    "categories": "Catégories",
+    "colors": "Couleurs",
+    "sizes": "Tailles",
+    "priceRange": "Fourchette de prix",
+    "price": "Prix",
+    "rating": "Note",
+    "andMore": "& plus",
+    "sortBy": "Trier par",
+    "filterBy": "Filtrer par",
+    "activeFilters": "filtre(s) actif(s)",
+    "clearAll": "Tout effacer",
+    "articlesFound": "articles trouvés",
+    "priceMin": "Prix minimum",
+    "priceMax": "Prix maximum"
+  },
+  "cart": {
+    "myCart": "Mon Panier",
+    "emptyCart": "Votre panier est vide",
+    "continueShopping": "Continuer mes achats",
+    "subtotal": "Sous-total",
+    "total": "Total",
+    "checkout": "Passer la commande",
+    "securePayment": "Paiement 100% sécurisé et encrypté",
+    "updateCart": "Mettre à jour le panier",
+    "removeItem": "Retirer l'article",
+    "youMayAlsoLike": "Vous aimerez aussi",
+    "discoverIconicPieces": "Découvrez nos pièces iconiques..."
+  },
+  "delivery": {
+    "standard": "Livraison Standard",
+    "express": "Livraison Express",
+    "pickup": "Retrait en Boutique",
+    "standardTime": "3-5 jours ouvrés",
+    "expressTime": "24-48h",
+    "free": "Gratuit",
+    "shippingAndReturns": "Livraison & Retours"
+  },
+  "checkout": {
+    "steps": {
+      "address": "Adresse",
+      "delivery": "Livraison",
+      "payment": "Paiement"
+    },
+    "shippingAddress": "Adresse de Livraison",
+    "newAddress": "Nouvelle adresse",
+    "secureDelivery": "Livraison sécurisée à domicile",
+    "orderSummary": "Récapitulatif"
+  },
+  "dashboard": {
+    "welcome": "Bonjour",
+    "welcomeMessage": "Bienvenue dans votre espace privilégié Jeune & Jolie.",
+    "goldMemberSince": "Membre Gold depuis",
+    "kpi": {
+      "totalOrders": "Commandes totales",
+      "thisMonth": "ce mois",
+      "inProgress": "En cours",
+      "loyaltyPoints": "Points fidélité",
+      "totalSpent": "Total dépensé"
+    },
+    "orders": {
+      "orderNumber": "Commande #",
+      "date": "Date",
+      "status": "Statut",
+      "amount": "Montant",
+      "onTheWay": "En route",
+      "delivered": "Livrée",
+      "processing": "En traitement",
+      "viewDetails": "Voir les détails de la commande"
+    },
+    "nav": {
+      "dashboard": "Tableau de bord",
+      "orders": "Commandes",
+      "addresses": "Adresses",
+      "wishlist": "Wishlist",
+      "settings": "Paramètres",
+      "logout": "Déconnexion"
+    }
+  },
+  "product": {
+    "description": "Description",
+    "compositionCare": "Composition & Entretien",
+    "deliveryReturns": "Livraison & Retours",
+    "selectColor": "Sélectionner couleur",
+    "selectSize": "Sélectionner taille"
+  },
+  "cartPage": {
+    "title": "Mon Panier",
+    "articlesCount": "articles",
+    "emptyCart": "Votre panier est vide",
+    "continueShopping": "Continuer mes achats",
+    "youMayAlsoLike": "Vous aimerez aussi",
+    "deliveryOptions": {
+      "standard": "Livraison Standard",
+      "express": "Livraison Express",
+      "pickup": "Retrait en Boutique"
+    },
+    "promoCode": {
+      "placeholder": "Code promo",
+      "apply": "Appliquer",
+      "applied": "Code appliqué",
+      "invalid": "Code invalide",
+      "success": "Réduction appliquée"
+    },
+    "checkout": {
+      "secureCheckout": "Paiement sécurisé",
+      "goToCheckout": "Passer la commande",
+      "continue": "Continuer"
+    }
+  },
+  "accessories": {
+    "pageTitle": "ACCESSOIRES",
+    "pageSubtitle": "Complétez votre look avec nos pièces signatures",
+    "filterBar": {
+      "price": "Prix",
+      "totalItems": "articles trouvés",
+      "sortBy": "Trier par",
+      "priceAsc": "Prix croissant",
+      "priceDesc": "Prix décroissant",
+      "newest": "Nouveautés",
+      "popular": "Populaires",
+      "clearAll": "Effacer tout",
+      "taillesDisponibles": "Tailles disponibles:",
+      "ajouterAuPanier": "Ajouter au panier",
+      "voirProduit": "Voir le produit"
+    },
+    "categories": {
+      "all": "Tous",
+      "jewelry": "Bijoux",
+      "bags": "Sacs",
+      "belts": "Ceintures",
+      "scarves": "Foulards",
+      "hats": "Coiffes",
+      "shoes": "Chaussures"
+    },
+    "sortOptions": {
+      "relevance": "Pertinence",
+      "priceAsc": "Prix croissant",
+      "priceDesc": "Prix décroissant",
+      "newest": "Nouveautés"
+    }
+  }
+,
+  "catalogue": {
+    "title": "Robes",
+    "subtitle": "Découvrez notre sélection exclusive de 24 articles alliant tradition et modernité.",
+    "categories": {
+      "allDresses": "Toutes les robes",
+      "summerDresses": "Robes d'été",
+      "maxiDresses": "Maxi Robes",
+      "eveningDresses": "Robes de Soirée"
+    },
+    "filterGroups": {
+      "categories": "Catégories",
+      "price": "Prix",
+      "color": "Couleur",
+      "size": "Taille"
+    },
+    "breadcrumb": {
+      "home": "Accueil",
+      "readyToWear": "Prêt-à-porter",
+      "dresses": "Robes"
+    }
+  },
+  "homepage": {
+    "newArrivals": "Nouveautés",
+    "newArrivalsSubtitle": "Dernières arrivées de notre atelier",
+    "featured": "En Vedette",
+    "sale": "Soldes",
+    "newsletter": "Newsletter"
+  },
+  "trustBar": {
+    "delivery": "Livraison rapide",
+    "deliveryDesc": "Dans toute l'Afrique",
+    "returns": "Retours 14 jours",
+    "returnsDesc": "Échange facile",
+    "payment": "Paiement sécurisé",
+    "paymentDesc": "OM, MTN, Visa",
+    "support": "Support 7j/7",
+    "supportDesc": "Une équipe à votre écoute"
+  },
+  "countdown": {
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "seconds": "Secondes"
   }
 }

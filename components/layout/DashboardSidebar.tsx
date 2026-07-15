@@ -1,65 +1,112 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { useParams, usePathname } from 'next/navigation';
+import {
+  LayoutDashboard, Package, MapPin, Heart, Settings, LogOut,
+} from 'lucide-react';
 
-const navItems = [
-  { icon: 'dashboard', label: 'Tableau de bord', href: '/fr/dashboard' },
-  { icon: 'local_shipping', label: 'Commandes', href: '/fr/dashboard/commandes' },
-  { icon: 'location_on', label: 'Adresses', href: '/fr/dashboard/adresses' },
-  { icon: 'favorite', label: 'Wishlist', href: '/fr/dashboard/wishlist' },
-  { icon: 'settings', label: 'Paramètres', href: '/fr/dashboard/parametres' },
+const NAV_ITEMS = [
+  { icon: LayoutDashboard, label: 'Tableau de bord', segment: 'dashboard'   },
+  { icon: Package,         label: 'Commandes',       segment: 'commandes'   },
+  { icon: MapPin,          label: 'Adresses',         segment: 'adresses'    },
+  { icon: Heart,           label: 'Wishlist',         segment: 'wishlist'    },
+  { icon: Settings,        label: 'Paramètres',       segment: 'parametres'  },
 ];
 
 export default function DashboardSidebar() {
   const pathname = usePathname();
+  const params   = useParams();
+  const lang     = (params?.lang as string) || 'fr';
+
+  const isActive = (segment: string) => {
+    const href = `/${lang}/dashboard${segment === 'dashboard' ? '' : `/${segment}`}`;
+    return segment === 'dashboard'
+      ? pathname === href
+      : pathname.startsWith(href);
+  };
 
   return (
-    <aside className="w-full lg:w-80 border-r border-slate-100 py-6 md:py-8 lg:py-10 px-5 md:px-6 lg:px-8 flex flex-col gap-8 lg:gap-10 bg-white">
-      {/* Profile */}
-      <div className="flex flex-col items-center text-center gap-3 md:gap-4">
-        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden border-2 border-primary ring-4 ring-primary/10">
-          <img 
-            alt="User Avatar" 
-            className="w-full h-full object-cover" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_k3UG_HgScqb5A7I-S-nazBXiyluB4aINvTkHgXoQ6zrx3G1AlFQ0A_J99gjuDRlm1B_svo6RbmWuv7En7DBYlRRnYSya1xTzJQNg-Gyi2Lg5w0eWroQzGsnM7CdN7t4aH3xFwfMK4yH5-07MbtU6cUVT82tVewmzCiaNDG4kjYsmOEYpj69Z9wDPcLVPnmJzILq968B_BJRZZP6no0SnkxxARY7Z1xKr4UtL5xRiXaqOvSLZyJ6yT48zibkfIvlYcoMBwBP_Qsk"
+    <aside className="
+      w-full lg:w-72 shrink-0
+      border-b lg:border-b-0 lg:border-r border-outline-variant/20
+      py-6 md:py-8 lg:py-10
+      px-5 md:px-6 lg:px-8
+      flex flex-col gap-8 lg:gap-10
+      bg-surface
+    ">
+      {/* Profil */}
+      <div className="flex flex-row lg:flex-col items-center lg:text-center gap-4">
+        <div className="w-16 h-16 lg:w-20 lg:h-20 shrink-0 rounded-full overflow-hidden
+                        border-2 border-primary ring-4 ring-primary/10">
+          <img
+            alt="Aminata Traoré"
+            className="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200"
           />
         </div>
         <div>
-          <h3 className="font-headline-md text-lg md:text-xl font-bold">Aminata Traoré</h3>
-          <p className="text-xs md:text-sm text-slate-500 font-body-md">Membre Gold depuis 2023</p>
+          <h3
+            className="text-lg font-semibold text-on-surface"
+            style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
+          >
+            Aminata Traoré
+          </h3>
+          <p
+            className="text-xs text-on-surface/45 mt-0.5"
+            style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
+          >
+            Membre Gold depuis 2023
+          </p>
+          {/* Badge fidélité */}
+          <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-0.5 rounded-full
+                           bg-gold/10 text-gold text-[10px] font-bold tracking-wide">
+            ✦ GOLD
+          </span>
         </div>
       </div>
-      
+
       {/* Navigation */}
-      <nav className="flex flex-col gap-2">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
+      <nav className="flex flex-row lg:flex-col gap-1 overflow-x-auto lg:overflow-visible
+                      scrollbar-hide pb-1 lg:pb-0">
+        {NAV_ITEMS.map(({ icon: Icon, label, segment }) => {
+          const active = isActive(segment);
+          const href   = `/${lang}/dashboard${segment === 'dashboard' ? '' : `/${segment}`}`;
           return (
-            <a
-              key={item.label}
-              href={item.href}
-              className={`flex items-center gap-3 py-3 px-4 rounded-lg transition-all ${
-                isActive 
-                  ? 'bg-primary/10 text-primary font-bold' 
-                  : 'text-slate-600 hover:bg-slate-50'
-              }`}
+            <Link
+              key={segment}
+              href={href}
+              className={`
+                flex items-center gap-3 py-2.5 px-4 rounded-xl
+                whitespace-nowrap lg:whitespace-normal
+                transition-all duration-200 shrink-0 lg:shrink
+                text-xs tracking-wider uppercase
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                ${active
+                  ? 'bg-primary/10 text-primary font-bold'
+                  : 'text-on-surface/60 hover:bg-surface-container hover:text-on-surface'
+                }
+              `}
+              style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
+              aria-current={active ? 'page' : undefined}
             >
-              <span 
-                className="material-symbols-outlined text-xl"
-                style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}
-              >
-                {item.icon}
-              </span>
-              <span className="text-xs md:text-sm uppercase tracking-wider font-label-md">{item.label}</span>
-            </a>
+              <Icon size={16} strokeWidth={active ? 2 : 1.75} className="shrink-0" />
+              {label}
+            </Link>
           );
         })}
       </nav>
-      
-      {/* Logout */}
-      <div className="mt-auto pt-8 lg:pt-10">
-        <button className="w-full py-3 border border-pink-600 text-pink-600 text-sm md:text-base rounded-xl font-bold hover:bg-pink-50 transition-colors flex items-center justify-center gap-2">
-          <span className="material-symbols-outlined text-base md:text-lg">logout</span>
+
+      {/* Déconnexion */}
+      <div className="mt-auto pt-6 lg:pt-8 border-t border-outline-variant/20 hidden lg:block">
+        <button
+          className="w-full py-2.5 px-4 rounded-xl border border-outline-variant/40
+                     text-on-surface/50 text-xs tracking-wider uppercase
+                     hover:border-primary hover:text-primary hover:bg-primary/5
+                     transition-all duration-200 flex items-center justify-center gap-2"
+          style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
+        >
+          <LogOut size={14} strokeWidth={1.75} />
           Déconnexion
         </button>
       </div>

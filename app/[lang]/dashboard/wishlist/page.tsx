@@ -1,95 +1,208 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { Heart, ShoppingBag, ArrowRight } from 'lucide-react';
 import TopNavBar from '@/components/layout/TopNavBar';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import WishlistItem from '@/components/sections/WishlistItem';
 import Footer from '@/components/layout/Footer';
 
-const wishlistItems = [
+const INITIAL_ITEMS = [
   {
     id: 1,
     name: 'Robe Soie Émeraude',
-    detail: 'Taille: 38',
-    price: '245 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCQf2yCibOmdHxLVLRQ1kVQHVAk0rkYtpSH58hDi4-m46boZwqeYxQJXIzJpwoHoUZHe8qLjtHYzjmTXV4u7KQxCgxcZ3EoS9Lyc_LlQNH1SvruRS_fLJi2Wdm2TaT9QUwpHDIY6yHdzgqhMPG0ol0G5bCSJrhT7fiPjtb7ysjx-Qrb2x4ChZdP78034YMWmEoPABYw7VCALwTRgUKZErRAEJeCqyWzRe0fBkpCpi8-Uh0hXRCPv8PxS2a_i8f4RP5vbajW-1NyvSA',
+    detail: 'Taille : 38 · Soie naturelle',
+    price: 159000,
+    image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400',
   },
   {
     id: 2,
-    name: "Collier 'Heritage' Or",
-    detail: 'Métal: Or 18k',
-    price: '120 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXJgWg9MCbNwZ5YB6BX0v9lm3i1sZHlalTLslF0sdhkLNIGI99DBPQ_rMrzSDOgZaWIH8qvPciktYJK1Ld4HpJnI-rh_yxjOc8RcMcrMObb-bY8mH-UcMz7N8Y8jEuaZTGAFcNNe3WRAs_0hkkkkukeHietuRU0Rs5kWZVxQ6VepXw33hYoxrFLfNLnPiZUr8LMw1w9iySW4JpSoN_suXXGXPDr7o4jDOiHExkeSdb4BzMepNC9Phjo1nME6yL-f9nSgp77Ts1fAI',
+    name: "Collier \"Héritage\" Or",
+    detail: 'Or 18k · Artisanat Abidjan',
+    price: 78000,
+    image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400',
   },
   {
     id: 3,
     name: 'Pochette Cuir Fuchsia',
-    detail: 'Couleur: Rose Vibrant',
-    price: '85 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBMu8Xw-StjX-s_QRiMCU10IYRcz0A0PEE8FebkqGsrVBBxnXxaeYHpiJtrWpd8uhQaQZ-pbAZaCnvrwLUSlMvWH4nWIyUIQzp4baJvmOqBMk7sXcrysrEus237b56puzjwNYfqVCNxk3BrKwrkm8pSUZ030Ugsqyxn3KGPZiQeTfcPqfDOnGguTp0QcBpWYxdhzKHMrYE8uLiUa0EN9zP9rJp6fmXKEpyCYBEpBnY2pQa37KKQCLNXzhDmsAcrrdAGFfjmTmeMS-w',
+    detail: 'Couleur : Rose Vibrant',
+    price: 55000,
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400',
   },
   {
     id: 4,
     name: 'Blazer Lin Naturel',
-    detail: 'Taille: 40',
-    price: '195 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuARewl4SasxSccFsxf1mBD_CpnMKjZSkSqAuiFYwWvmXbgIrezbZWQyWUpI0qajGiThBUMldvzOt5jkq9-29i9m7E3Jn-1_xHW-pWmZ1xtV5Ye128Jm-QMBTFS6GB-lGQPVTxsksELDmgffc8UIYZXYChaQ1N0Rgmg2f4zzA7knNS76FoaJushnux5bJboD93auWOrQo8dXiubwim6qa2qDz-Y3_q2ENJj51TJ_gUmV3tx0NP-Jtl66IJwxmld0JL3hEtlhtzroG7w',
+    detail: 'Taille : 40 · Lin 100%',
+    price: 126000,
+    image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400',
   },
   {
     id: 5,
     name: 'Sandales Cuir Camel',
-    detail: 'Pointure: 39',
-    price: '110 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_k3UG_HgScqb5A7I-S-nazBXiyluB4aINvTkHgXoQ6zrx3G1AlFQ0A_J99gjuDRlm1B_svo6RbmWuv7En7DBYlRRnYSya1xTzJQNg-Gyi2Lg5w0eWroQzGsnM7CdN7t4aH3xFwfMK4yH5-07MbtU6cUVT82tVewmzCiaNDG4kjYsmOEYpj69Z9wDPcLVPnmJzILq968B_BJRZZP6no0SnkxxARY7Z1xKr4UtL5xRiXaqOvSLZyJ6yT48zibkfIvlYcoMBwBP_Qsk',
+    detail: 'Pointure : 39 · Cuir pleine fleur',
+    price: 71500,
+    image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400',
   },
   {
     id: 6,
-    name: 'Boucles d\'Oreilles Perles',
-    detail: 'Matière: Argent 925',
-    price: '65 €',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBXJgWg9MCbNwZ5YB6BX0v9lm3i1sZHlalTLslF0sdhkLNIGI99DBPQ_rMrzSDOgZaWIH8qvPciktYJK1Ld4HpJnI-rh_yxjOc8RcMcrMObb-bY8mH-UcMz7N8Y8jEuaZTGAFcNNe3WRAs_0hkkkkukeHietuRU0Rs5kWZVxQ6VepXw33hYoxrFLfNLnPiZUr8LMw1w9iySW4JpSoN_suXXGXPDr7o4jDOiHExkeSdb4BzMepNC9Phjo1nME6yL-f9nSgp77Ts1fAI',
+    name: "Boucles d'Oreilles Perles",
+    detail: 'Argent 925 · Perles de culture',
+    price: 42000,
+    image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=400',
   },
 ];
 
+const formatFCFA = (n: number) => n.toLocaleString('fr-FR') + ' FCFA';
+
 export default function WishlistPage() {
+  const params = useParams();
+  const lang   = (params?.lang as string) || 'fr';
+
+  const [items, setItems] = useState(INITIAL_ITEMS);
+
+  const handleRemove = (id: number) => {
+    setItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const handleAddToCart = (id: number) => {
+    console.log('Add to cart:', id);
+  };
+
+  const totalValue = items.reduce((sum, i) => sum + i.price, 0);
+
   return (
-    <div className="bg-background font-body-md text-on-surface">
+    <div className="min-h-screen bg-background text-on-surface">
       <TopNavBar />
-      
-      <main className="max-w-[1440px] mx-auto flex flex-col lg:flex-row min-h-screen">
+
+      <main
+        id="main-content"
+        className="max-w-[1440px] mx-auto flex flex-col lg:flex-row"
+      >
         <DashboardSidebar />
-        
-        <section className="flex-1 p-5 md:p-8 lg:p-10 bg-slate-50/30">
+
+        <section className="flex-1 p-5 md:p-8 lg:p-10 bg-surface-container-low/40">
+
+          {/* En-tête */}
           <header className="mb-8 md:mb-10">
-            <h2 className="font-headline-lg text-2xl md:text-3xl mb-2">Ma Wishlist</h2>
-            <p className="text-sm md:text-base text-slate-500">
-              {wishlistItems.length} {wishlistItems.length > 1 ? 'articles sauvegardés' : 'article sauvegardé'}
+            <p
+              className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-gold mb-2"
+              style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}
+            >
+              Ma sélection
             </p>
-          </header>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {wishlistItems.map((item) => (
-              <div key={item.id} className="bg-white p-5 md:p-6 lg:p-8 rounded-2xl shadow-sm border border-slate-100">
-                <WishlistItem {...item} />
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+              <div>
+                <h2
+                  className="text-on-surface"
+                  style={{
+                    fontFamily: 'var(--font-cormorant, Georgia, serif)',
+                    fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
+                    fontWeight: 400,
+                    letterSpacing: '-0.01em',
+                  }}
+                >
+                  Ma Wishlist
+                </h2>
+                <p className="text-sm text-on-surface/50 mt-1">
+                  {items.length} {items.length > 1 ? 'articles sauvegardés' : 'article sauvegardé'}
+                  {items.length > 0 && (
+                    <span className="ml-2 text-primary font-semibold">
+                      · {formatFCFA(totalValue)}
+                    </span>
+                  )}
+                </p>
               </div>
-            ))}
-          </div>
-          
-          {wishlistItems.length === 0 && (
-            <div className="bg-white p-12 md:p-16 rounded-2xl shadow-sm border border-slate-100 text-center">
-              <span className="material-symbols-outlined text-6xl text-slate-300 mb-4">favorite_border</span>
-              <h3 className="font-headline-md text-xl md:text-2xl mb-2">Votre wishlist est vide</h3>
-              <p className="text-slate-500 mb-6">Ajoutez vos articles préférés pour les retrouver facilement</p>
-              <a 
-                href="/fr/catalogue" 
-                className="inline-flex items-center gap-2 bg-pink-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-pink-700 transition-colors"
+
+              {items.length > 0 && (
+                <button
+                  className="btn-primary text-xs px-5 py-2.5 self-start sm:self-auto"
+                  onClick={() => items.forEach(i => handleAddToCart(i.id))}
+                >
+                  <ShoppingBag size={14} />
+                  Tout ajouter au panier
+                </button>
+              )}
+            </div>
+          </header>
+
+          {/* Grille wishlist */}
+          {items.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
+              {items.map((item) => (
+                <div
+                  key={item.id}
+                  className="bg-surface border border-outline-variant/20 rounded-2xl
+                             p-4 md:p-5 hover:border-outline-variant/40 hover:shadow-ambient
+                             transition-all duration-300"
+                >
+                  <WishlistItem
+                    {...item}
+                    onRemove={handleRemove}
+                    onAddToCart={handleAddToCart}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* État vide */
+            <div className="flex flex-col items-center justify-center
+                            bg-surface border border-outline-variant/20 rounded-2xl
+                            py-20 px-8 text-center">
+              <div className="w-16 h-16 rounded-full bg-primary/8 flex items-center justify-center mb-5">
+                <Heart size={28} className="text-primary/50" strokeWidth={1.5} />
+              </div>
+              <h3
+                className="text-on-surface mb-2"
+                style={{
+                  fontFamily: 'var(--font-cormorant, Georgia, serif)',
+                  fontSize: '1.5rem',
+                  fontWeight: 400,
+                }}
               >
-                Découvrir nos produits
-                <span className="material-symbols-outlined text-lg">arrow_forward</span>
-              </a>
+                Votre wishlist est vide
+              </h3>
+              <p className="text-sm text-on-surface/45 mb-8 max-w-xs leading-relaxed">
+                Ajoutez vos articles préférés pour les retrouver facilement.
+              </p>
+              <Link
+                href={`/${lang}/catalogue`}
+                className="btn-primary text-xs px-6"
+              >
+                Découvrir nos créations
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+          )}
+
+          {/* Suggestion si liste non vide */}
+          {items.length > 0 && (
+            <div className="mt-8 p-5 md:p-6 bg-surface border border-outline-variant/20 rounded-2xl
+                            flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <p
+                  className="text-sm font-semibold text-on-surface"
+                  style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)', fontSize: '1rem' }}
+                >
+                  Continuer votre shopping
+                </p>
+                <p className="text-xs text-on-surface/45 mt-0.5">
+                  Découvrez nos nouvelles arrivées et collections exclusives.
+                </p>
+              </div>
+              <Link
+                href={`/${lang}/catalogue`}
+                className="btn-outline text-xs px-5 py-2 shrink-0"
+              >
+                Voir le catalogue <ArrowRight size={13} />
+              </Link>
             </div>
           )}
         </section>
       </main>
-      
-      <Footer />
+
+      <Footer variant="dashboard" />
     </div>
   );
 }

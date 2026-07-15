@@ -1,4 +1,20 @@
 {
+  "nav": {
+    "newArrivals": "New Arrivals",
+    "collections": "Collections",
+    "readyToWear": "Ready-to-Wear",
+    "accessories": "Accessories",
+    "sales": "Sales",
+    "search": "Search...",
+    "wishlist": "Wishlist",
+    "cart": "Cart",
+    "account": "Account",
+    "settings": "Settings",
+    "main": "Main navigation",
+    "mobile": "Mobile menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
   "navbar": {
     "newArrivals": "New Arrivals",
     "collections": "Collections",
@@ -32,12 +48,288 @@
   },
   "footer": {
     "brand": "African Craftsmanship and Elegance. We create unique pieces that celebrate the beauty and strength of the modern woman.",
+    "brandMinimal": "The excellence of African craftsmanship at the service of contemporary elegance. Exclusive creations designed for the modern woman.",
+    "brandDashboard": "The art of modern African elegance. Exclusive creations designed for the contemporary woman who celebrates her roots.",
+    "brandCheckout": "African Craftsmanship and Elegance. Each piece is designed to celebrate the strength and beauty of the modern woman.",
     "shop": "Shop",
     "help": "Help",
     "payment": "Payment",
-    "copyright": "© 2024 Jeune & Jolie. African Craftsmanship and Elegance."
+    "services": "Services",
+    "theBrand": "The Brand",
+    "shopping": "Shopping",
+    "customerService": "Customer Service",
+    "helpAndServices": "Help & Services",
+    "information": "Information",
+    "newsletter": "Newsletter",
+    "newsletterText": "Sign up to receive our new collections and exclusive offers.",
+    "newsletterTextDashboard": "Sign up to receive our latest news and exclusive offers.",
+    "newsletterPlaceholder": "Your email",
+    "newsletterButton": "SUBSCRIBE",
+    "newsletterButtonShort": "OK",
+    "copyright": "© 2026 Jeune & Jolie. African Craftsmanship and Elegance.",
+    "copyrightFull": "© 2026 Jeune & Jolie. African Craftsmanship and Elegance. All rights reserved.",
+    "copyrightMinimal": "© 2026 JEUNE & JOLIE LUXURY. CRAFTED IN AFRICA.",
+    "allRightsReserved": "All rights reserved",
+    "legalNotice": "Legal Notice",
+    "privacyPolicy": "Privacy Policy",
+    "newArrivals": "New Arrivals",
+    "bestSellers": "Best Sellers",
+    "promotions": "Promotions",
+    "lookbook": "Lookbook",
+    "deliveryReturns": "Delivery & Returns",
+    "securePayment": "Secure Payment",
+    "sizeGuide": "Size Guide",
+    "contact": "Contact",
+    "orderTracking": "Order Tracking",
+    "aboutUs": "About Us",
+    "ourWorkshops": "Our Workshops",
+    "collections": "Collections",
+    "accessories": "Accessories",
+    "faq": "FAQ",
+    "sustainability": "Sustainability",
+    "bespokeService": "Bespoke Service",
+    "shippingReturns": "Shipping & Returns"
   },
   "promo": {
     "message": "Free delivery from 30,000 FCFA 🎁"
+  },
+  "common": {
+    "home": "Home",
+    "skipToMain": "Skip to main content",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "viewMore": "View more",
+    "viewLess": "View less",
+    "viewAll": "View all",
+    "seeDetails": "See details",
+    "addToCart": "Add to cart",
+    "addedToCart": "added to cart!",
+    "addToWishlist": "Add to my Wishlist",
+    "removeFromWishlist": "Remove from favorites",
+    "addToFavorites": "Add to favorites",
+    "quickAdd": "Quick Add",
+    "viewProduct": "View product",
+    "sizeGuide": "Size guide",
+    "color": "Color",
+    "size": "Size",
+    "quantity": "Quantity",
+    "inStock": "in stock",
+    "onlyLeft": "Only",
+    "article": "item",
+    "articles": "items"
+  },
+  "categories": {
+    "exploreByUniverse": "Explore by Universe",
+    "all": "All",
+    "allDresses": "All dresses",
+    "summerDresses": "Summer Dresses",
+    "eveningDresses": "Evening Dresses",
+    "casualDresses": "Casual Dresses",
+    "ceremonies": "Ceremonies",
+    "jewelry": "Jewelry",
+    "bags": "Bags",
+    "belts": "Belts",
+    "scarves": "Scarves",
+    "hats": "Hats",
+    "shoes": "Shoes",
+    "readyToWear": "Ready-to-Wear",
+    "accessories": "Accessories",
+    "dresses": "Dresses"
+  },
+  "filters": {
+    "categories": "Categories",
+    "colors": "Colors",
+    "sizes": "Sizes",
+    "priceRange": "Price range",
+    "price": "Price",
+    "rating": "Rating",
+    "andMore": "& up",
+    "sortBy": "Sort by",
+    "filterBy": "Filter by",
+    "activeFilters": "active filter(s)",
+    "clearAll": "Clear all",
+    "articlesFound": "items found",
+    "priceMin": "Minimum price",
+    "priceMax": "Maximum price"
+  },
+  "cart": {
+    "myCart": "My Cart",
+    "emptyCart": "Your cart is empty",
+    "continueShopping": "Continue shopping",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Checkout",
+    "securePayment": "100% secure and encrypted payment",
+    "updateCart": "Update cart",
+    "removeItem": "Remove item",
+    "youMayAlsoLike": "You may also like",
+    "discoverIconicPieces": "Discover our iconic pieces..."
+  },
+  "delivery": {
+    "standard": "Standard Delivery",
+    "express": "Express Delivery",
+    "pickup": "Store Pickup",
+    "standardTime": "3-5 business days",
+    "expressTime": "24-48h",
+    "free": "Free",
+    "shippingAndReturns": "Shipping & Returns"
+  },
+  "checkout": {
+    "steps": {
+      "address": "Address",
+      "delivery": "Delivery",
+      "payment": "Payment"
+    },
+    "shippingAddress": "Shipping Address",
+    "newAddress": "New address",
+    "secureDelivery": "Secure home delivery",
+    "orderSummary": "Order Summary"
+  },
+  "dashboard": {
+    "welcome": "Hello",
+    "welcomeMessage": "Welcome to your exclusive Jeune & Jolie space.",
+    "goldMemberSince": "Gold Member since",
+    "kpi": {
+      "totalOrders": "Total Orders",
+      "thisMonth": "this month",
+      "inProgress": "In Progress",
+      "loyaltyPoints": "Loyalty Points",
+      "totalSpent": "Total Spent"
+    },
+    "orders": {
+      "orderNumber": "Order #",
+      "date": "Date",
+      "status": "Status",
+      "amount": "Amount",
+      "onTheWay": "On the way",
+      "delivered": "Delivered",
+      "processing": "Processing",
+      "viewDetails": "View order details"
+    },
+    "nav": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "addresses": "Addresses",
+      "wishlist": "Wishlist",
+      "settings": "Settings",
+      "logout": "Logout"
+    }
+  },
+  "product": {
+    "description": "Description",
+    "compositionCare": "Composition & Care",
+    "deliveryReturns": "Delivery & Returns",
+    "selectColor": "Select color",
+    "selectSize": "Select size"
+  },
+  "cartPage": {
+    "title": "My Cart",
+    "articlesCount": "items",
+    "emptyCart": "Your cart is empty",
+    "continueShopping": "Continue shopping",
+    "youMayAlsoLike": "You may also like",
+    "deliveryOptions": {
+      "standard": "Standard Delivery",
+      "express": "Express Delivery",
+      "pickup": "Store Pickup"
+    },
+    "promoCode": {
+      "placeholder": "Promo code",
+      "apply": "Apply",
+      "applied": "Code applied",
+      "invalid": "Invalid code",
+      "success": "Discount applied"
+    },
+    "checkout": {
+      "secureCheckout": "Secure checkout",
+      "goToCheckout": "Go to checkout",
+      "continue": "Continue"
+    }
+  },
+  "accessories": {
+    "pageTitle": "ACCESSORIES",
+    "pageSubtitle": "Complete your look with our signature pieces",
+    "filterBar": {
+      "price": "Price",
+      "totalItems": "items found",
+      "sortBy": "Sort by",
+      "priceAsc": "Price ascending",
+      "priceDesc": "Price descending",
+      "newest": "Newest",
+      "popular": "Popular",
+      "clearAll": "Clear all",
+      "taillesDisponibles": "Available sizes:",
+      "ajouterAuPanier": "Add to cart",
+      "voirProduit": "View product"
+    },
+    "categories": {
+      "all": "All",
+      "jewelry": "Jewelry",
+      "bags": "Bags",
+      "belts": "Belts",
+      "scarves": "Scarves",
+      "hats": "Hats",
+      "shoes": "Shoes"
+    },
+    "sortOptions": {
+      "relevance": "Relevance",
+      "priceAsc": "Price ascending",
+      "priceDesc": "Price descending",
+      "newest": "Newest"
+    }
+  },
+  "catalogue": {
+    "title": "Dresses",
+    "subtitle": "Discover our exclusive selection of 24 items combining tradition and modernity.",
+    "categories": {
+      "allDresses": "All dresses",
+      "summerDresses": "Summer Dresses",
+      "maxiDresses": "Maxi Dresses",
+      "eveningDresses": "Evening Dresses"
+    },
+    "filterGroups": {
+      "categories": "Categories",
+      "price": "Price",
+      "color": "Color",
+      "size": "Size"
+    },
+    "breadcrumb": {
+      "home": "Home",
+      "readyToWear": "Ready-to-Wear",
+      "dresses": "Dresses"
+    }
+  },
+  "homepage": {
+    "newArrivals": "New Arrivals",
+    "newArrivalsSubtitle": "Latest arrivals from our workshop",
+    "featured": "Featured",
+    "sale": "Sales",
+    "newsletter": "Newsletter"
+  },
+  "trustBar": {
+    "delivery": "Fast Delivery",
+    "deliveryDesc": "All over Africa",
+    "returns": "14 Days Returns",
+    "returnsDesc": "Easy exchange",
+    "payment": "Secure Payment",
+    "paymentDesc": "OM, MTN, Visa",
+    "support": "24/7 Support",
+    "supportDesc": "A team at your service"
+  },
+  "countdown": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
   }
 }
