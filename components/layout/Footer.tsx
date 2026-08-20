@@ -1,444 +1,402 @@
 // components/layout/Footer.tsx
+//
+// Footer éditorial multi-variant — design system uniforme sur toutes les variantes.
+// Variant 'full' : fond minuit éditorial avec colonnes, réseaux sociaux et paiements.
+// Variants catalogue/dashboard/checkout : fond surface, grille mobile-first.
+
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { Mail } from 'lucide-react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface FooterProps {
   variant?: 'full' | 'minimal' | 'catalogue' | 'dashboard' | 'checkout';
 }
 
-const footerLinks = {
-  boutique: [
-    { label: 'Nouveautés', href: '#' },
-    { label: 'Meilleures ventes', href: '#' },
-    { label: 'Promotions', href: '#' },
-    { label: 'Lookbook', href: '#' },
-  ],
-  aide: [
-    { label: 'Livraison & Retours', href: '#' },
-    { label: 'Paiement Sécurisé', href: '#' },
-    { label: 'Guide des Tailles', href: '#' },
-    { label: 'Contact', href: '#' },
-  ],
-};
+const PAYMENT_METHODS = ['Orange Money', 'MTN MoMo', 'Wave', 'Visa'];
 
-const paymentMethods = ['ORANGE MONEY', 'MTN MOMO', 'VISA', 'WAVE'];
+const IconInstagram = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+    <circle cx="12" cy="12" r="4"/>
+    <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+  </svg>
+);
+const IconFacebook = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+  </svg>
+);
+const IconTwitter = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4l16 16M4 20 20 4"/>
+  </svg>
+);
 
-const catalogueLinks = {
-  services: [
-    'Guide des Tailles',
-    'Livraison & Retours',
-    'Paiement Sécurisé',
-    'Suivi de Commande',
-  ],
-  brand: ['À Propos', 'Nos Ateliers', 'Contact', 'Mentions Légales'],
-};
+const SOCIAL = [
+  { label: 'Instagram', href: '#instagram', Icon: IconInstagram },
+  { label: 'Facebook',  href: '#facebook',  Icon: IconFacebook  },
+  { label: 'Twitter',   href: '#twitter',   Icon: IconTwitter   },
+];
 
-const dashboardLinks = {
-  shopping: ['Nouveautés', 'Collections', 'Guide des Tailles', 'Accessoires'],
-  serviceClient: ['Contact', 'Livraison & Retours', 'Paiement Sécurisé', 'FAQ'],
-};
+/* ── Lien footer générique (surfaces claires) ── */
+const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    className="text-sm text-on-surface/45 hover:text-primary transition-colors duration-200
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+  >
+    {children}
+  </a>
+);
 
-const checkoutLinks = {
-  aide: ['Livraison & Retours', 'Paiement Sécurisé', 'Guide des Tailles'],
-  informations: ['À Propos', 'Contact'],
-};
+/* ── Lien footer sur fond sombre (variante 'full') ── */
+const DarkLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    className="text-sm text-white/40 hover:text-white transition-colors duration-200
+               focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 rounded"
+  >
+    {children}
+  </a>
+);
 
 export const Footer = ({ variant = 'full' }: FooterProps) => {
-  // ========== VARIANT MINIMAL ==========
+  const { t } = useTranslation();
+
+  /* ── MINIMAL ── */
   if (variant === 'minimal') {
     return (
-      <footer className="bg-white flex flex-col items-center gap-8 py-20 px-10 border-t border-outline-variant/30">
-        <div className="text-xl font-serif font-bold text-on-surface tracking-widest">
-          Jeune & Jolie
-        </div>
-        <div className="flex flex-wrap justify-center gap-10">
-          {['Sustainability', 'Bespoke Service', 'Shipping & Returns', 'Contact'].map(
-            (link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-[11px] tracking-widest uppercase text-on-surface-variant hover:text-primary transition-colors"
-              >
-                {link}
+      <footer className="bg-background border-t border-outline-variant/20 py-14 px-6">
+        <div className="max-w-[1440px] mx-auto flex flex-col items-center gap-8">
+          <span
+            className="text-lg text-on-surface tracking-widest"
+            style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
+          >
+            Jeune & Jolie
+          </span>
+          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3" aria-label="Liens du footer">
+            {['sustainability', 'bespokeService', 'shippingReturns', 'contact'].map((k) => (
+              <FooterLink key={k} href={`#${k}`}>{t(`footer.${k}`)}</FooterLink>
+            ))}
+          </nav>
+          <div className="flex gap-3" role="group" aria-label="Réseaux sociaux">
+            {SOCIAL.map(({ label, href, Icon }) => (
+              <a key={label} href={href} aria-label={label}
+                className="w-9 h-9 rounded-full border border-outline-variant/40 flex items-center justify-center
+                           text-on-surface/40 hover:text-primary hover:border-primary transition-all duration-200">
+                <Icon />
               </a>
-            )
-          )}
+            ))}
+          </div>
+          <p className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/25"
+             style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+            {t('footer.copyrightMinimal')}
+          </p>
         </div>
-        <div className="flex gap-6 mt-4">
-          {['F', 'I', 'T'].map((social) => (
-            <a
-              key={social}
-              href="#"
-              className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-all"
-            >
-              <span className="text-xs font-bold">{social}</span>
-            </a>
-          ))}
-        </div>
-        <p className="text-[11px] tracking-widest uppercase text-on-surface-variant mt-10">
-          © 2026 JEUNE & JOLIE LUXURY. CRAFTED IN AFRICA.
-        </p>
       </footer>
     );
   }
 
-  // ========== VARIANT CATALOGUE ==========
+  /* ── CATALOGUE ── */
   if (variant === 'catalogue') {
     return (
-      <footer className="bg-surface-container-low border-t border-outline-variant/30 mt-20">
-        <div className="max-w-7xl mx-auto px-5 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="space-y-6">
-            <span className="text-xl font-bold text-on-surface font-serif">
+      <footer className="bg-surface-container-low border-t border-outline-variant/20 mt-20">
+        <div className="max-w-[1440px] mx-auto py-14 px-6 lg:px-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+            <BrandCol t={t} desc={t('footer.brandMinimal')} />
+            <LinksCol title={t('footer.services')} links={[
+              { key: 'sizeGuide',       label: t('footer.sizeGuide') },
+              { key: 'deliveryReturns', label: t('footer.deliveryReturns') },
+              { key: 'securePayment',   label: t('footer.securePayment') },
+              { key: 'orderTracking',   label: t('footer.orderTracking') },
+            ]} />
+            <LinksCol title={t('footer.theBrand')} links={[
+              { key: 'aboutUs',     label: t('footer.aboutUs') },
+              { key: 'contact',     label: t('footer.contact') },
+              { key: 'legalNotice', label: t('footer.legalNotice') },
+            ]} />
+            <NewsletterCol t={t} id="footer-nl-catalogue" />
+          </div>
+          <BottomBar t={t} />
+        </div>
+      </footer>
+    );
+  }
+
+  /* ── DASHBOARD ── */
+  if (variant === 'dashboard') {
+    return (
+      <footer className="bg-surface-container-low border-t border-outline-variant/20 mt-20">
+        <div className="max-w-[1440px] mx-auto py-14 px-6 lg:px-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+            <BrandCol t={t} desc={t('footer.brandDashboard')} />
+            <LinksCol title={t('footer.shopping')} links={[
+              { key: 'newArrivals',  label: t('footer.newArrivals') },
+              { key: 'collections',  label: t('footer.collections') },
+              { key: 'sizeGuide',    label: t('footer.sizeGuide') },
+            ]} />
+            <LinksCol title={t('footer.customerService')} links={[
+              { key: 'contact',         label: t('footer.contact') },
+              { key: 'deliveryReturns', label: t('footer.deliveryReturns') },
+              { key: 'faq',             label: t('footer.faq') },
+            ]} />
+            <NewsletterCol t={t} id="footer-nl-dashboard" text={t('footer.newsletterTextDashboard')} />
+          </div>
+          <BottomBar t={t} />
+        </div>
+      </footer>
+    );
+  }
+
+  /* ── CHECKOUT ── */
+  if (variant === 'checkout') {
+    return (
+      <footer className="bg-surface-container-low border-t border-outline-variant/20 mt-16">
+        <div className="max-w-[1440px] mx-auto py-10 px-6 lg:px-20
+                        flex flex-col sm:flex-row justify-between items-center gap-5">
+          <span
+            className="text-on-surface/50 text-sm tracking-wide"
+            style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}
+          >
+            Jeune & Jolie
+          </span>
+          <p className="text-on-surface/30 text-xs text-center">{t('footer.copyright')}</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {PAYMENT_METHODS.map((m) => (
+              <span key={m}
+                className="text-[10px] font-bold text-on-surface/30 tracking-wide border border-outline-variant/30
+                           px-2.5 py-1 rounded"
+                style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+                {m}
+              </span>
+            ))}
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
+  /* ── FULL (page d'accueil) ── */
+  return (
+    <footer className="bg-[var(--background)] dark:bg-[#060614] border-t border-outline-variant/10 dark:border-white/[0.06]">
+      <div className="max-w-[1440px] mx-auto px-6 lg:px-20 pt-20 pb-12">
+
+        {/* Ligne supérieure : logo + réseaux */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8
+                        mb-14 pb-14 border-b border-outline-variant/15 dark:border-white/[0.06]">
+          <div className="max-w-xs">
+            <h2
+              className="text-on-background dark:text-white/90 mb-3"
+              style={{
+                fontFamily: 'var(--font-cormorant, Georgia, serif)',
+                fontSize: 'clamp(1.8rem, 3vw, 2.8rem)',
+                fontWeight: 300,
+                letterSpacing: '-0.02em',
+              }}
+            >
               Jeune & Jolie
-            </span>
-            <p className="text-sm leading-relaxed text-on-surface-variant">
-              L'excellence de l'artisanat africain au service de l'élégance contemporaine.
-              Créations exclusives conçues pour la femme moderne.
+            </h2>
+            <p className="text-on-surface/45 dark:text-white/35 text-sm leading-relaxed">
+              {t('footer.brand')}
             </p>
-            <div className="flex items-center gap-4">
-              {['share', 'mail'].map((icon) => (
-                <a
-                  key={icon}
-                  href="#"
-                  className="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-primary hover:text-on-primary transition-all"
-                >
-                  <span className="material-symbols-outlined text-sm">{icon}</span>
-                </a>
-              ))}
-            </div>
           </div>
 
-          {/* Services */}
+          <div className="flex gap-3" role="group" aria-label="Réseaux sociaux">
+            {SOCIAL.map(({ label, href, Icon }) => (
+              <a key={label} href={href} aria-label={label}
+                className="w-10 h-10 rounded-full border border-outline-variant/30 dark:border-white/10
+                           flex items-center justify-center
+                           text-on-surface/40 dark:text-white/35
+                           hover:text-gold hover:border-gold/40
+                           transition-all duration-300
+                           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
+                <Icon />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* Colonnes de liens — 2 cols mobile, 4 cols desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 gap-y-10 mb-14">
+
+          {/* Boutique */}
           <div>
-            <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-              Services
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+                style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+              {t('footer.shop')}
             </h4>
-            <ul className="space-y-4">
-              {catalogueLinks.services.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-sm text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors"
-                  >
-                    {link}
-                  </a>
-                </li>
+            <ul className="space-y-3">
+              {[
+                { k: 'newArrivals', l: t('footer.newArrivals') },
+                { k: 'bestSellers', l: t('footer.bestSellers') },
+                { k: 'promotions',  l: t('footer.promotions')  },
+                { k: 'lookbook',    l: t('footer.lookbook')    },
+              ].map(({ k, l }) => (
+                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Aide */}
+          <div>
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+                style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+              {t('footer.help')}
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { k: 'deliveryReturns', l: t('footer.deliveryReturns') },
+                { k: 'securePayment',   l: t('footer.securePayment')   },
+                { k: 'sizeGuide',       l: t('footer.sizeGuide')       },
+                { k: 'contact',         l: t('footer.contact')         },
+              ].map(({ k, l }) => (
+                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
               ))}
             </ul>
           </div>
 
           {/* La Marque */}
           <div>
-            <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-              La Marque
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+                style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+              {t('footer.theBrand')}
             </h4>
-            <ul className="space-y-4">
-              {catalogueLinks.brand.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-sm text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors"
-                  >
-                    {link}
-                  </a>
-                </li>
+            <ul className="space-y-3">
+              {[
+                { k: 'aboutUs',      l: t('footer.aboutUs')      },
+                { k: 'ourWorkshops', l: t('footer.ourWorkshops') },
+                { k: 'legalNotice',  l: t('footer.legalNotice')  },
+              ].map(({ k, l }) => (
+                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
               ))}
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Paiement + contact */}
           <div>
-            <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-              Newsletter
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+                style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+              {t('footer.payment')}
             </h4>
-            <p className="text-xs text-on-surface-variant mb-4">
-              Inscrivez-vous pour recevoir nos nouvelles collections et offres exclusives.
-            </p>
-            <form className="flex flex-col gap-2">
-              <input
-                type="email"
-                placeholder="Votre email"
-                className="bg-white border border-outline-variant rounded-lg px-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button
-                type="submit"
-                className="bg-primary text-on-primary text-xs font-bold py-2 rounded-lg hover:bg-primary-container transition-all"
-              >
-                S'ABONNER
-              </button>
-            </form>
-          </div>
-        </div>
-
-        <div className="border-t border-outline-variant py-8 px-5 lg:px-20">
-          <p className="text-center text-on-surface-variant text-xs">
-            © 2026 Jeune & Jolie. Artisanat et Elégance Africaine. Tous droits réservés.
-          </p>
-        </div>
-      </footer>
-    );
-  }
-
-  // ========== VARIANT DASHBOARD ==========
-  if (variant === 'dashboard') {
-    return (
-      <footer className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 mt-20">
-        <div className="max-w-7xl mx-auto px-5 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 font-inter text-xs leading-relaxed">
-          {/* Brand */}
-          <div className="flex flex-col gap-6">
-            <h4 className="text-xl font-bold text-slate-900 dark:text-white font-headline-md">
-              Jeune & Jolie
-            </h4>
-            <p className="text-slate-500 dark:text-slate-400">
-              L'art de l'élégance africaine moderne. Créations exclusives conçues pour la femme contemporaine qui célèbre ses racines.
-            </p>
-            <div className="flex gap-4">
-              <a href="#" className="material-symbols-outlined text-slate-400 hover:text-pink-600 cursor-pointer transition-colors">
-                language
-              </a>
-              <a href="#" className="material-symbols-outlined text-slate-400 hover:text-pink-600 cursor-pointer transition-colors">
-                mail
-              </a>
+            <div className="flex flex-wrap gap-2 mb-5">
+              {PAYMENT_METHODS.map((m) => (
+                <span key={m}
+                  className="px-2.5 py-1 rounded border border-outline-variant/20 dark:border-white/10
+                             text-[10px] font-semibold text-on-surface/30 dark:text-white/35 tracking-wide"
+                  style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+                  {m}
+                </span>
+              ))}
             </div>
-          </div>
-
-          {/* Shopping */}
-          <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-2">
-              Shopping
-            </h5>
-            {dashboardLinks.shopping.map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-slate-500 dark:text-slate-400 hover:underline decoration-pink-500 underline-offset-4 transition-colors"
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-
-          {/* Service Client */}
-          <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-2">
-              Service Client
-            </h5>
-            {dashboardLinks.serviceClient.map((link) => (
-              <a
-                key={link}
-                href="#"
-                className="text-slate-500 dark:text-slate-400 hover:underline decoration-pink-500 underline-offset-4 transition-colors"
-              >
-                {link}
-              </a>
-            ))}
-          </div>
-
-          {/* Newsletter */}
-          <div className="flex flex-col gap-4">
-            <h5 className="font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-2">
-              Newsletter
-            </h5>
-            <p className="text-slate-500 dark:text-slate-400">
-              Inscrivez-vous pour recevoir nos dernières actualités et offres exclusives.
-            </p>
-            <div className="flex gap-2">
-              <input
-                className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 rounded-lg flex-1 text-xs focus:outline-none focus:ring-2 focus:ring-primary"
-                placeholder="Votre email"
-                type="email"
-              />
-              <button className="bg-pink-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-pink-700 transition-colors">
-                OK
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom */}
-        <div className="max-w-7xl mx-auto px-5 lg:px-20 py-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-slate-400">
-            © 2026 Jeune & Jolie. Artisanat et Elégance Africaine.
-          </p>
-          <div className="flex gap-8 text-slate-400">
-            <a className="hover:text-pink-600 transition-colors" href="#">
-              Mentions Légales
-            </a>
-            <a className="hover:text-pink-600 transition-colors" href="#">
-              Politique de Confidentialité
+            <a href="mailto:contact@jeunejolie.com"
+               className="flex items-center gap-2 text-sm text-on-surface/35 dark:text-white/35
+                          hover:text-gold transition-colors duration-200">
+              <Mail size={13} strokeWidth={1.5} />
+              contact@jeunejolie.com
             </a>
           </div>
         </div>
-      </footer>
-    );
-  }
 
-  // ========== VARIANT CHECKOUT ==========
-  if (variant === 'checkout') {
-    return (
-      <footer className="bg-slate-50 dark:bg-slate-900 border-t border-slate-200 mt-20">
-        <div className="max-w-7xl mx-auto px-5 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="col-span-1 md:col-span-2">
-            <div className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-              Jeune & Jolie
-            </div>
-            <p className="font-inter text-xs leading-relaxed text-slate-500 max-w-sm mb-6">
-              Artisanat et Élégance Africaine. Chaque pièce est conçue pour célébrer la force et la beauté de la femme moderne.
-            </p>
-            <div className="flex gap-4">
-              <a href="#" className="material-symbols-outlined text-slate-400 hover:text-pink-600 cursor-pointer transition-colors">
-                public
-              </a>
-              <a href="#" className="material-symbols-outlined text-slate-400 hover:text-pink-600 cursor-pointer transition-colors">
-                camera_alt
-              </a>
-              <a href="#" className="material-symbols-outlined text-slate-400 hover:text-pink-600 cursor-pointer transition-colors">
-                mail
-              </a>
-            </div>
-          </div>
-
-          {/* Aide & Services */}
-          <div>
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-4">
-              Aide & Services
-            </h4>
-            <ul className="space-y-3 font-inter text-xs text-slate-500">
-              {checkoutLinks.aide.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="hover:underline decoration-pink-500 underline-offset-4 transition-colors"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Informations */}
-          <div>
-            <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-4">
-              Informations
-            </h4>
-            <ul className="space-y-3 font-inter text-xs text-slate-500">
-              {checkoutLinks.informations.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="hover:underline decoration-pink-500 underline-offset-4 transition-colors"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-5 lg:px-20 py-8 border-t border-slate-100 flex justify-between items-center">
-          <p className="font-inter text-xs text-slate-400">
-            © 2026 Jeune & Jolie. Artisanat et Elégance Africaine.
+        {/* Bas de footer */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4
+                        pt-8 border-t border-outline-variant/10 dark:border-white/[0.06]">
+          <p className="text-on-surface/20 dark:text-white/20 text-xs tracking-wide text-center sm:text-left">
+            {t('footer.copyrightFull')}
           </p>
-          <div className="flex gap-6 grayscale opacity-40">
-            <span className="material-symbols-outlined">account_balance</span>
-            <span className="material-symbols-outlined">payments</span>
+          <div className="flex gap-6">
+            <a href="#legal"   className="text-on-surface/20 dark:text-white/20 text-xs hover:text-primary dark:hover:text-white/50 transition-colors">
+              {t('footer.legalNotice')}
+            </a>
+            <a href="#privacy" className="text-on-surface/20 dark:text-white/20 text-xs hover:text-primary dark:hover:text-white/50 transition-colors">
+              {t('footer.privacyPolicy')}
+            </a>
           </div>
-        </div>
-      </footer>
-    );
-  }
-
-  // ========== VARIANT FULL (par défaut - page d'accueil) ==========
-  return (
-    <footer className="bg-surface-container-low border-t border-outline-variant/30">
-      <div className="max-w-[1440px] mx-auto px-5 lg:px-20 py-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-        {/* Brand */}
-        <div className="space-y-6">
-          <span className="text-xl font-bold text-on-surface font-serif">
-            Jeune & Jolie
-          </span>
-          <p className="text-sm leading-relaxed text-on-surface-variant">
-            Artisanat et Élégance Africaine. Nous créons des pièces uniques qui
-            célèbrent la beauté et la force de la femme moderne.
-          </p>
-          <div className="flex gap-4">
-            {['F', 'I', 'T'].map((social) => (
-              <a
-                key={social}
-                href="#"
-                className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-outline-variant text-on-surface-variant hover:text-primary hover:border-primary transition-all"
-              >
-                <span className="text-xs font-bold">{social}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Boutique */}
-        <div>
-          <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-            Boutique
-          </h4>
-          <ul className="space-y-4">
-            {footerLinks.boutique.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Aide */}
-        <div>
-          <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-            Aide
-          </h4>
-          <ul className="space-y-4">
-            {footerLinks.aide.map((link) => (
-              <li key={link.label}>
-                <a
-                  href={link.href}
-                  className="text-sm text-on-surface-variant hover:text-primary hover:underline decoration-primary underline-offset-4 transition-colors"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Paiement */}
-        <div>
-          <h4 className="font-bold text-on-surface mb-6 uppercase text-xs tracking-widest">
-            Paiement
-          </h4>
-          <div className="flex flex-wrap gap-3 mb-6">
-            {paymentMethods.map((method) => (
-              <span
-                key={method}
-                className="px-2 py-1 bg-white rounded border border-outline-variant text-[10px] font-bold text-on-surface-variant"
-              >
-                {method}
-              </span>
-            ))}
-          </div>
-          <p className="text-sm text-on-surface-variant">
-            © 2026 Jeune & Jolie. Artisanat et Elégance Africaine.
-          </p>
         </div>
       </div>
     </footer>
   );
 };
+
+/* ── Sous-composants internes ── */
+
+function BrandCol({ t, desc }: { t: (k: string) => string; desc: string }) {
+  return (
+    <div className="space-y-4 col-span-1 sm:col-span-2 lg:col-span-1">
+      <span className="block text-lg text-on-surface font-light tracking-wide"
+            style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)' }}>
+        Jeune & Jolie
+      </span>
+      <p className="text-sm text-on-surface/50 leading-relaxed">{desc}</p>
+      <div className="flex gap-3" role="group" aria-label="Réseaux sociaux">
+        {SOCIAL.map(({ label, href, Icon }) => (
+          <a key={label} href={href} aria-label={label}
+            className="w-9 h-9 rounded-full border border-outline-variant/40 flex items-center justify-center
+                       text-on-surface/40 hover:text-primary hover:border-primary transition-all duration-200">
+            <Icon />
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LinksCol({ title, links }: { title: string; links: { key: string; label: string }[] }) {
+  return (
+    <div>
+      <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/40 mb-5"
+          style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+        {title}
+      </h4>
+      <ul className="space-y-3">
+        {links.map(({ key, label }) => (
+          <li key={key}><FooterLink href={`#${key}`}>{label}</FooterLink></li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function NewsletterCol({ t, id, text }: { t: (k: string) => string; id: string; text?: string }) {
+  return (
+    <div>
+      <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/40 mb-5"
+          style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
+        {t('footer.newsletter')}
+      </h4>
+      <p className="text-sm text-on-surface/45 mb-4 leading-relaxed">
+        {text ?? t('footer.newsletterText')}
+      </p>
+      <form className="flex gap-2" onSubmit={(e) => e.preventDefault()}>
+        <label htmlFor={id} className="sr-only">{t('footer.newsletterPlaceholder')}</label>
+        <input
+          id={id}
+          type="email"
+          placeholder={t('footer.newsletterPlaceholder')}
+          className="flex-1 min-w-0 bg-surface-container border border-outline-variant/40 rounded-full
+                     px-4 py-2 text-xs text-on-surface placeholder:text-on-surface/30
+                     focus:outline-none focus:border-primary transition-colors"
+        />
+        <button type="submit" className="btn-primary px-4 py-2 text-xs rounded-full shrink-0">
+          {t('footer.newsletterButtonShort')}
+        </button>
+      </form>
+    </div>
+  );
+}
+
+function BottomBar({ t }: { t: (k: string) => string }) {
+  return (
+    <div className="border-t border-outline-variant/20 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p className="text-xs text-on-surface/30 text-center sm:text-left">{t('footer.copyrightFull')}</p>
+      <div className="flex gap-6">
+        <FooterLink href="#legal">{t('footer.legalNotice')}</FooterLink>
+        <FooterLink href="#privacy">{t('footer.privacyPolicy')}</FooterLink>
+      </div>
+    </div>
+  );
+}
 
 export default Footer;

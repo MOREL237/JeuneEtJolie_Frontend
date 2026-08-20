@@ -5,6 +5,7 @@ import React from 'react';
 import { RatingHistogram } from './RatingHistogram';
 import { ReviewCard } from './ReviewCard';
 import { Button } from '../ui/Button';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface Review {
   initials: string;
@@ -29,9 +30,10 @@ export const ReviewsSection = ({
   distribution,
   reviews,
 }: ReviewsSectionProps) => {
+  const { t } = useTranslation();
   return (
     <section className="mt-section-gap border-t border-outline-variant pt-20">
-      <h2 className="font-headline-lg text-headline-lg mb-12">Avis Clients</h2>
+      <h2 className="font-headline-lg text-headline-lg mb-12">{t('productPage.reviewsTitle')}</h2>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
         {/* Histogram */}
@@ -42,7 +44,7 @@ export const ReviewsSection = ({
             distribution={distribution}
           />
           <Button variant="outlined" size="md" className="mt-4 w-full">
-            Laisser un avis
+            {t('productPage.leaveReview')}
           </Button>
         </div>
 

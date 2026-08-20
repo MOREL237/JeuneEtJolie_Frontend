@@ -4,6 +4,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { SectionTitle } from '../shared/SectionTitle';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface RelatedProduct {
   id: string;
@@ -19,21 +20,24 @@ interface RelatedProductsProps {
 }
 
 export const RelatedProducts = ({
-  title = 'Vous aimerez aussi',
-  subtitle = 'Complétez votre look avec notre sélection exclusive.',
+  title,
+  subtitle,
   products,
 }: RelatedProductsProps) => {
+  const { t } = useTranslation();
+  const displayTitle = title || t('productPage.relatedTitle');
+  const displaySubtitle = subtitle || t('productPage.relatedSubtitle');
   return (
     <section>
       <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-8 md:mb-10">
         <div>
-          <SectionTitle title={title} subtitle={subtitle} className="mb-0" />
+          <SectionTitle title={displayTitle} subtitle={displaySubtitle} className="mb-0" />
         </div>
         <a
-          href="/fr/catalogue"
+          href="#"
           className="text-primary text-sm md:text-base font-bold flex items-center gap-2 hover:translate-x-2 transition-transform"
         >
-          Voir toute la collection <ArrowRight className="w-4 h-4" />
+          {t('productPage.viewCollection')} <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 
@@ -48,8 +52,8 @@ export const RelatedProducts = ({
               />
               
               {/* Quick Buy */}
-              <button className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[85%] bg-white text-on-surface py-2.5 md:py-3 text-sm md:text-base rounded-lg font-bold opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-tertiary-fixed">
-                Quick Buy
+              <button className="absolute bottom-4 left-1/2 -translate-x-1/2 w-[85%] bg-surface text-on-surface py-2.5 md:py-3 text-sm md:text-base rounded-lg font-bold opacity-0 group-hover:opacity-100 transition-all shadow-xl hover:bg-tertiary-fixed">
+                {t('productPage.quickBuy')}
               </button>
               
               {/* Wishlist */}

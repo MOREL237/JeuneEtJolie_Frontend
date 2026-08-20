@@ -25,7 +25,7 @@ const looks = [
 
 export const LooksSection = () => {
   return (
-    <section className="bg-slate-50/30 py-12 md:py-16 lg:py-20">
+    <section className="bg-surface-container-low/30 py-12 md:py-16 lg:py-20">
       <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="font-headline-lg text-2xl md:text-3xl text-on-surface mb-4">

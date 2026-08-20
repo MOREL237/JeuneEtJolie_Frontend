@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface DeliveryOption {
   value: string;
@@ -16,9 +17,10 @@ interface DeliverySelectorProps {
 }
 
 export const DeliverySelector = ({ options, selected, onChange }: DeliverySelectorProps) => {
+  const { t } = useTranslation();
   return (
     <div className="space-y-2">
-      <label className="text-label-md text-on-surface-variant block">Livraison</label>
+      <label className="text-label-md text-on-surface-variant block">{t('delivery.shippingAndReturns')}</label>
       <select
         value={selected}
         onChange={(e) => onChange(e.target.value)}
@@ -26,7 +28,7 @@ export const DeliverySelector = ({ options, selected, onChange }: DeliverySelect
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
-            {option.label} {option.price > 0 ? `(${option.price.toLocaleString()} €)` : '(Gratuit)'}
+            {option.label} {option.price > 0 ? `(${option.price.toLocaleString()} FCFA)` : `(${t('delivery.free')})`}
           </option>
         ))}
       </select>

@@ -29,6 +29,7 @@ export default async function HomePage({
     {
       id: '1',
       name: 'Veste Tailleur "Heritage"',
+      description: 'Coupe structurée en lin texturé, doublure soie imprimée wax.',
       price: 45000,
       image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600',
       badge: 'Exclusivité',
@@ -37,6 +38,7 @@ export default async function HomePage({
     {
       id: '2',
       name: 'Robe Midi "Sahara Pearl"',
+      description: 'Mousseline légère ivoire, broderies dorées aux épaules.',
       price: 32500,
       image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600',
       badge: 'Nouveauté',
@@ -45,6 +47,7 @@ export default async function HomePage({
     {
       id: '3',
       name: 'Coffret Foulard Soie',
+      description: 'Soie naturelle 90×90 cm, motifs géométriques inspirés du kente.',
       price: 18000,
       image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600',
       badge: 'Accessoires',
@@ -53,6 +56,7 @@ export default async function HomePage({
     {
       id: '4',
       name: 'Combinaison "Nuit d\'Abidjan"',
+      description: 'Satin crêpe noir, décolleté dos-nu et ceinture tressée dorée.',
       price: 55000,
       image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600',
       badge: 'Limité',

@@ -6,6 +6,7 @@ import { ShoppingBag, Heart, AlertCircle } from 'lucide-react';
 import { StarRating } from '../shared/StarRating';
 import { QuantitySelector } from './QuantitySelector';
 import { Button } from '../ui/Button';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface ColorOption {
   name: string;
@@ -44,6 +45,7 @@ export const ProductInfo = ({
   const [selectedColor, setSelectedColor] = useState(colors[0]?.value);
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const { t } = useTranslation();
 
   const discount = originalPrice
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
@@ -53,7 +55,7 @@ export const ProductInfo = ({
     <div className="flex flex-col gap-8 sticky top-32">
       {/* Brand & Title */}
       <div className="flex flex-col gap-2">
-        <a href="/fr/catalogue" className="text-primary font-label-md uppercase tracking-widest hover:underline">
+        <a href="#" className="text-primary font-label-md uppercase tracking-widest hover:underline">
           {brand}
         </a>
         <h1 className="font-headline-lg text-on-surface leading-tight">{name}</h1>
@@ -62,7 +64,7 @@ export const ProductInfo = ({
         <div className="flex items-center gap-4 mt-2">
           <StarRating rating={rating} size="md" />
           <span className="text-body-md text-outline">
-            ({rating} • {reviews} avis)
+            ({rating} • {reviews} {t('productPage.reviews')})
           </span>
         </div>
         
@@ -87,7 +89,7 @@ export const ProductInfo = ({
       {/* Color Selection */}
       <div className="flex flex-col gap-3">
         <span className="text-label-md text-on-surface uppercase tracking-wider">
-          Couleur:{' '}
+          {t('productPage.color')}{' '}
           <span className="font-normal text-outline">
             {colors.find((c) => c.value === selectedColor)?.name}
           </span>
@@ -113,9 +115,9 @@ export const ProductInfo = ({
       {/* Size Selection */}
       <div className="flex flex-col gap-3">
         <div className="flex justify-between items-center">
-          <span className="text-label-md text-on-surface uppercase tracking-wider">Taille</span>
+          <span className="text-label-md text-on-surface uppercase tracking-wider">{t('productPage.size')}</span>
           <button className="text-label-md text-primary underline underline-offset-4 hover:text-on-secondary-fixed-variant">
-            Guide des tailles
+            {t('productPage.sizeGuide')}
           </button>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -141,7 +143,7 @@ export const ProductInfo = ({
         {stockWarning && stockWarning <= 5 && (
           <p className="flex items-center gap-2 text-error font-medium text-sm mt-1">
             <AlertCircle className="w-4 h-4" />
-            Plus que {stockWarning} en stock!
+            {t('productPage.stockWarning').replace('{count}', String(stockWarning))}
           </p>
         )}
       </div>
@@ -156,7 +158,7 @@ export const ProductInfo = ({
             className="flex-1 shadow-lg hover:translate-y-[-2px] transition-all flex items-center justify-center gap-3"
           >
             <ShoppingBag className="w-5 h-5" />
-            Ajouter au panier
+            {t('productPage.addToCart')}
           </Button>
         </div>
         
@@ -166,7 +168,7 @@ export const ProductInfo = ({
           className="w-full flex items-center justify-center gap-2"
         >
           <Heart className="w-5 h-5" />
-          Ajouter à ma Wishlist
+          {t('productPage.addToWishlist')}
         </Button>
       </div>
     </div>

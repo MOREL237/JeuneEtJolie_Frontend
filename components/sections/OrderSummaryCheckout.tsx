@@ -1,5 +1,6 @@
 import OrderItem from './OrderItem';
 import PaymentIcons from './PaymentIcons';
+import { useTranslation } from '@/hooks/useTranslation';
 
 const orderItems = [
   {
@@ -21,6 +22,7 @@ const orderItems = [
 ];
 
 export default function OrderSummaryCheckout() {
+  const { t } = useTranslation();
   const subtotal = '170 000 FCFA';
   const shipping = '3 000 FCFA';
   const total = '173 000 FCFA';
@@ -28,7 +30,7 @@ export default function OrderSummaryCheckout() {
   return (
     <div className="bg-surface-container-lowest p-5 md:p-6 lg:p-8 rounded-xl shadow-lg border border-surface-container-high">
       <h3 className="font-headline-md text-lg md:text-xl text-on-surface mb-5 md:mb-6 border-b border-outline-variant pb-3 md:pb-4">
-        Résumé de la commande
+        {t('orderSummary.orderResumeTitle')}
       </h3>
       
       <div className="space-y-3 md:space-y-4 mb-5 md:mb-6">
@@ -39,26 +41,26 @@ export default function OrderSummaryCheckout() {
       
       <div className="space-y-2 md:space-y-3 pt-5 md:pt-6 border-t border-outline-variant">
         <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
-          <span>Sous-total</span>
+          <span>{t('orderSummary.subtotal')}</span>
           <span>{subtotal}</span>
         </div>
         <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
-          <span>Frais de livraison</span>
+          <span>{t('orderSummary.shipping')}</span>
           <span>{shipping}</span>
         </div>
         <div className="flex justify-between text-sm md:text-base text-on-surface-variant">
-          <span>Taxes (TVA)</span>
-          <span>Incluse</span>
+          <span>{t('orderSummary.taxes')}</span>
+          <span>{t('orderSummary.taxesIncluded')}</span>
         </div>
         <div className="flex justify-between text-on-surface font-bold text-base md:text-lg pt-3 md:pt-4">
-          <span>Total</span>
+          <span>{t('orderSummary.total')}</span>
           <span className="text-primary">{total}</span>
         </div>
       </div>
       
       <button className="w-full bg-primary text-on-primary py-4 md:py-5 rounded-lg mt-6 md:mt-8 font-bold text-sm md:text-base uppercase tracking-wider md:tracking-widest shadow-md hover:bg-secondary transition-all active:scale-95 flex items-center justify-center gap-2">
         <span className="material-symbols-outlined text-lg md:text-xl">lock</span>
-        Confirmer et payer
+        {t('orderSummary.confirmAndPay')}
       </button>
       
       <PaymentIcons />

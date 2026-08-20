@@ -8,6 +8,7 @@ import { FilterBar } from '@/components/sections/FilterBar';
 import { ProductGrid } from '@/components/sections/ProductGrid';
 import { Pagination } from '@/components/sections/Pagination';
 import { LooksSection } from '@/components/sections/LooksSection';
+import PromoBanner from '@/components/layout/PromoBanner';
 
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
@@ -88,26 +89,28 @@ export default async function AccessoiresPage({
     },
   ];
 
-  const categories = ['Tous', 'Bijoux', 'Sacs', 'Ceintures', 'Foulards', 'Coiffes', 'Chaussures'];
+  const categories = [dict.categories.all, dict.categories.jewelry, dict.categories.bags, 
+                      dict.categories.belts, dict.categories.scarves, dict.categories.hats, dict.categories.shoes];
 
   return (
     <div className="bg-background font-body-md text-on-surface">
+      <PromoBanner message={dict.promo.message}/>
       <TopNavBar />
       
       <main>
         <HeroBanner 
-          title="ACCESSOIRES"
-          subtitle="Complétez votre look avec nos pièces signatures"
+          title={dict.accessories.pageTitle}
+          subtitle={dict.accessories.pageSubtitle}
           breadcrumb={[
-            { label: 'Accueil', href: `/${lang}` },
-            { label: 'Accessoires', href: `/${lang}/accessoires` },
+            { label: dict.common.home, href: `/${lang}` },
+            { label: dict.categories.accessories, href: `/${lang}/accessoires` },
           ]}
         />
         
         <FilterBar 
           categories={categories}
           totalItems={24}
-          activeCategory="Tous"
+          activeCategory={dict.categories.all}
         />
         
         <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20 py-12 md:py-16 lg:py-20">

@@ -17,6 +17,7 @@ interface UpsellProductsProps {
   subtitle?: string;
   products: UpsellProduct[];
   onQuickAdd: (id: string) => void;
+  currency?: string;
 }
 
 export const UpsellProducts = ({
@@ -24,6 +25,7 @@ export const UpsellProducts = ({
   subtitle = 'Complétez votre look avec notre sélection exclusive.',
   products,
   onQuickAdd,
+  currency = 'FCFA',
 }: UpsellProductsProps) => {
   return (
     <section className="mt-12 md:mt-16">
@@ -49,6 +51,7 @@ export const UpsellProducts = ({
             price={product.price}
             image={product.image}
             onQuickAdd={onQuickAdd}
+            currency={currency}
           />
         ))}
       </div>

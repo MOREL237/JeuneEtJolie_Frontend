@@ -24,10 +24,10 @@ export const ProductGallery = ({ images, hasVideo = false }: ProductGalleryProps
         
         {/* Overlay buttons */}
         <div className="absolute bottom-6 right-6 flex flex-col gap-3">
-          <button className="bg-white/90 backdrop-blur p-3 rounded-full shadow-lg hover:bg-white transition-all">
+          <button className="bg-surface/90 backdrop-blur p-3 rounded-full shadow-lg hover:bg-surface transition-all">
             <RotateCw className="w-5 h-5 text-on-surface" />
           </button>
-          <button className="bg-white/90 backdrop-blur p-3 rounded-full shadow-lg hover:bg-white transition-all">
+          <button className="bg-surface/90 backdrop-blur p-3 rounded-full shadow-lg hover:bg-surface transition-all">
             <ZoomIn className="w-5 h-5 text-on-surface" />
           </button>
         </div>

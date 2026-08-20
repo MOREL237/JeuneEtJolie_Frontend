@@ -10,9 +10,10 @@ interface UpsellCardProps {
   price: number;
   image: string;
   onQuickAdd: (id: string) => void;
+  currency?: string;
 }
 
-export const UpsellCard = ({ id, name, price, image, onQuickAdd }: UpsellCardProps) => {
+export const UpsellCard = ({ id, name, price, image, onQuickAdd, currency = 'FCFA' }: UpsellCardProps) => {
   return (
     <div className="group cursor-pointer">
       <div className="aspect-[3/4] bg-surface-container overflow-hidden rounded-lg mb-4 relative">
@@ -21,7 +22,7 @@ export const UpsellCard = ({ id, name, price, image, onQuickAdd }: UpsellCardPro
           alt={name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
-        
+
         {/* Quick Add */}
         <button
           onClick={() => onQuickAdd(id)}
@@ -30,12 +31,12 @@ export const UpsellCard = ({ id, name, price, image, onQuickAdd }: UpsellCardPro
           <ShoppingCart className="w-5 h-5 text-on-tertiary-container" />
         </button>
       </div>
-      
+
       <div className="flex flex-col gap-1">
         <h4 className="font-headline-md text-lg text-on-surface group-hover:text-primary transition-colors">
           {name}
         </h4>
-        <span className="font-bold text-primary">{price.toLocaleString()} €</span>
+        <span className="font-bold text-primary">{price.toLocaleString()} {currency}</span>
       </div>
     </div>
   );

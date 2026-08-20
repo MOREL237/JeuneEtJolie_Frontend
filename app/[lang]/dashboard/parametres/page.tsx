@@ -1,121 +1,126 @@
+'use client';
+
 import TopNavBar from '@/components/layout/TopNavBar';
 import DashboardSidebar from '@/components/layout/DashboardSidebar';
 import Footer from '@/components/layout/Footer';
+import { useTranslation } from '@/hooks/useTranslation';
 
 export default function ParametresPage() {
+  const { t } = useTranslation();
+
   return (
     <div className="bg-background font-body-md text-on-surface">
       <TopNavBar />
       
-      <main className="max-w-[1440px] mx-auto flex flex-col lg:flex-row min-h-screen">
+      <main className="max-w-[1440px] mx-auto flex flex-col lg:flex-row min-h-screen overflow-hidden">
         <DashboardSidebar />
         
-        <section className="flex-1 p-5 md:p-8 lg:p-10 bg-slate-50/30">
+        <section className="flex-1 p-5 md:p-8 lg:p-10 bg-surface-container-low/40 min-w-0">
           <header className="mb-8 md:mb-10">
-            <h2 className="font-headline-lg text-2xl md:text-3xl mb-2">Paramètres du compte</h2>
-            <p className="text-sm md:text-base text-slate-500">
-              Gérez vos informations personnelles et préférences
+            <h2 className="font-headline-lg text-2xl md:text-3xl mb-2">{t('dashboard.settings.title')}</h2>
+            <p className="text-sm md:text-base text-on-surface-variant">
+              {t('dashboard.settings.subtitle')}
             </p>
           </header>
           
           <div className="space-y-6 md:space-y-8">
             {/* Informations personnelles */}
-            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
-              <h3 className="font-headline-md text-xl mb-6">Informations personnelles</h3>
+            <div className="bg-surface p-6 md:p-8 rounded-2xl shadow-sm border border-outline-variant">
+              <h3 className="font-headline-md text-xl mb-6">{t('dashboard.settings.personalInfo')}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Prénom</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.firstName')}</label>
                   <input 
                     type="text" 
                     defaultValue="Aminata" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Nom</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.lastName')}</label>
                   <input 
                     type="text" 
                     defaultValue="Traoré" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.email')}</label>
                   <input 
                     type="email" 
                     defaultValue="aminata.traore@example.com" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Téléphone</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.phone')}</label>
                   <input 
                     type="tel" 
                     defaultValue="+221 77 123 45 67" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
               </div>
-              <button className="mt-6 bg-pink-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-pink-700 transition-colors">
-                Enregistrer les modifications
+              <button className="btn-primary mt-6">
+                {t('dashboard.settings.saveChanges')}
               </button>
             </div>
 
             {/* Mot de passe */}
-            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
-              <h3 className="font-headline-md text-xl mb-6">Changer le mot de passe</h3>
+            <div className="bg-surface p-6 md:p-8 rounded-2xl shadow-sm border border-outline-variant">
+              <h3 className="font-headline-md text-xl mb-6">{t('dashboard.settings.changePassword')}</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Mot de passe actuel</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.currentPassword')}</label>
                   <input 
                     type="password" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Nouveau mot de passe</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.newPassword')}</label>
                   <input 
                     type="password" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-2">Confirmer le mot de passe</label>
+                  <label className="block text-sm font-medium text-on-surface-variant mb-2">{t('dashboard.settings.confirmPassword')}</label>
                   <input 
                     type="password" 
-                    className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-4 py-3 border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-surface-container-low text-on-surface"
                   />
                 </div>
               </div>
-              <button className="mt-6 bg-pink-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-pink-700 transition-colors">
-                Changer le mot de passe
+              <button className="btn-primary mt-6">
+                {t('dashboard.settings.changePassword')}
               </button>
             </div>
 
             {/* Préférences */}
-            <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100">
-              <h3 className="font-headline-md text-xl mb-6">Préférences</h3>
+            <div className="bg-surface p-6 md:p-8 rounded-2xl shadow-sm border border-outline-variant">
+              <h3 className="font-headline-md text-xl mb-6">{t('dashboard.settings.preferences')}</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-slate-900">Newsletter</h4>
-                    <p className="text-sm text-slate-500">Recevoir les dernières nouveautés et offres</p>
+                    <h4 className="font-medium text-on-surface">{t('dashboard.settings.newsletter')}</h4>
+                    <p className="text-sm text-on-surface-variant">{t('dashboard.settings.newsletterDesc')}</p>
                   </div>
-                  <input type="checkbox" defaultChecked className="w-5 h-5 text-pink-600 rounded" />
+                  <input type="checkbox" defaultChecked className="w-5 h-5 text-primary rounded" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-slate-900">Notifications par email</h4>
-                    <p className="text-sm text-slate-500">Recevoir les mises à jour de commandes</p>
+                    <h4 className="font-medium text-on-surface">{t('dashboard.settings.emailNotifications')}</h4>
+                    <p className="text-sm text-on-surface-variant">{t('dashboard.settings.emailNotificationsDesc')}</p>
                   </div>
-                  <input type="checkbox" defaultChecked className="w-5 h-5 text-pink-600 rounded" />
+                  <input type="checkbox" defaultChecked className="w-5 h-5 text-primary rounded" />
                 </div>
                 <div className="flex items-center justify-between">
                   <div>
-                    <h4 className="font-medium text-slate-900">Notifications SMS</h4>
-                    <p className="text-sm text-slate-500">Recevoir les alertes de livraison</p>
+                    <h4 className="font-medium text-on-surface">{t('dashboard.settings.smsNotifications')}</h4>
+                    <p className="text-sm text-on-surface-variant">{t('dashboard.settings.smsNotificationsDesc')}</p>
                   </div>
-                  <input type="checkbox" className="w-5 h-5 text-pink-600 rounded" />
+                  <input type="checkbox" className="w-5 h-5 text-primary rounded" />
                 </div>
               </div>
             </div>
