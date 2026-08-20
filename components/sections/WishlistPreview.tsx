@@ -19,6 +19,7 @@ const wishlistItems = [
     detail: 'Métal : Or 18k',
     price: 78000,
     image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400',
+ 
   },
   {
     id: 3,
@@ -36,15 +37,17 @@ export default function WishlistPreview() {
 
   return (
     <div className="bg-surface border border-outline-variant/20 p-6 rounded-2xl shadow-ambient">
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-headline-md text-xl">{t('dashboard.wishlist.title')}</h3>
-        <Link className="text-sm font-bold text-primary hover:underline" href={`/${lang}/dashboard/wishlist`}>{t('common.viewAll')}</Link>
-      </div>
-      <div className="flex flex-col gap-6">
-        {wishlistItems.map((item) => (
-          <WishlistItem key={item.id} {...item} />
-        ))}
-      </div>
+        <div className="bg-surface border border-outline-variant/20 p-6 rounded-2xl shadow-ambient">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="font-headline-md text-xl">{t('dashboard.wishlist.title')}</h3>
+            <Link className="text-sm font-bold text-primary hover:underline" href={`/${lang}/dashboard/wishlist`}>{t('common.viewAll')}</Link>
+          </div>
+          <div className="flex flex-col gap-6">
+            {wishlistItems.map((item) => (
+              <WishlistItem key={item.id} {...item} />
+            ))}
+          </div>
+        </div>
     </div>
   );
-}
+};
