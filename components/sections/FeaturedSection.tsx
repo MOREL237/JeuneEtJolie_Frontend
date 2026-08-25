@@ -41,7 +41,7 @@ const DEFAULT_PRODUCTS: FeaturedProduct[] = [
 
 export const FeaturedSection = ({
   title,
-  backgroundImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDDspnpCuTtIqPwJa6OoRIhLdca4ahsigW_HDrYKphFT_r_O51hnmCsKfIcX4Z136PmrpWLcVMUIASwh8nzCvsnZSfJuoLOy8wRAIzl3SF3iOJNuCmL3nJ4UR9wc9UPH1mOryfDpnDCS5F_JVpyLric4EI_ETxSCgq81WT6Ix-C5R4Ne2r-6BLKVh-38isnm0un7nNsRWSGYmcH2dN_wJAnO0sbIJaNRWVM24r51F8Z-kjN6BsELDLot4JtctIJv1OgpgFo1BC2Tno',
+  backgroundImage = 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&h=1080&fit=crop',
   products        = DEFAULT_PRODUCTS,
 }: FeaturedSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);

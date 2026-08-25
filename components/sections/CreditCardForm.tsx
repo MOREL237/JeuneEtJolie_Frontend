@@ -1,4 +1,47 @@
-export default function CreditCardForm() {
+'use client';
+
+interface CreditCardFormProps {
+  paymentMethod?: 'card' | 'mobile' | 'om';
+}
+
+export default function CreditCardForm({ paymentMethod = 'card' }: CreditCardFormProps) {
+  if (paymentMethod === 'mobile') {
+    return (
+      <div className="max-w-md mx-auto space-y-6">
+        <div className="relative">
+          <label className="text-xs font-label-md text-on-surface-variant uppercase mb-2 block">
+            Numéro de téléphone
+          </label>
+          <input 
+            className="w-full bg-background border border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
+            placeholder="+225 XX XX XX XX" 
+            type="tel"
+          />
+        </div>
+        <p className="text-sm text-on-surface-variant">Vous recevrez une demande de confirmation sur votre téléphone.</p>
+      </div>
+    );
+  }
+
+  if (paymentMethod === 'om') {
+    return (
+      <div className="max-w-md mx-auto space-y-6">
+        <div className="relative">
+          <label className="text-xs font-label-md text-on-surface-variant uppercase mb-2 block">
+            Numéro Orange Money
+          </label>
+          <input 
+            className="w-full bg-background border border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
+            placeholder="+225 XX XX XX XX" 
+            type="tel"
+          />
+        </div>
+        <p className="text-sm text-on-surface-variant">Vous recevrez une demande de confirmation sur votre compte Orange Money.</p>
+      </div>
+    );
+  }
+
+  // Default: Carte Bancaire
   return (
     <div className="max-w-md mx-auto space-y-6">
       <div className="relative">
@@ -6,7 +49,7 @@ export default function CreditCardForm() {
           Numéro de Carte
         </label>
         <input 
-          className="w-full bg-background border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
+          className="w-full bg-background border border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
           placeholder="0000 0000 0000 0000" 
           type="text"
         />
@@ -21,7 +64,7 @@ export default function CreditCardForm() {
             Expiration
           </label>
           <input 
-            className="w-full bg-background border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
+            className="w-full bg-background border border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
             placeholder="MM/YY" 
             type="text"
           />
@@ -31,7 +74,7 @@ export default function CreditCardForm() {
             CVV
           </label>
           <input 
-            className="w-full bg-background border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
+            className="w-full bg-background border border-outline-variant rounded-md px-4 py-3 focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all" 
             placeholder="123" 
             type="text"
           />

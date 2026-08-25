@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PromoBanner } from '@/components/layout/PromoBanner';
 import TopNavBar from '@/components/layout/TopNavBar';
 import { Breadcrumb } from '@/components/sections/Breadcrumb';
@@ -18,7 +19,7 @@ const breadcrumbItems = [
   { label: 'Robes de Soirée' },
 ];
 
-const productImages = [
+const defaultProductImages = [
   'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800',
   'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=800',
   'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=800',
@@ -140,6 +141,13 @@ const relatedProducts = [
 ];
 
 export default function ProductPage() {
+  const searchParams = useSearchParams();
+  const imageParam = searchParams.get('image');
+  
+  // Si une image est passée en param, utilise-la comme première image
+  const productImages = imageParam 
+    ? [imageParam, ...defaultProductImages.slice(1)]
+    : defaultProductImages;
   return (
     <>
       <PromoBanner />

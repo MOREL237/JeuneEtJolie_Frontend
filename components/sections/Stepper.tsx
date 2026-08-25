@@ -1,14 +1,24 @@
+'use client';
+
+import { useParams } from 'next/navigation';
+import { useTranslation } from '@/hooks/useTranslation';
+
 interface StepperProps {
   currentStep: number;
 }
 
-const steps = [
-  { id: 1, label: 'Adresse' },
-  { id: 2, label: 'Livraison' },
-  { id: 3, label: 'Paiement' },
-];
-
 export default function Stepper({ currentStep }: StepperProps) {
+  const { t } = useTranslation();
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+  const isEnglish = lang === 'en';
+
+  const steps = [
+    { id: 1, label: isEnglish ? t('checkout.steps.address') : t('checkout.steps.address') },
+    { id: 2, label: isEnglish ? t('checkout.steps.delivery') : t('checkout.steps.delivery') },
+    { id: 3, label: isEnglish ? t('checkout.steps.payment') : t('checkout.steps.payment') },
+  ];
+
   return (
     <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-6 lg:space-x-8">
       {steps.map((step, index) => (

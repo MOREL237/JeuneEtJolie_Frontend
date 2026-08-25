@@ -25,41 +25,43 @@ export default async function HomePage({
   const { lang } = await params;
   const dict = await getDictionary(lang);
 
+  const isEnglish = lang === 'en';
+
   const nouveautes = [
     {
       id: '1',
-      name: 'Veste Tailleur "Heritage"',
-      description: 'Coupe structurée en lin texturé, doublure soie imprimée wax.',
+      name: isEnglish ? dict.products.heritage.name : dict.products.heritage.name,
+      description: isEnglish ? dict.products.heritage.description : dict.products.heritage.description,
       price: 45000,
       image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600',
-      badge: 'Exclusivité',
+      badge: isEnglish ? 'Exclusive' : 'Exclusivité',
       badgeVariant: 'primary' as const,
     },
     {
       id: '2',
-      name: 'Robe Midi "Sahara Pearl"',
-      description: 'Mousseline légère ivoire, broderies dorées aux épaules.',
+      name: isEnglish ? dict.products.saharaPearl.name : dict.products.saharaPearl.name,
+      description: isEnglish ? dict.products.saharaPearl.description : dict.products.saharaPearl.description,
       price: 32500,
       image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600',
-      badge: 'Nouveauté',
+      badge: isEnglish ? 'New' : 'Nouveauté',
       badgeVariant: 'secondary' as const,
     },
     {
       id: '3',
-      name: 'Coffret Foulard Soie',
-      description: 'Soie naturelle 90×90 cm, motifs géométriques inspirés du kente.',
+      name: isEnglish ? dict.products.silkScarf.name : dict.products.silkScarf.name,
+      description: isEnglish ? dict.products.silkScarf.description : dict.products.silkScarf.description,
       price: 18000,
       image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600',
-      badge: 'Accessoires',
+      badge: isEnglish ? 'Accessories' : 'Accessoires',
       badgeVariant: 'tertiary' as const,
     },
     {
       id: '4',
-      name: 'Combinaison "Nuit d\'Abidjan"',
-      description: 'Satin crêpe noir, décolleté dos-nu et ceinture tressée dorée.',
+      name: isEnglish ? dict.products.nightAbidjan.name : dict.products.nightAbidjan.name,
+      description: isEnglish ? dict.products.nightAbidjan.description : dict.products.nightAbidjan.description,
       price: 55000,
       image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600',
-      badge: 'Limité',
+      badge: isEnglish ? 'Limited' : 'Limité',
       badgeVariant: 'neutral' as const,
     },
   ];
@@ -74,8 +76,8 @@ export default async function HomePage({
         <TrustBar />
         <CategoryGrid />
         <ProductSection
-          title="Nouveautés"
-          subtitle="Dernières arrivées de notre atelier"
+          title={dict.homepage.newArrivals}
+          subtitle={dict.homepage.newArrivalsSubtitle}
           products={nouveautes}
         />
         <FeaturedSection />

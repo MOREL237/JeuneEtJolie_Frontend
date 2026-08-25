@@ -201,7 +201,18 @@
     "shippingAddress": "Shipping Address",
     "newAddress": "New address",
     "secureDelivery": "Secure home delivery",
-    "orderSummary": "Order Summary"
+    "orderSummary": "Order Summary",
+    "shippingAddressTitle": "① Shipping Address",
+    "deliveryModeTitle": "② Delivery Method",
+    "paymentTitle": "③ Payment",
+    "editAddress": "Edit",
+    "addNewAddress": "Add new address",
+    "standardDelivery": "Standard (3-5 days)",
+    "standardDeliveryDesc": "Secure home delivery",
+    "expressDelivery": "Express (24h)",
+    "expressDeliveryDesc": "Maximum priority, delivery the next day",
+    "paymentAtDelivery": "Pay on Delivery",
+    "paymentAtDeliveryDesc": "You will pay on delivery. No payment information is required."
   },
   "dashboard": {
     "welcome": "Hello",
@@ -396,9 +407,9 @@
     "heroSubtitle": "Up to -70% on an exceptional selection",
     "heroCountdownLabel": "Offer ends in:",
     "heroCta": "VIEW ALL OFFERS",
-    "statsArticles": "Sale items",
-    "statsDiscount": "Immediate discount",
-    "statsShipping": "From 30,000 FCFA",
+    "statsArticles": "Items on sale",
+    "statsDiscount": "Up to 70% off",
+    "statsShipping": "Free shipping from 30,000 FCFA",
     "filterReduction": "Discount",
     "filterCategories": "Categories",
     "filterSortBy": "Sort by:",
@@ -467,6 +478,14 @@
   "lookCard": {
     "discover": "Discover"
   },
+  "looksSection": {
+    "title": "These accessories will look wonderful with...",
+    "looks": {
+      "look1": "Pure Elegance",
+      "look2": "The Businesswoman",
+      "look3": "Royal Evening"
+    }
+  },
   "collections": {
     "title": "Collections",
     "subtitle": "The sacred union of ancestral craftsmanship and contemporary elegance.",
@@ -476,11 +495,105 @@
     "heritageWax": "Wax Heritage",
     "essentials": "Essentials"
   },
-  "cartItem": {
+  "upsellProducts": {
+    "title": "You might also like",
+    "subtitle": "Discover our signature pieces to complete your look."
+  },
+  "cartActions": {
     "decreaseQty": "Decrease quantity",
     "increaseQty": "Increase quantity",
     "removeItem": "Remove item",
     "perPiece": "/ piece",
     "delete": "Delete"
+  },
+  "products": {
+    "heritage": {
+      "name": "Heritage Blazer",
+      "description": "Structured cut in textured linen, printed wax lining."
+    },
+    "saharaPearl": {
+      "name": "Sahara Pearl Dress",
+      "description": "Light ivory mousseline, gold embroidery on the shoulders."
+    },
+    "silkScarf": {
+      "name": "Silk Scarf Set",
+      "description": "Natural silk 90×90 cm, geometric patterns inspired by kente."
+    },
+    "nightAbidjan": {
+      "name": "Abidjan Night Jumpsuit",
+      "description": "Black satin crepe, plunging back neckline and gold braided belt."
+    },
+    "royalPearls": {
+      "name": "Royal Pearls Necklace",
+      "description": "Elegant pearl necklace"
+    },
+    "ndopBag": {
+      "name": "Ndop Woven Bag",
+      "description": "Traditional woven bag"
+    },
+    "waxBelt": {
+      "name": "Gold Wax Belt",
+      "description": "Traditional patterned belt"
+    },
+    "silkScarf2": {
+      "name": "Printed Silk Scarf",
+      "description": "Vibrant silk scarf"
+    },
+    "kenteEarrings": {
+      "name": "Kente Earrings",
+      "description": "Traditional patterned earrings"
+    },
+    "embroideredClutch": {
+      "name": "Embroidered Clutch Bag",
+      "description": "Artisanal clutch bag"
+    },
+    "traditionalHeadwrap": {
+      "name": "Traditional Headwrap",
+      "description": "Authentic traditional headwrap"
+    },
+    "braiedBracelet": {
+      "name": "Braided Leather Bracelet",
+      "description": "Handcrafted leather bracelet"
+    },
+    "redWaxDress": {
+      "name": "Red Wax Long Dress",
+      "description": "Long red wax dress"
+    },
+    "embroideredCocktailDress": {
+      "name": "Embroidered Cocktail Dress",
+      "description": "Elegant cocktail dress with embroidery"
+    },
+    "modernPagneEnsemble": {
+      "name": "Modern Pagne Ensemble",
+      "description": "Contemporary pagne ensemble"
+    },
+    "premiumKenteSuit": {
+      "name": "Premium Kente Suit",
+      "description": "Luxury kente patterned suit"
+    },
+    "printedLeatherBag": {
+      "name": "Printed Leather Bag",
+      "description": "Artisanal printed leather bag"
+    },
+    "traditionalWeddingDress": {
+      "name": "Traditional Wedding Dress",
+      "description": "Elegant traditional wedding dress"
+    },
+    "tieDyeBlouse": {
+      "name": "Tie-Dye Blouse",
+      "description": "Vibrant tie-dye blouse"
+    },
+    "wrapSkirt": {
+      "name": "Wrap Skirt",
+      "description": "Versatile wrap skirt"
+    },
+    "eveningAzureDress": {
+      "name": "Azure Evening Dress",
+      "description": "Elegant evening dress in azure blue"
+    },
+    "ivoryBlazer": {
+      "name": "Ivory Blazer",
+      "description": "Classic ivory tailored blazer"
+    }
   }
 }

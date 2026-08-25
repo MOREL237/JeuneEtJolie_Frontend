@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface LookCardProps {
@@ -32,10 +33,10 @@ export const LookCard = ({ number, title, image }: LookCardProps) => {
         <h3 className="text-xl md:text-2xl font-headline-md mb-4">
           {title}
         </h3>
-        <button className="bg-surface text-on-surface px-6 py-3 rounded-xl font-bold hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2">
+        <Link href="/catalogue" className="inline-block bg-surface text-on-surface px-6 py-3 rounded-xl font-bold hover:bg-primary/10 hover:text-primary transition-colors flex items-center gap-2">
           {t('lookCard.discover')}
           <span className="material-symbols-outlined text-lg">arrow_forward</span>
-        </button>
+        </Link>
       </div>
     </div>
   );

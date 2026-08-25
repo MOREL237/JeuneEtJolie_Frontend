@@ -3,6 +3,7 @@
 
 import { ProductCard } from "../shared/ProductCard";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useParams } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 
 interface SaleProduct {
@@ -53,12 +54,20 @@ const defaultProducts: SaleProduct[] = [
 ];
 
 export const SaleSection = ({
-  title = "Soldes jusqu'à -50%",
-  subtitle = "Ne manquez pas nos offres exceptionnelles sur une sélection d'articles.",
+  title,
+  subtitle,
   products = defaultProducts,
   countdown = { days: 2, hours: 14, minutes: 35 },
 }: SaleSectionProps) => {
   const { t } = useTranslation();
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+
+  const isEnglish = lang === 'en';
+  const displayTitle = title || (isEnglish ? 'Sales up to -50%' : "Soldes jusqu'à -50%");
+  const displaySubtitle = subtitle || (isEnglish 
+    ? 'Do not miss our exceptional offers on a selection of items.'
+    : 'Ne manquez pas nos offres exceptionnelles sur une sélection d\'articles.');
   
   return (
     <section className="relative py-16 md:py-20 lg:py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-white overflow-hidden">
@@ -75,16 +84,16 @@ export const SaleSection = ({
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 md:mb-16 gap-8">
           <div className="max-w-2xl">
             <h2 className="font-headline-lg text-3xl md:text-4xl lg:text-5xl text-white mb-4 md:mb-5">
-              {title}
+              {displayTitle}
             </h2>
             <p className="text-base md:text-lg text-slate-300 mb-6">
-              {subtitle}
+              {displaySubtitle}
             </p>
             <a 
-              href="/fr/soldes" 
+              href={`/${lang}/soldes`}
               className="inline-flex items-center gap-2 text-primary-300 hover:text-primary-200 font-label-md transition-colors group"
             >
-              {t("common.viewAll") || "Voir toutes les offres"}
+              {t("common.viewAll") || (isEnglish ? "View all offers" : "Voir toutes les offres")}
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
           </div>
@@ -92,9 +101,9 @@ export const SaleSection = ({
           {/* Countdown */}
           <div className="flex gap-3 md:gap-4 items-center bg-slate-800/50 backdrop-blur-sm rounded-2xl p-6 border border-slate-700/50">
             {[
-              { value: countdown.days, label: t("countdown.days") || "Jours" },
-              { value: countdown.hours, label: t("countdown.hours") || "Heures" },
-              { value: countdown.minutes, label: t("countdown.minutes") || "Minutes" },
+              { value: countdown.days, label: t("countdown.days") || (isEnglish ? "Days" : "Jours") },
+              { value: countdown.hours, label: t("countdown.hours") || (isEnglish ? "Hours" : "Heures") },
+              { value: countdown.minutes, label: t("countdown.minutes") || (isEnglish ? "Minutes" : "Minutes") },
             ].map((item, index, arr) => (
               <div key={item.label} className="flex items-center gap-3">
                 <div className="flex flex-col items-center">

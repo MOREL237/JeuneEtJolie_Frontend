@@ -201,7 +201,18 @@
     "shippingAddress": "Adresse de Livraison",
     "newAddress": "Nouvelle adresse",
     "secureDelivery": "Livraison sécurisée à domicile",
-    "orderSummary": "Récapitulatif"
+    "orderSummary": "Récapitulatif",
+    "shippingAddressTitle": "① Adresse de Livraison",
+    "deliveryModeTitle": "② Mode de Livraison",
+    "paymentTitle": "③ Paiement",
+    "editAddress": "Modifier",
+    "addNewAddress": "Ajouter une nouvelle adresse",
+    "standardDelivery": "Standard (3-5j)",
+    "standardDeliveryDesc": "Livraison sécurisée à domicile",
+    "expressDelivery": "Express (24h)",
+    "expressDeliveryDesc": "Priorité maximale, livraison le lendemain",
+    "paymentAtDelivery": "Paiement à la livraison",
+    "paymentAtDeliveryDesc": "Vous paierez à la livraison. Aucune information de paiement n'est requise."
   },
   "dashboard": {
     "welcome": "Bonjour",
@@ -468,6 +479,14 @@
   "lookCard": {
     "discover": "Découvrir"
   },
+  "looksSection": {
+    "title": "Ces accessoires vous iront à merveille avec...",
+    "looks": {
+      "look1": "L'Elegance Pure",
+      "look2": "La Femme d'Affaires",
+      "look3": "Soirée Royale"
+    }
+  },
   "collections": {
     "title": "Collections",
     "subtitle": "L'union sacrée de l'artisanat ancestral et de l'élégance contemporaine.",
@@ -477,11 +496,105 @@
     "heritageWax": "Héritage Wax",
     "essentials": "Essentiels"
   },
-  "cartItem": {
+  "upsellProducts": {
+    "title": "Vous aimerez aussi",
+    "subtitle": "Découvrez nos pièces iconiques en parallèle des soldes."
+  },
+  "cartActions": {
     "decreaseQty": "Diminuer la quantité",
     "increaseQty": "Augmenter la quantité",
     "removeItem": "Retirer l'article",
     "perPiece": "/ pièce",
     "delete": "Supprimer"
+  },
+  "products": {
+    "heritage": {
+      "name": "Veste Tailleur Heritage",
+      "description": "Coupe structurée en lin texturé, doublure soie imprimée wax."
+    },
+    "saharaPearl": {
+      "name": "Robe Midi Sahara Pearl",
+      "description": "Mousseline légère ivoire, broderies dorées aux épaules."
+    },
+    "silkScarf": {
+      "name": "Coffret Foulard Soie",
+      "description": "Soie naturelle 90×90 cm, motifs géométriques inspirés du kente."
+    },
+    "nightAbidjan": {
+      "name": "Combinaison Nuit d'Abidjan",
+      "description": "Satin crêpe noir, décolleté dos-nu et ceinture tressée dorée."
+    },
+    "royalPearls": {
+      "name": "Collier Perles Royales",
+      "description": "Collier en perles élégant"
+    },
+    "ndopBag": {
+      "name": "Sac Tissé Ndop",
+      "description": "Sac tissé traditionnel"
+    },
+    "waxBelt": {
+      "name": "Ceinture Wax Dorée",
+      "description": "Ceinture aux motifs traditionnels"
+    },
+    "silkScarf2": {
+      "name": "Foulard Soie Imprimé",
+      "description": "Foulard en soie vibrant"
+    },
+    "kenteEarrings": {
+      "name": "Boucles d'Oreilles Kente",
+      "description": "Boucles aux motifs traditionnels"
+    },
+    "embroideredClutch": {
+      "name": "Sac Clutch Brodé",
+      "description": "Sac clutch artisanal"
+    },
+    "traditionalHeadwrap": {
+      "name": "Coiffe Traditionnelle",
+      "description": "Coiffe traditionnelle authentique"
+    },
+    "braiedBracelet": {
+      "name": "Bracelet Cuir Tressé",
+      "description": "Bracelet en cuir fait à la main"
+    },
+    "redWaxDress": {
+      "name": "Robe Longue Wax Rouge",
+      "description": "Robe longue en wax rouge"
+    },
+    "embroideredCocktailDress": {
+      "name": "Robe Cocktail Brodée",
+      "description": "Robe cocktail élégante avec broderies"
+    },
+    "modernPagneEnsemble": {
+      "name": "Ensemble Pagne Moderne",
+      "description": "Ensemble pagne contemporain"
+    },
+    "premiumKenteSuit": {
+      "name": "Tailleur Kente Premium",
+      "description": "Tailleur de luxe aux motifs kente"
+    },
+    "printedLeatherBag": {
+      "name": "Sac Cuir Imprimé",
+      "description": "Sac en cuir imprimé artisanal"
+    },
+    "traditionalWeddingDress": {
+      "name": "Robe Mariage Traditionnelle",
+      "description": "Robe de mariage élégante et traditionnelle"
+    },
+    "tieDyeBlouse": {
+      "name": "Blouse Tie-Dye",
+      "description": "Blouse tie-dye vibrant"
+    },
+    "wrapSkirt": {
+      "name": "Jupe Portefeuille",
+      "description": "Jupe portefeuille polyvalente"
+    },
+    "eveningAzureDress": {
+      "name": "Robe de Soirée Azur",
+      "description": "Robe de soirée élégante bleu azur"
+    },
+    "ivoryBlazer": {
+      "name": "Veste Tailleur Ivoire",
+      "description": "Veste tailleur classique ivoire"
+    }
   }
 }

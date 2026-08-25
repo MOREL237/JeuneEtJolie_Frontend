@@ -19,6 +19,7 @@ export default function SavedAddressCard({
     }`}>
       <input 
         checked={isSelected} 
+        readOnly
         className="sr-only" 
         name="address" 
         type="radio" 

@@ -6,7 +6,7 @@
 
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TiltCard } from '@/components/3d/TiltCard';
 import { useTranslation } from '@/hooks/useTranslation';
 import { ArrowRight } from 'lucide-react';
@@ -26,43 +26,50 @@ interface CategoryGridProps {
 export const CategoryGrid = ({ categories }: CategoryGridProps) => {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const defaultCategories: Category[] = [
     {
       name:        t('categories.dresses') || 'Robes',
-      image:       'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800',
+      image:       'https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.dressesDesc') || 'Robes fluides et structurées pour l\'élégance africaine',
       eyebrow:     t('categories.readyToWear'),
+      href:        '/catalogue',
     },
     {
       name:        t('categories.tops') || 'Hauts',
-      image:       'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=800',
+      image:       'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.topsDesc') || 'Blouses, tops et chemises de caractère',
       eyebrow:     t('categories.readyToWear'),
+      href:        '/catalogue',
     },
     {
       name:        t('categories.pants') || 'Pantalons',
-      image:       'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=800',
+      image:       'https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.pantsDesc') || 'Coupes droites et fluides, du casual au chic',
       eyebrow:     t('categories.readyToWear'),
+      href:        '/catalogue',
     },
     {
       name:        t('categories.bags') || 'Sacs',
-      image:       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800',
+      image:       'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.bagsDesc') || 'Pochettes, totes et sacs signés artisan',
       eyebrow:     t('categories.accessories'),
+      href:        '/catalogue',
     },
     {
       name:        t('categories.jewelry') || 'Bijoux',
-      image:       'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800',
+      image:       'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.jewelryDesc') || 'Or, perles et traditions réinterprétées',
       eyebrow:     t('categories.accessories'),
+      href:        '/catalogue',
     },
     {
       name:        t('categories.shoes') || 'Chaussures',
-      image:       'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=800',
+      image:       'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=800&h=1000&q=80',
       description: t('categories.shoesDesc') || 'Sandales, escarpins et mules artisanales',
       eyebrow:     t('categories.accessories'),
+      href:        '/catalogue',
     },
   ];
 
@@ -116,17 +123,20 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
 
       {/* Grille 6 cartes — 2 col mobile · 3 col desktop */}
       <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-        {items.slice(0, 6).map((cat, idx) => (
+        {items.slice(0, 6).map((cat, idx) => {
+          const fallbackImage = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800'%3E%3Crect fill='%23e5e7eb' width='600' height='800'/%3E%3Ctext x='300' y='400' font-family='serif' font-size='32' fill='%23999' text-anchor='middle' dominant-baseline='middle'%3E${cat.name}%3C/text%3E%3C/svg%3E`;
+          const displayImage = imageErrors[cat.name] ? fallbackImage : cat.image;
+          
+          return (
           <div
             key={cat.name}
-            className="reveal"
             data-reveal=""
             style={{
               aspectRatio: '3/4',
               transitionDelay: `${idx * 60}ms`,
             }}
           >
-            <TiltCard className="h-full rounded-2xl overflow-hidden" maxTilt={10} glare>
+            <TiltCard className="relative h-full rounded-2xl overflow-hidden" maxTilt={10} glare>
               <a
                 href={cat.href ?? '#'}
                 className="group relative block h-full"
@@ -134,15 +144,16 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
               >
                 {/* Image */}
                 <img
-                  src={cat.image}
+                  src={displayImage}
                   alt={cat.name}
+                  onError={() => setImageErrors(prev => ({ ...prev, [cat.name]: true }))}
                   className="absolute inset-0 w-full h-full object-cover
                              transition-transform duration-700 group-hover:scale-108"
                   loading="lazy"
                 />
 
                 {/* Dégradé bas */}
-                <div className="absolute inset-0 bg-gradient-to-t
+                <div className="absolute inset-0 bg-linear-to-t
                                 from-[#060614]/85 via-[#060614]/25 to-transparent" />
 
                 {/* Bouton discret haut-droit */}
@@ -210,7 +221,8 @@ export const CategoryGrid = ({ categories }: CategoryGridProps) => {
               </a>
             </TiltCard>
           </div>
-        ))}
+        );
+        })}
       </div>
     </section>
   );

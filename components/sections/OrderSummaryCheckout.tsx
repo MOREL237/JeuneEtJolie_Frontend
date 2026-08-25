@@ -1,3 +1,5 @@
+'use client';
+
 import OrderItem from './OrderItem';
 import PaymentIcons from './PaymentIcons';
 import { useTranslation } from '@/hooks/useTranslation';
@@ -9,7 +11,7 @@ const orderItems = [
     color: 'Terracotta',
     quantity: 1,
     price: '125 000 FCFA',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD7BmnvjS4x3MYKwPin0IcYgY2cewOUVNvdrb7Ejg5NkAUv8RK6mFDm3_z823Eiq4zLTaR625rFJycaVvt5hWpDcQCi8tUKB-2nj3bp-00dTEx9gMv5fq2jB5nZ003GSMoCI82dJZLWVja6tFyOKvmqlkJCUM4MX9T1vpbhfyKN2Y72-YD1rAL_UZttIQ2TTF8Xv5DSGwcacLJHq55lPYWXHV_r0D7oTzeB5HIHE2LSkELnKacUsBupTOjAYbUjhelSgq0SH_CaJEw',
+    image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=400&fit=crop',
   },
   {
     id: 2,
@@ -17,7 +19,7 @@ const orderItems = [
     color: 'Fuchsia',
     quantity: 1,
     price: '45 000 FCFA',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDkgflePClnwHf66gEPnEN1mrZf2ooDmzyPddYgH8yTSZwGjT1ZieunHWn_1Rd3awYF9YhTFzEUtWbBAo-R79nbCPm_1KpODPWxSGTJCY8p2Uc40jwPQG9Dr0X6O1dhWNpn7_WHVXzCBc-NNaofx8l0AQBxIk8OeGiPwe7tKw7unQdgvQqEE5kQS7TH7rjaJaK_UZwlxKJfWXBaeCLC2muu0NjjNRkN-dZ-MmXy43lHYMoRNt67dEKUg8vjNCXIO8f7Da6igmV93WM',
+    image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?w=300&h=400&fit=crop',
   },
 ];
 

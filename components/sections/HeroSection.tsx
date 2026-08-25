@@ -25,6 +25,8 @@ interface HeroSectionProps {
   height?:          string;
   showButtons?:     boolean;
   backgroundImage?: string;
+  onDiscover?:      () => void;
+  onPromotions?:    () => void;
 }
 
 export const HeroSection = ({
@@ -32,7 +34,9 @@ export const HeroSection = ({
   centered         = false,
   height           = 'h-[100svh] min-h-[600px]',
   showButtons      = true,
-  backgroundImage  = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDUOwFNlfmEHve-9m9oYgu61lnlQBczGQlph5C4WotBh7wYnpiLyZqSFejomZBrgJr4NjAjYhMUtUq5aBW0sK8BB6FQZEZJwFkEJ8lIn0Q8IWRmVOFYp8lsvfahyankBatNsgKkDV8fzeaM7PdDflowkUldCvEgAtJtioGrD6e6U4X_vpBMXpjOeVKBE5yC7oMwEDn_D2UTPVSJXezReOvVK8gDjyGTxPfKacF6xPA_a3UyaRwSuYkYuCSNtK12RxWk4pUO2PqH6ww',
+  backgroundImage  = 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1920&h=1080&fit=crop',
+  onDiscover,
+  onPromotions,
 }: HeroSectionProps) => {
   const { theme } = useTheme();
   const contentRef = useRef<HTMLDivElement>(null);
@@ -74,11 +78,9 @@ export const HeroSection = ({
 
       {/* ── Overlays directionnels ── */}
       {/* Dégradé bas vers haut : ancre le contenu dans l'image */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#060614] via-[#060614]/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#060614]/90 via-[#060614]/40 to-transparent" />
       {/* Dégradé gauche-droite : zone de lecture */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#060614]/80 via-[#060614]/30 to-transparent" />
-      {/* Voile très subtil pour les tons clairs */}
-      <div className="absolute inset-0 bg-[#060614]/20" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#060614]/60 via-transparent to-transparent" />
 
       {/* ── Simulation tissu Three.js ── */}
       {/* pointer-events-none : le canvas est purement décoratif */}
@@ -152,10 +154,16 @@ export const HeroSection = ({
         {/* Boutons CTA */}
         {showButtons && (
           <div className="hero-reveal flex gap-4 md:gap-5 flex-wrap">
-            <button className="btn-primary">
+            <button 
+              onClick={onDiscover}
+              className="btn-primary"
+            >
               {dict.discover}
             </button>
-            <button className="btn-outline border-white/40 text-white hover:border-gold hover:text-gold">
+            <button 
+              onClick={onPromotions}
+              className="btn-outline border-white/40 text-white hover:border-gold hover:text-gold"
+            >
               {dict.promotions}
             </button>
           </div>

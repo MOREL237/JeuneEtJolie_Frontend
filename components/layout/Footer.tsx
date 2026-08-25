@@ -45,7 +45,7 @@ const SOCIAL = [
 const FooterLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
   <a
     href={href}
-    className="text-sm text-on-surface/45 hover:text-primary transition-colors duration-200
+    className="text-sm text-on-surface/70 hover:text-primary transition-colors duration-200
                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
   >
     {children}
@@ -181,7 +181,7 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
 
   /* ── FULL (page d'accueil) ── */
   return (
-    <footer className="bg-[var(--background)] dark:bg-[#060614] border-t border-outline-variant/10 dark:border-white/[0.06]">
+    <footer className="bg-surface-container-high dark:bg-[#060614] border-t border-outline-variant/10 dark:border-white/[0.06]">
       <div className="max-w-[1440px] mx-auto px-6 lg:px-20 pt-20 pb-12">
 
         {/* Ligne supérieure : logo + réseaux */}
@@ -189,7 +189,7 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
                         mb-14 pb-14 border-b border-outline-variant/15 dark:border-white/[0.06]">
           <div className="max-w-xs">
             <h2
-              className="text-on-background dark:text-white/90 mb-3"
+              className="text-on-surface dark:text-white/90 mb-3"
               style={{
                 fontFamily: 'var(--font-cormorant, Georgia, serif)',
                 fontSize: 'clamp(1.8rem, 3vw, 2.8rem)',
@@ -199,7 +199,7 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
             >
               Jeune & Jolie
             </h2>
-            <p className="text-on-surface/45 dark:text-white/35 text-sm leading-relaxed">
+            <p className="text-on-surface/60 dark:text-white/35 text-sm leading-relaxed">
               {t('footer.brand')}
             </p>
           </div>
@@ -209,7 +209,7 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
               <a key={label} href={href} aria-label={label}
                 className="w-10 h-10 rounded-full border border-outline-variant/30 dark:border-white/10
                            flex items-center justify-center
-                           text-on-surface/40 dark:text-white/35
+                           text-on-surface/60 dark:text-white/35
                            hover:text-gold hover:border-gold/40
                            transition-all duration-300
                            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold">
@@ -224,7 +224,7 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
 
           {/* Boutique */}
           <div>
-            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/50 dark:text-white/30 mb-5"
                 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
               {t('footer.shop')}
             </h4>
@@ -235,14 +235,14 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
                 { k: 'promotions',  l: t('footer.promotions')  },
                 { k: 'lookbook',    l: t('footer.lookbook')    },
               ].map(({ k, l }) => (
-                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
+                <li key={k}><FooterLink href={`#${k}`}>{l}</FooterLink></li>
               ))}
             </ul>
           </div>
 
           {/* Aide */}
           <div>
-            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/50 dark:text-white/30 mb-5"
                 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
               {t('footer.help')}
             </h4>
@@ -253,14 +253,14 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
                 { k: 'sizeGuide',       l: t('footer.sizeGuide')       },
                 { k: 'contact',         l: t('footer.contact')         },
               ].map(({ k, l }) => (
-                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
+                <li key={k}><FooterLink href={`#${k}`}>{l}</FooterLink></li>
               ))}
             </ul>
           </div>
 
           {/* La Marque */}
           <div>
-            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/50 dark:text-white/30 mb-5"
                 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
               {t('footer.theBrand')}
             </h4>
@@ -270,14 +270,14 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
                 { k: 'ourWorkshops', l: t('footer.ourWorkshops') },
                 { k: 'legalNotice',  l: t('footer.legalNotice')  },
               ].map(({ k, l }) => (
-                <li key={k}><DarkLink href={`#${k}`}>{l}</DarkLink></li>
+                <li key={k}><FooterLink href={`#${k}`}>{l}</FooterLink></li>
               ))}
             </ul>
           </div>
 
           {/* Paiement + contact */}
           <div>
-            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/30 dark:text-white/30 mb-5"
+            <h4 className="text-[0.6rem] font-semibold tracking-[0.2em] uppercase text-on-surface/50 dark:text-white/30 mb-5"
                 style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
               {t('footer.payment')}
             </h4>
@@ -285,14 +285,14 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
               {PAYMENT_METHODS.map((m) => (
                 <span key={m}
                   className="px-2.5 py-1 rounded border border-outline-variant/20 dark:border-white/10
-                             text-[10px] font-semibold text-on-surface/30 dark:text-white/35 tracking-wide"
+                             text-[10px] font-semibold text-on-surface/50 dark:text-white/35 tracking-wide"
                   style={{ fontFamily: 'var(--font-space-grotesk, sans-serif)' }}>
                   {m}
                 </span>
               ))}
             </div>
             <a href="mailto:contact@jeunejolie.com"
-               className="flex items-center gap-2 text-sm text-on-surface/35 dark:text-white/35
+               className="flex items-center gap-2 text-sm text-on-surface/60 dark:text-white/35
                           hover:text-gold transition-colors duration-200">
               <Mail size={13} strokeWidth={1.5} />
               contact@jeunejolie.com
@@ -303,14 +303,14 @@ export const Footer = ({ variant = 'full' }: FooterProps) => {
         {/* Bas de footer */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4
                         pt-8 border-t border-outline-variant/10 dark:border-white/[0.06]">
-          <p className="text-on-surface/20 dark:text-white/20 text-xs tracking-wide text-center sm:text-left">
+          <p className="text-on-surface/60 dark:text-white/40 text-xs tracking-wide text-center sm:text-left">
             {t('footer.copyrightFull')}
           </p>
           <div className="flex gap-6">
-            <a href="#legal"   className="text-on-surface/20 dark:text-white/20 text-xs hover:text-primary dark:hover:text-white/50 transition-colors">
+            <a href="#legal"   className="text-on-surface/60 dark:text-white/40 text-xs hover:text-primary dark:hover:text-white/70 transition-colors">
               {t('footer.legalNotice')}
             </a>
-            <a href="#privacy" className="text-on-surface/20 dark:text-white/20 text-xs hover:text-primary dark:hover:text-white/50 transition-colors">
+            <a href="#privacy" className="text-on-surface/60 dark:text-white/40 text-xs hover:text-primary dark:hover:text-white/70 transition-colors">
               {t('footer.privacyPolicy')}
             </a>
           </div>

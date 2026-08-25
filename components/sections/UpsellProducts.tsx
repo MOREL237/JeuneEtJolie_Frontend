@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 import { UpsellCard } from './UpsellCard';
 
@@ -21,12 +22,15 @@ interface UpsellProductsProps {
 }
 
 export const UpsellProducts = ({
-  title = 'Vous oubliez peut-être',
+  title = 'Vous aimerez aussi',
   subtitle = 'Complétez votre look avec notre sélection exclusive.',
   products,
   onQuickAdd,
   currency = 'FCFA',
 }: UpsellProductsProps) => {
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+
   return (
     <section className="mt-12 md:mt-16">
       <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-6 md:mb-8">
@@ -35,10 +39,10 @@ export const UpsellProducts = ({
           {subtitle && <p className="text-sm md:text-base text-outline mt-2">{subtitle}</p>}
         </div>
         <a
-          href="/fr/catalogue"
+          href={`/${lang}/catalogue`}
           className="text-primary text-sm md:text-base font-bold flex items-center gap-2 hover:translate-x-2 transition-transform"
         >
-          Voir tout <ArrowRight className="w-4 h-4" />
+          {lang === 'en' ? 'View all' : 'Voir tout'} <ArrowRight className="w-4 h-4" />
         </a>
       </div>
 

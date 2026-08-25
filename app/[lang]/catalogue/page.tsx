@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { PromoBanner } from '@/components/layout/PromoBanner';
 import TopNavBar from '@/components/layout/TopNavBar';
 import { Breadcrumb } from '@/components/sections/Breadcrumb';
@@ -10,33 +11,15 @@ import { FilterSidebar } from '@/components/sections/FilterSidebar';
 import { ProductGrid } from '@/components/sections/ProductGrid';
 import { Pagination } from '@/components/sections/Pagination';
 import { Footer } from '@/components/layout/Footer';
-
-const breadcrumbItems = [
-  { label: 'Accueil', href: '/fr' },
-  { label: 'Prêt-à-porter', href: '/fr/catalogue' },
-  { label: 'Robes' },
-];
-
-const filterGroups = [
-  {
-    title: 'Catégories',
-    type: 'checkbox' as const,
-    options: [
-      { label: 'Toutes les robes', value: 'all' },
-      { label: "Robes d'été", value: 'summer' },
-      { label: 'Maxi Robes', value: 'maxi' },
-      { label: 'Robes de Soirée', value: 'evening' },
-    ],
-  },
-];
+import { useTranslation } from '@/hooks/useTranslation';
 
 const products = [
   {
     id: '1',
-    name: 'Robe Silk Sunset',
+    name: 'Silk Sunset Dress',
     price: 85000,
     image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600',
-    badge: 'Nouveauté',
+    badge: 'New',
     badgeVariant: 'primary' as const,
     rating: 5,
     reviews: 12,
@@ -44,7 +27,7 @@ const products = [
   },
   {
     id: '2',
-    name: 'Robe Royale Indigo',
+    name: 'Indigo Royal Dress',
     price: 64000,
     originalPrice: 80000,
     image: 'https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600',
@@ -56,7 +39,7 @@ const products = [
   },
   {
     id: '3',
-    name: 'Légèreté de Coton',
+    name: 'Cotton Lightness',
     price: 45000,
     image: 'https://images.unsplash.com/photo-1601924994987-69e26d50dc26?w=600',
     rating: 5,
@@ -65,7 +48,7 @@ const products = [
   },
   {
     id: '4',
-    name: 'Robe Géométrie Dorée',
+    name: 'Golden Geometry Dress',
     price: 110000,
     image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600',
     rating: 4,
@@ -73,10 +56,10 @@ const products = [
   },
   {
     id: '5',
-    name: 'Robe Fleur de Savane',
+    name: 'Savanna Flower Dress',
     price: 58000,
     image: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600',
-    badge: 'Nouveauté',
+    badge: 'New',
     badgeVariant: 'primary' as const,
     rating: 5,
     reviews: 42,
@@ -84,7 +67,7 @@ const products = [
   },
   {
     id: '6',
-    name: 'Robe Émeraude de Nuit',
+    name: 'Emerald Night Dress',
     price: 92000,
     image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600',
     rating: 4,
@@ -92,11 +75,36 @@ const products = [
   },
 ];
 
-const CATEGORIES = ['Toutes', 'Robes d\'été', 'Maxi Robes', 'Robes de Soirée'];
-
 export default function CataloguePage() {
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+  const { t } = useTranslation();
+
+  const breadcrumbItems = [
+    { label: lang === 'en' ? 'Home' : 'Accueil', href: `/${lang}` },
+    { label: lang === 'en' ? 'Ready-to-Wear' : 'Prêt-à-porter', href: `/${lang}/catalogue` },
+    { label: lang === 'en' ? 'Dresses' : 'Robes' },
+  ];
+
+  const filterGroups = [
+    {
+      title: lang === 'en' ? 'Categories' : 'Catégories',
+      type: 'checkbox' as const,
+      options: [
+        { label: lang === 'en' ? 'All dresses' : 'Toutes les robes', value: 'all' },
+        { label: lang === 'en' ? 'Summer Dresses' : "Robes d'été", value: 'summer' },
+        { label: lang === 'en' ? 'Maxi Dresses' : 'Maxi Robes', value: 'maxi' },
+        { label: lang === 'en' ? 'Evening Dresses' : 'Robes de Soirée', value: 'evening' },
+      ],
+    },
+  ];
+
+  const categories = lang === 'en' 
+    ? ['All', 'Summer Dresses', 'Maxi Dresses', 'Evening Dresses']
+    : ['Toutes', 'Robes d\'été', 'Maxi Robes', 'Robes de Soirée'];
+
   const [activeFilters,   setActiveFilters]   = useState<string[]>([]);
-  const [activeCategory,  setActiveCategory]  = useState('Toutes');
+  const [activeCategory,  setActiveCategory]  = useState(categories[0]);
   const [priceRange,      setPriceRange]      = useState<[number, number]>([0, 150000]);
   const [currentPage,     setCurrentPage]     = useState(1);
 
@@ -116,7 +124,6 @@ export default function CataloguePage() {
     setPriceRange([min, max]);
   };
 
-  /* Filtre produits selon le range de prix */
   const filteredProducts = products.filter(
     (p) => p.price >= priceRange[0] && p.price <= priceRange[1]
   );
@@ -133,7 +140,7 @@ export default function CataloguePage() {
 
         {/* Barre de filtres catégorie + tri */}
         <FilterBar
-          categories={CATEGORIES}
+          categories={categories}
           totalItems={filteredProducts.length}
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
@@ -153,8 +160,8 @@ export default function CataloguePage() {
           />
 
           <ProductGrid
-            title="Robes"
-            subtitle={`${filteredProducts.length} articles — tradition & modernité`}
+            title={lang === 'en' ? 'Dresses' : 'Robes'}
+            subtitle={lang === 'en' ? `${filteredProducts.length} items — tradition & modernity` : `${filteredProducts.length} articles — tradition & modernité`}
             products={filteredProducts}
             activeFilters={activeFilters}
             onRemoveFilter={handleRemoveFilter}

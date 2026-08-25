@@ -1,7 +1,7 @@
 // components/sections/SaleProductFilters.tsx
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -18,6 +18,54 @@ interface SaleProductFiltersProps {
   onCategoryChange?: (value: string) => void;
   onSortChange?: (value: string) => void;
 }
+
+const CustomSelect = ({ 
+  options, 
+  value, 
+  onChange, 
+  label 
+}: { 
+  options: FilterOption[], 
+  value: string, 
+  onChange: (v: string) => void,
+  label: string
+}) => {
+  const [open, setOpen] = useState(false);
+  
+  return (
+    <div className="relative">
+      <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60 block mb-2">
+        {label}
+      </label>
+      <button
+        onClick={() => setOpen(!open)}
+        className="flex items-center justify-between w-full px-4 py-2 bg-surface-container border border-outline-variant rounded-lg text-on-surface hover:border-outline transition-colors"
+      >
+        <span>{options.find(o => o.value === value)?.label || label}</span>
+        <ChevronDown size={16} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-surface-container border border-outline-variant rounded-lg shadow-lg z-10">
+          {options.map((opt) => (
+            <button
+              key={opt.value}
+              onClick={() => {
+                onChange(opt.value);
+                setOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 hover:bg-surface-container-high transition-colors ${
+                value === opt.value ? 'bg-primary/10 text-primary font-semibold' : 'text-on-surface'
+              }`}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 export const SaleProductFilters = ({
   reductionFilter = 'all',
@@ -51,71 +99,34 @@ export const SaleProductFilters = ({
   ];
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-6 mb-12 border-b border-outline-variant pb-8">
+    <div className="sticky top-20 z-40 bg-background py-4 mb-8 border-b border-outline-variant pb-8 flex flex-wrap items-end justify-between gap-6">
       {/* Left side filters */}
-      <div className="flex items-center space-x-8">
+      <div className="flex items-end space-x-8">
         {/* Reduction filter */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60">
-            {t('sale.filterReduction')}
-          </label>
-          <div className="relative">
-            <select
-              value={reductionFilter}
-              onChange={(e) => onReductionChange?.(e.target.value)}
-              className="border-0 bg-transparent font-sans-lato text-sm focus:ring-0 p-0 cursor-pointer text-on-surface appearance-none pr-6"
-            >
-              {reductionOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant/60 pointer-events-none" />
-          </div>
-        </div>
+        <CustomSelect
+          options={reductionOptions}
+          value={reductionFilter}
+          onChange={onReductionChange || (() => {})}
+          label={t('sale.filterReduction')}
+        />
 
         {/* Category filter */}
-        <div className="flex flex-col space-y-2">
-          <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60">
-            {t('sale.filterCategories')}
-          </label>
-          <div className="relative">
-            <select
-              value={categoryFilter}
-              onChange={(e) => onCategoryChange?.(e.target.value)}
-              className="border-0 bg-transparent font-sans-lato text-sm focus:ring-0 p-0 cursor-pointer text-on-surface appearance-none pr-6"
-            >
-              {categoryOptions.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant/60 pointer-events-none" />
-          </div>
-        </div>
+        <CustomSelect
+          options={categoryOptions}
+          value={categoryFilter}
+          onChange={onCategoryChange || (() => {})}
+          label={t('sale.filterCategories')}
+        />
       </div>
 
       {/* Right side sort */}
-      <div className="flex items-center space-x-4">
-        <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60">
-          {t('sale.filterSortBy')}
-        </label>
-        <div className="relative">
-          <select
-            value={sortBy}
-            onChange={(e) => onSortChange?.(e.target.value)}
-            className="border-0 bg-transparent font-sans-lato text-sm focus:ring-0 p-0 cursor-pointer text-on-surface appearance-none pr-6"
-          >
-            {sortOptions.map((opt) => (
-              <option key={opt.value} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 text-on-surface-variant/60 pointer-events-none" />
-        </div>
+      <div className="flex items-end">
+        <CustomSelect
+          options={sortOptions}
+          value={sortBy}
+          onChange={onSortChange || (() => {})}
+          label={t('sale.filterSortBy')}
+        />
       </div>
     </div>
   );

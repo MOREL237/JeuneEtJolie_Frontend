@@ -2,6 +2,7 @@
 'use client';
 
 import React from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface StatItem {
@@ -18,10 +19,14 @@ export const SaleStatsBanner = ({
   stats,
 }: SaleStatsBannerProps) => {
   const { t } = useTranslation();
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+  const isEnglish = lang === 'en';
+
   const defaultStats: StatItem[] = [
-    { value: '+200', label: t('sale.statsArticles'), color: 'text-primary' },
-    { value: "Jusqu'à -70%", label: t('sale.statsDiscount'), color: 'text-sale-red' },
-    { value: 'LIVRAISON OFFERTE', label: t('sale.statsShipping'), color: 'text-gold' },
+    { value: '+200', label: isEnglish ? 'Items on sale' : t('sale.statsArticles'), color: 'text-primary' },
+    { value: isEnglish ? 'Up to 70% off' : "Jusqu'à -70%", label: isEnglish ? 'Immediate savings' : t('sale.statsDiscount'), color: 'text-sale-red' },
+    { value: isEnglish ? 'FREE SHIPPING' : 'LIVRAISON OFFERTE', label: isEnglish ? 'From 30,000 FCFA' : t('sale.statsShipping'), color: 'text-gold' },
   ];
   const items = stats ?? defaultStats;
 

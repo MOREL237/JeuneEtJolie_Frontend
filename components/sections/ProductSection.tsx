@@ -3,6 +3,7 @@
 
 import React from "react";
 import { ArrowRight } from "lucide-react";
+import { useParams } from "next/navigation";
 import { SectionTitle } from "../shared/SectionTitle";
 import { ProductCard } from "../shared/ProductCard";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -33,6 +34,9 @@ export const ProductSection = ({
   showViewAll = true,
 }: ProductSectionProps) => {
   const { t } = useTranslation();
+  const params = useParams();
+  const lang = (params?.lang as string) || 'fr';
+
   return (
     <section className={`py-12 md:py-16 lg:py-20 ${bgColor}`}>
       <div className="max-w-[1440px] mx-auto px-5 md:px-8 lg:px-20">
@@ -43,7 +47,7 @@ export const ProductSection = ({
           </div>
           {showViewAll && (
             <a
-              href="/fr/catalogue"
+              href={`/${lang}/catalogue`}
               className="text-primary dark:text-primary-400 font-label-md text-sm md:text-base flex items-center gap-2 hover:gap-3 transition-all group"
             >
               {t("common.viewAll")}

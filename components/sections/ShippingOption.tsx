@@ -20,6 +20,7 @@ export default function ShippingOption({
       <div className="flex items-center gap-3 md:gap-4">
         <input 
           checked={isSelected} 
+          readOnly
           className="w-4 h-4 md:w-5 md:h-5 text-primary border-outline focus:ring-primary" 
           name="shipping" 
           type="radio" 

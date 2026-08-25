@@ -32,6 +32,37 @@ interface ProductCardProps {
   onViewProduct?: () => void;
 }
 
+// Générer une image placeholder avec dégradé cohérent basé sur le nom du produit
+const generatePlaceholderUrl = (name: string): string => {
+  const hash = name.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const hue = hash % 360;
+  const saturation = 60 + (hash % 40);
+  const lightness = 55 + (hash % 20);
+  
+  // Utiliser des couleurs de marque alternantes basées sur le hash
+  const colors = [
+    '#C41352', '#7C5D48', '#C9A84C', '#E8D5A3', '#FFD9E4', '#9C8A7A'
+  ];
+  const bgColor = colors[hash % colors.length];
+  const textColor = 'rgba(255,255,255,0.2)';
+  
+  // Créer un SVG simple sans Buffer
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+    <defs>
+      <linearGradient id="grad-${hash}" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:hsl(${hue},${saturation}%,${lightness}%);stop-opacity:1" />
+        <stop offset="100%" style="stop-color:hsl(${(hue + 30) % 360},${saturation}%,${Math.max(30, lightness - 15)}%);stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect width="600" height="800" fill="url(#grad-${hash})"/>
+    <text x="300" y="400" font-family="Georgia, serif" font-size="32" fill="${textColor}" text-anchor="middle" dominant-baseline="middle" letter-spacing="4" font-weight="300">${name.substring(0, 12).toUpperCase()}</text>
+  </svg>`;
+  
+  // Encoder en base64 côté client de manière simple
+  const encoded = btoa(unescape(encodeURIComponent(svg)));
+  return `data:image/svg+xml;base64,${encoded}`;
+};
+
 export const ProductCard = ({
   id,
   name,
@@ -51,12 +82,14 @@ export const ProductCard = ({
   const { t, lang }      = useTranslation();
   const [wishlisted,     setWishlisted]     = useState(false);
   const [selectedSize,   setSelectedSize]   = useState<string | null>(null);
+  const [imageError,     setImageError]     = useState(false);
 
   const discount = originalPrice
     ? Math.round(((originalPrice - price) / originalPrice) * 100)
     : null;
 
-  const productUrl = id ? `/${lang}/produit/${id}` : '#';
+  const productUrl = id ? `/${lang}/produit/${id}?image=${encodeURIComponent(image)}` : '#';
+  const displayImage = imageError ? generatePlaceholderUrl(name) : image;
 
   const handleWishlist = () => {
     setWishlisted((w) => !w);
@@ -67,154 +100,175 @@ export const ProductCard = ({
     onAddToCart?.(selectedSize ?? undefined);
   };
 
+  const handleViewProduct = () => {
+    onViewProduct?.();
+    // Navigate to product page if no handler provided
+    if (!onViewProduct) {
+      window.location.href = productUrl;
+    }
+  };
+
   return (
     <TiltCard className="product-card group" maxTilt={10} glare>
-      {/* ── Image ── */}
       <a
         href={productUrl}
-        className="block relative overflow-hidden rounded-xl bg-surface-container mb-4"
-        style={{ aspectRatio: '3/4' }}
-        tabIndex={-1}
-        aria-hidden="true"
+        className="block space-y-0"
       >
-        <img
-          src={image}
-          alt={name}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-107"
-        />
-
-        {/* Overlay dégradé au bas */}
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/60 to-transparent
-                        opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
-
-        {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {badge && (
-            <Badge variant={badgeVariant} className="text-[10px] px-2 py-0.5">
-              {badge}
-            </Badge>
-          )}
-          {discount && (
-            <span className="inline-block bg-background/80 text-gold text-[10px] font-bold
-                             px-2 py-0.5 rounded-full tracking-wide">
-              -{discount}%
-            </span>
-          )}
-        </div>
-
-        {/* Wishlist */}
-        <button
-          onClick={handleWishlist}
-          aria-label={wishlisted ? t('common.removeFromWishlist') : t('common.addToFavorites')}
-          className={`
-            absolute top-3 right-3 z-10
-            w-9 h-9 min-w-[44px] min-h-[44px] rounded-full
-            flex items-center justify-center
-            backdrop-blur-sm shadow-sm
-            transition-all duration-200
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
-            ${wishlisted
-              ? 'bg-primary text-on-primary'
-              : 'bg-white/80 dark:bg-surface/80 text-on-surface/50 hover:text-primary'
-            }
-          `}
-        >
-          <Heart size={15} strokeWidth={1.75} className={wishlisted ? 'fill-current' : ''} />
-        </button>
-
-        {/* Quick-add overlay — slide up au hover */}
+        {/* ── Image ── */}
         <div
-          className="
-            absolute inset-x-0 bottom-0 z-10
-            bg-background/95 dark:bg-surface/95 backdrop-blur-sm
-            rounded-t-xl px-4 py-4
-            translate-y-full group-hover:translate-y-0
-            transition-transform duration-350 ease-out
-          "
+          className="relative overflow-hidden rounded-xl bg-surface-container mb-4"
+          style={{ aspectRatio: '3/4' }}
         >
-          <p className="text-label-caps text-on-surface/40 text-center mb-3">
-            {t('common.quickAdd')}
-          </p>
+          <img
+            src={displayImage}
+            alt={name}
+            onError={() => setImageError(true)}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-107"
+          />
 
-          {sizes && sizes.length > 0 ? (
-            <div className="space-y-3">
-              {/* Sélection taille */}
-              <div className="flex justify-center gap-2 flex-wrap">
-                {sizes.map((sz) => (
-                  <button
-                    key={sz}
-                    onClick={() => setSelectedSize(sz)}
-                    aria-label={`${t('common.selectSize')} ${sz}`}
-                    className={`
-                      w-9 h-9 min-w-[44px] min-h-[44px] text-xs font-bold rounded-lg border-2
-                      transition-all duration-200
-                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
-                      ${selectedSize === sz
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-outline-variant text-on-surface/60 hover:border-primary hover:text-primary'
-                      }
-                    `}
-                  >
-                    {sz}
-                  </button>
-                ))}
+          {/* Overlay dégradé au bas */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/60 to-transparent
+                          opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+
+          {/* Badges */}
+          <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+            {badge && (
+              <Badge variant={badgeVariant} className="text-[10px] px-2 py-0.5">
+                {badge}
+              </Badge>
+            )}
+            {discount && (
+              <span className="inline-block bg-background/80 text-gold text-[10px] font-bold
+                               px-2 py-0.5 rounded-full tracking-wide">
+                -{discount}%
+              </span>
+            )}
+          </div>
+
+          {/* Wishlist */}
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              handleWishlist();
+            }}
+            aria-label={wishlisted ? t('common.removeFromWishlist') : t('common.addToFavorites')}
+            className={`
+              absolute top-3 right-3 z-10
+              w-9 h-9 min-w-[44px] min-h-[44px] rounded-full
+              flex items-center justify-center
+              backdrop-blur-sm shadow-sm
+              transition-all duration-200
+              focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+              ${wishlisted
+                ? 'bg-primary text-on-primary'
+                : 'bg-white/80 dark:bg-surface/80 text-on-surface/50 hover:text-primary'
+              }
+            `}
+          >
+            <Heart size={15} strokeWidth={1.75} className={wishlisted ? 'fill-current' : ''} />
+          </button>
+
+          {/* Quick-add overlay — slide up au hover */}
+          <div
+            className="
+              absolute inset-x-0 bottom-0 z-10
+              bg-background/95 dark:bg-surface/95 backdrop-blur-sm
+              rounded-t-xl px-4 py-4
+              translate-y-full group-hover:translate-y-0
+              transition-transform duration-350 ease-out
+            "
+          >
+            <p className="text-label-caps text-on-surface/40 text-center mb-3">
+              {t('common.quickAdd')}
+            </p>
+
+            {sizes && sizes.length > 0 ? (
+              <div className="space-y-3">
+                {/* Sélection taille */}
+                <div className="flex justify-center gap-2 flex-wrap">
+                  {sizes.map((sz) => (
+                    <button
+                      key={sz}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setSelectedSize(sz);
+                      }}
+                      aria-label={`${t('common.selectSize')} ${sz}`}
+                      className={`
+                        w-9 h-9 min-w-[44px] min-h-[44px] text-xs font-bold rounded-lg border-2
+                        transition-all duration-200
+                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary
+                        ${selectedSize === sz
+                          ? 'border-primary bg-primary/10 text-primary'
+                          : 'border-outline-variant text-on-surface/60 hover:border-primary hover:text-primary'
+                        }
+                      `}
+                    >
+                      {sz}
+                    </button>
+                  ))}
+                </div>
+                {/* Ajouter au panier */}
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleAddToCart();
+                  }}
+                  disabled={!selectedSize}
+                  className="
+                    w-full min-h-[44px] btn-primary justify-center rounded-xl
+                    disabled:opacity-40 disabled:cursor-not-allowed
+                  "
+                >
+                  <ShoppingCart size={14} />
+                  {t('common.addToCart')}
+                </button>
               </div>
-              {/* Ajouter au panier */}
-              <button
-                onClick={handleAddToCart}
-                disabled={!selectedSize}
-                className="
-                  w-full min-h-[44px] btn-primary justify-center rounded-xl
-                  disabled:opacity-40 disabled:cursor-not-allowed
-                "
+            ) : (
+              /* Voir le produit */
+              <button 
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleViewProduct();
+                }}
+                className="w-full min-h-[44px] btn-outline rounded-xl justify-center"
               >
-                <ShoppingCart size={14} />
-                {t('common.addToCart')}
-              </button>
-            </div>
-          ) : (
-            /* Voir le produit */
-            <a href={productUrl} onClick={onViewProduct}>
-              <button className="w-full min-h-[44px] btn-outline rounded-xl justify-center">
                 <Eye size={14} />
                 {t('common.viewProduct')}
               </button>
-            </a>
-          )}
+            )}
+          </div>
         </div>
-      </a>
 
-      {/* ── Infos texte ── */}
-      <a
-        href={productUrl}
-        className="block space-y-1 px-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
-      >
-        {rating !== undefined && (
-          <StarRating rating={rating} reviews={reviews} size="sm" />
-        )}
-
-        <h3
-          className="text-base leading-snug text-on-surface group-hover:text-primary transition-colors duration-200"
-          style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)', fontWeight: 500 }}
-        >
-          {name}
-        </h3>
-
-        {description && (
-          <p className="text-[0.72rem] text-on-surface/50 leading-relaxed line-clamp-2 mt-0.5">
-            {description}
-          </p>
-        )}
-
-        <div className="flex items-baseline gap-2.5">
-          <span className="font-bold text-on-surface text-sm">
-            {price.toLocaleString()} FCFA
-          </span>
-          {originalPrice && (
-            <span className="text-xs text-on-surface/35 line-through">
-              {originalPrice.toLocaleString()} FCFA
-            </span>
+        {/* ── Infos texte ── */}
+        <div className="space-y-1 px-1">
+          {rating !== undefined && (
+            <StarRating rating={rating} reviews={reviews} size="sm" />
           )}
+
+          <h3
+            className="text-base leading-snug text-on-surface group-hover:text-primary transition-colors duration-200"
+            style={{ fontFamily: 'var(--font-cormorant, Georgia, serif)', fontWeight: 500 }}
+          >
+            {name}
+          </h3>
+
+          {description && (
+            <p className="text-[0.72rem] text-on-surface/50 leading-relaxed line-clamp-2 mt-0.5">
+              {description}
+            </p>
+          )}
+
+          <div className="flex items-baseline gap-2.5">
+            <span className="font-bold text-on-surface text-sm">
+              {price.toLocaleString()} FCFA
+            </span>
+            {originalPrice && (
+              <span className="text-xs text-on-surface/35 line-through">
+                {originalPrice.toLocaleString()} FCFA
+              </span>
+            )}
+          </div>
         </div>
       </a>
     </TiltCard>
